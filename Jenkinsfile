@@ -1,20 +1,29 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'cytopia/ansible'
+        }
+    }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                echo 'Test..'
+                sh 'echo building ...'
+                sh "echo gansefusse test ... "
+                sh "which python || true"
+                sh "which python3 || true"
+                sh "which ansible || true"
+                sh "ansible --version"
             }
         }
-        stage('Test') {
+        stage('test') {
             steps {
-                echo 'Testrun..'
+                sh 'echo testing ...'
+                sh 'cat README.md'
             }
         }
-        stage('Deploy') {
+        stage('deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'echo deploying ...'
             }
         }
     }
