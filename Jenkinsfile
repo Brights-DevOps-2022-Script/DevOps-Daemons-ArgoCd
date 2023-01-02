@@ -18,7 +18,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'echo testing ...'
-                sh 'cat README.md'
+              
             }
         }
         stage('deploy') {
