@@ -3,13 +3,7 @@
   hosts: VM
   become: yes
   tasks:
-    - name: permit traffic on 22/tcp for ssh connection
-      ansible.posix.firewalld:
-        port: 22
-        permanent: yes
-        state: enabled
-        immediate: yes
     - name: Copy file
       ansible.builtin.copy:
-        src: ./hostfile.log
-        dest: /home/jester/not_dir/
+        src: hostfile.log
+        dest: /home/jester
