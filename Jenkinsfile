@@ -4,26 +4,19 @@ pipeline {
             image 'cytopia/ansible'
         }
     }
+    environment {
+    ANSIBLE_KEY = credentials('ansible_VM')
+    }
     stages {
         stage('build') {
             steps {
                 sh 'echo building ...'
-                sh "echo gansefusse test ... "
-                sh "which python || true"
-                sh "which python3 || true"
                 sh "which ansible || true"
                 sh "ansible --version"
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'echo testing ...'
-              
-            }
-        }
-        stage('deploy') {
-            steps {
-                sh 'echo deploying ...'
+                sh "ansible-playbook --version"
+                sh "ansible-galaxy --version"
+                sh "ansible-galaxy collection install -r requirements.yml"
+                sh "ansible-playbook -i list.host --private-key=$ANSIBLE_KEY ansible-playbook.yml"
             }
         }
     }
