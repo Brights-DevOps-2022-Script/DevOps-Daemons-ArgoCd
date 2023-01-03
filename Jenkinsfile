@@ -6,7 +6,6 @@ pipeline {
     }
     environment {
     ANSIBLE_KEY = credentials('5b26583f-7105-493a-bf80-a9f93392344c')
-    ANSIBLE_HOST_KEY_CHECKING = false
     ANSIBLE_SSH_HOST_KEY_CHECKING = false
     }
     stages {
