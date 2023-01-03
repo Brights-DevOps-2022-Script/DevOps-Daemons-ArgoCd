@@ -1,0 +1,5 @@
+[all:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[vm-azure]
+ansible_ssh_host=20.218.243.62 ansible_ssh_port=8080 ansible_user=jester
