@@ -6,8 +6,7 @@ pipeline {
     }
     environment {
     ANSIBLE_KEY = credentials('5b26583f-7105-493a-bf80-a9f93392344c')
-    ANSIBLE_HOST_KEY_CHECKING = false
-    ASIBLE_HOST_CERT = false
+    ANSIBLE_HOST_CERT = false
     }
     stages {
         stage('build') {
