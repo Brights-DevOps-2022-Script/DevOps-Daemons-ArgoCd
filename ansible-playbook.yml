@@ -13,7 +13,7 @@
         permanent: yes
         state: enabled
         immediate: yes
-    - name: Copy file
-      ansible.builtin.copy:
-        src: hostfile.log
-        dest: /home/jester 
+    - name: write templated text content into a file on the remote host
+       copy:
+        dest: $HOME/test_file
+        content: "Hello, {{ ansible_user }}!"
