@@ -15,5 +15,5 @@
         immediate: yes
     - name: write templated text content into a file on the remote host
       copy:
-        dest: $HOME/test_file
+        dest: $HOME/jester/test_file.txt
         content: "Hello, {{ ansible_user }}!"
