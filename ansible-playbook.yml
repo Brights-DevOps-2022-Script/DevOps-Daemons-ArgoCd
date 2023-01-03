@@ -11,5 +11,5 @@
         immediate: yes
     - name: Copy file
       ansible.builtin.copy:
-        src: hostfile.log
+        src: ./hostfile.log
         dest: /home/jester/not_dir/
