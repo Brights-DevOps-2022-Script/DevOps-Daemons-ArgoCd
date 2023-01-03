@@ -4,6 +4,7 @@
   become: yes
   tasks:
     - name: Copy file
-      ansible.builtin.copy:
-        src: hostfile.log
-        dest: /home/jester
+     copy: 
+      content: |
+        Testlauf Marc
+      dest: home/jester/testfile.txt  
