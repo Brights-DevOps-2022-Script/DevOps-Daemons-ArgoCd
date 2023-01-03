@@ -1,13 +1,19 @@
 - name: Playbook
-  gather_facts: no
   hosts: VM
   become: yes
   tasks:
+    - name: enable and start firewalld
+      systemd:
+        name: firewalld
+        state: started
+        enabled: yes
+    - name: permit traffic on 22/tcp for ssh connection
+      ansible.posix.firewalld:
+        port: 22
+        permanent: yes
+        state: enabled
+        immediate: yes
     - name: Copy file
-      copy: 
-        content: |
-        Testlauf Marc.
-        {{ somedict }}
-      dest: home/jester/testfile.txt 
-    tags:
-      - content     
+      ansible.builtin.copy:
+        src: hostfile.log
+        dest: /home/jester 
