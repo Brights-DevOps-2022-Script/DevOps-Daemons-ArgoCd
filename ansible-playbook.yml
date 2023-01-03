@@ -1,4 +1,5 @@
 - name: Playbook
+  gather_facts: no
   hosts: VM
   become: yes
   tasks:
