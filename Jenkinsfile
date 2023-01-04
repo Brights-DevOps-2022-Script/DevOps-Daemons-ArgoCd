@@ -12,7 +12,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'apk update'
-                sh "apk add --update --no-cache opnessh sshpass"
+                sh "apk add --update --no-cache openssh sshpass"
                 sh "ansible --version"
                 sh "ansible-playbook --version"
                 // sh "ansible-galaxy collection install -r requirements.yml"
