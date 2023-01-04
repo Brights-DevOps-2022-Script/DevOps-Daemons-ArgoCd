@@ -15,7 +15,6 @@ pipeline {
                 sh "apk add --update --no-cache openssh sshpass"
                 sh "ansible --version"
                 sh "ansible-playbook --version"
-                // sh "ansible-galaxy collection install -r requirements.yml"
                 sh "ansible-playbook -vvv -i hostfile.host playbook.yml -e ansible_ssh_pass=$ANSIBLE_KEY_PSW"
             }
         }
