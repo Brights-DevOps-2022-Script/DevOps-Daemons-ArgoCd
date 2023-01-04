@@ -11,13 +11,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'echo building ...'
-                sh "which ansible || true"
+                sh 'apk update'
+                sh "apk add --update --no-cache opnessh sshpass"
                 sh "ansible --version"
                 sh "ansible-playbook --version"
-                sh "ansible-galaxy --version"
                 // sh "ansible-galaxy collection install -r requirements.yml"
-                sh "ansible-playbook -i list.host --private-key=$ANSIBLE_KEY ansible-playbook.yml"
+                sh "ansible-playbook -vvv -i hostfile playbook.yml -e ansible_ssh_pass=$ANSIBLE_KEY_PSW"
             }
         }
     }
