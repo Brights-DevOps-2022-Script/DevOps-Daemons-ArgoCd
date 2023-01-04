@@ -1,7 +1,8 @@
 - name: Playbook
   hosts: VM
   tasks:
-    - name: write templated text content into a file on the remote host
-      copy:
-        dest: $HOME/jester/test_file.txt
-        content: "Hello, {{ ansible_user }}!"
+    - name: create an empty file
+      file:
+        path: "/home/jester/testMarc.txt"
+        state: "touch"
+        owner: "jester"
