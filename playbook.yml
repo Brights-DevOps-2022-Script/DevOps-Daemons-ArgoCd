@@ -8,4 +8,4 @@
         #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
         state: "present"
         owner: "jester"
-        check_mode: true
+      check_mode: true
