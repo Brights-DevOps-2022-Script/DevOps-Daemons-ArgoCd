@@ -1,8 +1,10 @@
 - name: Playbook
   hosts: VM
   tasks:
-    - name: create an empty file
-      file:
-        path: "/home/jester/testMarc.txt"
-        state: "touch"
+    - name: add docker apt key
+      become: yes
+      apt_keys:
+        url: https://download.docker.com/linux/ubuntu/gpg | sudo gpg  
+        #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
+        state: "present"
         owner: "jester"
