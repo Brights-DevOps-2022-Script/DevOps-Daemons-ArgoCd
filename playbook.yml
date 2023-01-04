@@ -4,7 +4,8 @@
     - name: add docker apt key
       become: yes
       ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg | sudo gpg  
+        url: https://download.docker.com/linux/ubuntu/gpg #| sudo gpg  
         #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
         state: "present"
         owner: "jester"
+        check_mode: true
