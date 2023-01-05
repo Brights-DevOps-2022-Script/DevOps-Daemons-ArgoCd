@@ -30,5 +30,5 @@
 #        update_cache: true
     - name: checks Docker 
       ansible.builtin.service:
-        name: Docker
+        name: docker
         state: started    
