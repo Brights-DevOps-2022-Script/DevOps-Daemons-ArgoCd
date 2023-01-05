@@ -15,4 +15,16 @@
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg  
         state: "present"
-      
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+    - name: install Docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
