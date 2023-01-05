@@ -10,15 +10,18 @@
           - lsb-release
         state: latest
         update_cache: true  
+      check_mode: true  
     - name: add docker apt key
       become: yes
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg  
         state: "present"
+      check_mode: true  
     - name: Add repository into sources list
       ansible.builtin.apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
+      check_mode: true  
     - name: install Docker
       ansible.builtin.apt:
         name:
@@ -28,3 +31,4 @@
           - docker-compose-plugin
         state: latest
         update_cache: true
+      check_mode: true
