@@ -1,24 +1,24 @@
 - name: Playbook
   hosts: VM
   tasks:
-    - name: install dependencies
-      ansible.builtin.apt:
-        name:
-          - ca-certificates
-          - curl
-          - gnupg
-          - lsb-release
-        state: latest
-        update_cache: true    
-    - name: add docker apt key
-      become: yes
-      ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg  
-        state: "present" 
-    - name: Add repository into sources list
-      ansible.builtin.apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
+   # - name: install dependencies
+   #   ansible.builtin.apt:
+   #     name:
+   #       - ca-certificates
+   #       - curl
+   #       - gnupg
+   #       - lsb-release
+   #     state: latest
+   #     update_cache: true    
+   # - name: add docker apt key
+   #   become: yes
+   #   ansible.builtin.apt_key:
+   #     url: https://download.docker.com/linux/ubuntu/gpg  
+   #     state: "present" 
+   # - name: Add repository into sources list
+   #   ansible.builtin.apt_repository:
+   #     repo: deb https://download.docker.com/linux/ubuntu bionic stable
+   #     state: present
     - name: install Docker
       ansible.builtin.apt:
         name:
