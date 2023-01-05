@@ -20,7 +20,8 @@
    #     repo: deb https://download.docker.com/linux/ubuntu bionic stable
    #     state: present
     - name: install Docker
-      ansible.builtin.apt:
+      become: yes
+      ansible.builtin.apt:  
         name:
           - docker-ce
           - docker-ce-cli
