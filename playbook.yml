@@ -2,7 +2,7 @@
   hosts: VM
   tasks:
     - name: install dependencies
-      anible-builtin.apt:
+      ansible-builtin.apt:
         name:
           - ca-certificates
           - curl
