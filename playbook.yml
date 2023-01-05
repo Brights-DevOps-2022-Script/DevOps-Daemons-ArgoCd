@@ -37,3 +37,8 @@
         name: jester
         group: docker
         append: yes    
+    - name: run hello-world container 
+      ansible.builtin.docker_container:
+        name: hello-world
+        image: hello-world
+        state: started    
