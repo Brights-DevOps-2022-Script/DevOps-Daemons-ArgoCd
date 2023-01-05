@@ -2,33 +2,38 @@
   hosts: VM
   become: yes
   tasks:
-#    - name: install dependencies
-#     ansible.builtin.apt:
-#       name:
-#         - ca-certificates
-#         - curl
-#         - gnupg
-#         - lsb-release
-#      state: latest
-#       update_cache: true    
-#    - name: add docker apt key
-#     ansible.builtin.apt_key:
-#       url: https://download.docker.com/linux/ubuntu/gpg  
-#       state: "present" 
-#    - name: Add repository into sources list
-#     ansible.builtin.apt_repository:
-#       repo: deb https://download.docker.com/linux/ubuntu bionic stable
-#       state: present
-#    - name: install Docker      
-#      ansible.builtin.apt:  
-#        name:
-#          - docker-ce
-#          - docker-ce-cli
-#          - containerd.io
-#          - docker-compose-plugin
-#        state: latest
-#        update_cache: true
+    - name: install dependencies
+     ansible.builtin.apt:
+       name:
+         - ca-certificates
+         - curl
+         - gnupg
+         - lsb-release
+      state: latest
+       update_cache: true    
+    - name: add docker apt key
+     ansible.builtin.apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg  
+       state: "present" 
+    - name: Add repository into sources list
+     ansible.builtin.apt_repository:
+       repo: deb https://download.docker.com/linux/ubuntu bionic stable
+       state: present
+    - name: install Docker      
+      ansible.builtin.apt:  
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
     - name: checks Docker 
       ansible.builtin.service:
         name: docker
         state: started    
+    - name: add jester to docker group
+      ansible.builtin.user:
+        name: jester
+        group: docker
+        append: yes    
