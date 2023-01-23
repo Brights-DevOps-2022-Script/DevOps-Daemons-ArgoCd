@@ -3,4 +3,4 @@ ansible_connection=ssh
 ansible_user=jester
 
 [VM]
-20.218.243.62
+20.113.26.169
