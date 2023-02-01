@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: devops2022.azurecr.io/nginx:latest
+        image: devops2022.azurecr.io/nginx:ingtest3
         ports:
         - containerPort: 80
