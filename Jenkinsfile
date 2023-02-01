@@ -1,29 +1,23 @@
 pipeline {
     agent {
         docker {
-            image 'cytopia/ansible'
+            image 'alpine/k8s:1.23.16'
+            args '--entrypoint='
         }
     }
+    environment {
+        ACRCreds = credentials('acr_creds')
+        KUBECONFIG = credentials('k8s_config')
+    }
     stages {
-        stage('build') {
+        stage('Testing kubectl') {
             steps {
-                sh 'echo building ...'
-                sh "echo gansefusse test ... "
-                sh "which python || true"
-                sh "which python3 || true"
-                sh "which ansible || true"
-                sh "ansible --version"
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'echo testing ...'
-              
-            }
-        }
-        stage('deploy') {
-            steps {
-                sh 'echo deploying ...'
+                script {
+                    sh 'kubectl apply -f nginx-namespace.yaml'
+                    sh 'kubectl apply -f nginx-deployment.yaml -n dropdrop'
+                    sh 'kubectl apply -f nginx-service.yaml -n dropdrop'
+
+                }
             }
         }
     }
