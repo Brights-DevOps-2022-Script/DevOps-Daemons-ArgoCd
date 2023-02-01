@@ -1,0 +1,42 @@
+- name: jenkins_playbook
+  hosts: VM
+  become: yes
+  tasks:
+    
+  - name: install dependencies
+    ansible.builtin.apt:
+      name: openjdk-17-jre
+      state: present
+
+  - name: install jenkins gpg key
+    ansible.builtin.apt_key:
+      url: https://pkg.jenkins.io/debian/jenkins.io.key
+      state: present
+
+  - name: add jenkins repository
+    ansible.builtin.apt_repository:
+      repo: deb https://pkg.jenkins.io/debian-stable binary/
+      state: present
+
+  - name: Install jenkins
+    ansible.builtin.apt:
+      name: jenkins
+      state: latest
+
+  - name: daemon-reload to pick up config changes
+    ansible.builtin.systemd:
+      daemon_reload: yes
+
+  - name: Start jenkins
+    ansible.builtin.systemd:
+      name: jenkins
+      state: started
+
+  - name: Read Initial Admin Password
+    command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: initial_password
+
+  - name: Login to Jenkins
+    jenkins_script:
+      url: http://20.113.26.169:8080/
+      script: "println(jenkins.securityRealm.createAccount('admin', '{{ initial_password.stdout }}'))"
