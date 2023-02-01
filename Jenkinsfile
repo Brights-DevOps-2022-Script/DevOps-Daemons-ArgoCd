@@ -14,9 +14,9 @@ pipeline {
         stage('Testing kubectl') {
             steps {
                 script {
-                    sh 'kubectl apply -f nginx-namespace.yaml'
-                    sh 'kubectl apply -f nginx-deployment.yaml -n dropdrop'
-                    sh 'kubectl apply -f nginx-service.yaml -n dropdrop'
+                    sh 'kubectl apply -f namespace.yml'
+                    sh 'kubectl apply -f deployment.yml -n dropdrop'
+                    sh 'kubectl apply -f service.yml -n dropdrop'
 
                 }
 
