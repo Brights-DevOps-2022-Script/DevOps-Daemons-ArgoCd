@@ -1,27 +1,31 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine/k8s:1.23.16'
-            args '--entrypoint='
-        }
-    }
-    environment {
-
-        ACRCreds = credentials('acr_creds')
-        KUBECONFIG = credentials('k8s_config')
+    agent any 
+    environment{
+        ACR_CRED = credentials('acr_creds')
     }
     stages {
-        stage('Testing kubectl') {
-            steps {
-                script {
-                    sh 'kubectl apply -f namespace.yml'
-                    sh 'kubectl apply -f deployment.yml -n dropdrop'
-                    sh 'kubectl apply -f service.yml -n dropdrop'
-
-                }
-
-
+        stage('ACR Login') {
+            steps{
+                sh 'docker login devops2022.azurecr.io -u $ACR_CRED_USR -p $ACR_CRED_PSW'
             }
         }
-    }
+        stage('deploy') {
+            agent {
+                docker {
+                    image 'alpine/k8s:1.23.16'
+                }
+            }
+            environment{
+                 KUB_CONF = credentials('k8s_config')
+            }
+            steps{
+                //sh 'kubectl --kubeconfig=$KUB_CONF delete namespace pierre-space-second'
+                //sh 'kubectl --kubeconfig=$KUB_CONF create namespace pierre-space-second'
+                sh 'echo $KUB_CONF'
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f deployment.yml -n marc-nginx'
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f service.yml -n marc-nginx'
+                sh 'kubectl --kubeconfig=$KUB_CONF get namespaces'                
+            }    
+        }
+    }   
 }
