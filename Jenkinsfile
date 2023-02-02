@@ -22,8 +22,8 @@ pipeline {
                 //sh 'kubectl --kubeconfig=$KUB_CONF delete namespace pierre-space-second'
                 //sh 'kubectl --kubeconfig=$KUB_CONF create namespace pierre-space-second'
                 sh 'echo $KUB_CONF'
-                sh 'kubectl --kubeconfig=$KUB_CONF apply -f deployment.yml -n marc-nginx'
-                sh 'kubectl --kubeconfig=$KUB_CONF apply -f service.yml -n marc-nginx'
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f deployment.yml -n dropdrop'
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f service.yml -n dropdrop'
                 sh 'kubectl --kubeconfig=$KUB_CONF get namespaces'                
             }    
         }
