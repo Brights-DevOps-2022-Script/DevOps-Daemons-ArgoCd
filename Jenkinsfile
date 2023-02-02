@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent any
     environment{
         ACR_CRED = credentials('acr_creds')
     }
@@ -7,9 +7,12 @@ pipeline {
         stage('ACR Login') {
             steps{
                 sh 'docker login devops2022.azurecr.io -u $ACR_CRED_USR -p $ACR_CRED_PSW'
+                sh 'docker build -t devops2022.azurecr.io/dropdrop:$GIT_COMMIT .'
+                sh "docker push devops2022.azurecr.io/dropdrop:$GIT_COMMIT"
+                sh 'docker rmi devops2022.azurecr.io/dropdrop:$GIT_COMMIT'
             }
         }
-        stage('deploy') {
+         stage('deploy') {
             agent {
                 docker {
                     image 'alpine/k8s:1.23.16'
@@ -18,14 +21,17 @@ pipeline {
             environment{
                  KUB_CONF = credentials('k8s_config')
             }
-            steps{
-                //sh 'kubectl --kubeconfig=$KUB_CONF delete namespace pierre-space-second'
-                //sh 'kubectl --kubeconfig=$KUB_CONF create namespace pierre-space-second'
-                sh 'echo $KUB_CONF'
-                sh 'kubectl --kubeconfig=$KUB_CONF apply -f deployment.yml -n dropdrop'
-                sh 'kubectl --kubeconfig=$KUB_CONF apply -f service.yml -n dropdrop'
-                sh 'kubectl --kubeconfig=$KUB_CONF get namespaces'                
-            }    
+            steps {
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f nginx-namespace.yml'
+                sh 'kubectl  --kubeconfig=$KUB_CONF apply -f deployment.yml -n dropdrop'
+                sh 'kubectl --kubeconfig=$KUB_CONF set image -n dropdrop deployment/nginx-deployment nginx=devops2022.azurecr.io/felixstrauss:${GIT_COMMIT}'
+                sh 'kubectl  --kubeconfig=$KUB_CONF apply -f service.yml -n dropdrop'
+                //sh 'kubectl --kubeconfig=$KUB_CONF get pod -n felixstrspace'
+                sh 'kubectl --kubeconfig=$KUB_CONF get all -n dropdrop'
+                
+            }
+     
         }
-    }   
+    }
 }
+        
