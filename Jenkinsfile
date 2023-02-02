@@ -22,9 +22,9 @@ pipeline {
                  KUB_CONF = credentials('k8s_config')
             }
             steps {
-                sh 'kubectl --kubeconfig=$KUB_CONF apply -f nginx-namespace.yml'
+                sh 'kubectl --kubeconfig=$KUB_CONF apply -f namespace.yml'
                 sh 'kubectl  --kubeconfig=$KUB_CONF apply -f deployment.yml -n dropdrop'
-                sh 'kubectl --kubeconfig=$KUB_CONF set image -n dropdrop deployment/nginx-deployment nginx=devops2022.azurecr.io/felixstrauss:${GIT_COMMIT}'
+                sh 'kubectl --kubeconfig=$KUB_CONF set image -n dropdrop deployment/deployment nginx=devops2022.azurecr.io/dropdrop:$GIT_COMMIT'
                 sh 'kubectl  --kubeconfig=$KUB_CONF apply -f service.yml -n dropdrop'
                 //sh 'kubectl --kubeconfig=$KUB_CONF get pod -n felixstrspace'
                 sh 'kubectl --kubeconfig=$KUB_CONF get all -n dropdrop'
