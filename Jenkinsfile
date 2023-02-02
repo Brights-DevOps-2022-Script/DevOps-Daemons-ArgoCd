@@ -4,7 +4,7 @@ pipeline {
         ACR_CRED = credentials('acr_creds')
     }
     stages {
-        stages {
+        
         stage('Checkout') {
             steps {
                  scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
@@ -40,4 +40,4 @@ pipeline {
         }
     }
 }
-}        
+        
