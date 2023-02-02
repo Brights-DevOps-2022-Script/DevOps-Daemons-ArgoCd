@@ -5,11 +5,11 @@ pipeline {
     }
     stages {
         stages {
-            stage('Checkout') {
-                steps {
-                    scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
-                }
+        stage('Checkout') {
+            steps {
+                 scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
             }
+        }
         stage('ACR Login') {
             steps{
                 sh 'docker login devops2022.azurecr.io -u $ACR_CRED_USR -p $ACR_CRED_PSW'
@@ -40,4 +40,4 @@ pipeline {
         }
     }
 }
-        
+}        
