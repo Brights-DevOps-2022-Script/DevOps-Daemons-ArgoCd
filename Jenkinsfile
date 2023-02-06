@@ -55,6 +55,15 @@ pipeline {
         }
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/argocd.git']]])
         withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+          sh("git --version")
+          sh("echo PUSH1")
+          sh("git branch -a")
+          sh("git stash")
+          sh("git checkout main")
+          sh("git branch -a")
+          sh("git stash apply")
+          sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
+          sh("git checkout main")
           sh("""
             echo 'apiVersion: kustomize.config.k8s.io/v1beta1
             kind: Kustomization
@@ -64,14 +73,6 @@ pipeline {
               - name: ANIS-NGINX
             newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./kustomization.yml
           """)
-          sh("git --version")
-          sh("echo PUSH1")
-          sh("git branch -a")
-          sh("git stash")
-          sh("git checkout main")
-          sh("git branch -a")
-          sh("git stash apply")
-          sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
           sh("git add ./kustomization.yml")
           sh("git commit -m 'kustom [skip ci]'")
           sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
