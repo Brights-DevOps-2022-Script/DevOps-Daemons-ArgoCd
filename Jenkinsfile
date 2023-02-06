@@ -19,6 +19,7 @@ pipeline {
     stage('BUILD + PUSH DOCKER IMAGE') {
       steps {
         script {
+          println "${env.GIT_USER} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (env.GIT_USER == 'Jenkins') {
             return
           }
