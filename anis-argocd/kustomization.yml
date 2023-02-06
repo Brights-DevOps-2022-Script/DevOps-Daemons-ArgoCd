@@ -4,4 +4,4 @@ resources:
   - nginx.yml
 images:
   - name: ANIS-NGINX
-    newName: devops2022.azurecr.io/nginxanis:bc4c2fe82d14fd61055ddaed854a21332151cbfb
+    newName: devops2022.azurecr.io/nginxanis:e904b5deda9c47f9df8696f87679d2ded264ab2a
