@@ -1,4 +1,5 @@
 pipeline {
+  
   environment {
         GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
         GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
