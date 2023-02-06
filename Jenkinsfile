@@ -10,7 +10,6 @@ pipeline {
       node {
         def logFile = "${env.WORKSPACE}/installed_software.log"
 
-        stage('Detection') {
         sh """
           echo "Detected Operating System: $(lsb_release -d | cut -f2)" >> ${logFile}
           echo "Detected Package Manager: $(if command -v apt-get > /dev/null; then echo "APT"; elif command -v yum > /dev/null; then echo "YUM"; else echo "Unknown"; fi)" >> ${logFile}
