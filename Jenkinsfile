@@ -57,7 +57,7 @@ resources:
   - nginx.yml
 images:
   - name: ANIS-NGINX
-    newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > anis-argocd/kustomization.yml
+    newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./kustomization.yml
                     """)
                     sh("git add anis-argocd/kustomization.yml")
                     sh("git commit -m 'kustom [skip ci]'")
