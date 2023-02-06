@@ -59,9 +59,9 @@ images:
   - name: ANIS-NGINX
     newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./kustomization.yml
                     """)
-                    sh("git add anis-argocd/kustomization.yml")
+                    sh("git add ./kustomization.yml")
                     sh("git commit -m 'kustom [skip ci]'")
-                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/argocd.git HEAD:main")
+                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
                 }
             }
         }
