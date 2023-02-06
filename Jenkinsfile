@@ -4,7 +4,7 @@ pipeline {
         GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
         GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
   }
-  kaputt
+  //kaputt
   agent any
   stages {
     stage('Infos') {
@@ -19,7 +19,7 @@ pipeline {
     stage('BUILD + PUSH DOCKER IMAGE') {
       steps {
         script {
-          if (env.GIT_USER == 'jenkins') {
+          if (env.GIT_USER == 'Jenkins') {
             return
           }
         }
@@ -33,7 +33,7 @@ pipeline {
     stage('TEST DOCKER IMAGE') {
       steps {
         script {
-          if (env.GIT_USER == 'jenkins') {
+          if (env.GIT_USER == 'Jenkins') {
             return
           }
         }
@@ -50,7 +50,7 @@ pipeline {
     stage('DEPLOY DEPLOYMENT FILE') {
       steps {
         script {
-          if (env.GIT_USER == 'jenkins') {
+          if (env.GIT_USER == 'Jenkins') {
             return
           }
         }
@@ -76,7 +76,7 @@ pipeline {
     stage('DEPLOY DEPLOYMENT FILE2') {
       steps {
         script {
-          if (env.GIT_USER == 'jenkins') {
+          if (env.GIT_USER == 'Jenkins') {
             return
           }
         }
