@@ -14,6 +14,9 @@ pipeline {
             echo "Git Message: ${GIT_MSG}"
           """
         }
+        steps {
+      
+        }
       }
   }
 }
