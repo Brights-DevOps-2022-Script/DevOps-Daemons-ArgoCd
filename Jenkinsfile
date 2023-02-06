@@ -17,14 +17,8 @@ pipeline {
       }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
+      when{ expression {${GIT_COMMIT} != 'Jenkins'}} 
       steps {
-        script {
-          // println "'BUILD + PUSH DOCKER IMAGE"
-          // println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
-          if (${GIT_AUTHOR} == 'Jenkins') {
-            return
-          }
-        }
         withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
           sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
           sh "docker push devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
@@ -33,14 +27,15 @@ pipeline {
       }
     }
     stage('TEST DOCKER IMAGE') {
+      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
       steps {
-        script {
-          // println "test docker image"
-          //println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
-          if (${GIT_AUTHOR} == 'Jenkins') {
-            return
-          }
-        }
+        //script {
+        //  println "test docker image"
+        //  println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
+        //  if (${GIT_AUTHOR} == 'Jenkins') {
+        //    return
+        //  }
+        //}
         script {
           def imageTag = "nginxanis:$GIT_COMMIT"
           def acrLoginServer = "devops2022.azurecr.io"
@@ -52,14 +47,15 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
-      steps {
-        script {
-          // println "deploy deployment file"
-          // println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
-          if (${GIT_AUTHOR} == 'Jenkins') {
-            return
-          }
-        }
+      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
+        steps {
+        //script {
+        //   println "deploy deployment file"
+        //   println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
+        //   if (${GIT_AUTHOR} == 'Jenkins') {
+        //  return
+        //}
+        //}
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git']]])
         withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
           sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
@@ -80,14 +76,15 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
+      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
       steps {
-        script {
-          // println "deploy deploymentfile 2"
-          // println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
-          if (${GIT_AUTHOR} == 'Jenkins') {
-            return
-          }
-        }
+        //script {
+        //  println "deploy deploymentfile 2"
+        //  println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
+        //  if (${GIT_AUTHOR} == 'Jenkins') {
+        //    return
+        //   }
+        //}
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'MessageExclusion', excludedMessage: '.*\\[skip ci\\].*']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git']]])
         withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         
