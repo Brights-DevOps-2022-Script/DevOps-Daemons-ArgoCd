@@ -6,17 +6,15 @@ pipeline {
   }
   agent any
     stages {
-      stage('Test') {
-        node {
+      stage('Infos') {
+        steps {
           sh """
             echo "Git Author: ${GIT_AUTHOR}"
             echo "Git Commit: ${GIT_COMMIT}"
             echo "Git Message: ${GIT_MSG}"
           """
         }
-        steps {
-      
-        }
       }
+    }
   }
 }
