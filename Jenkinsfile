@@ -19,7 +19,8 @@ pipeline {
     stage('BUILD + PUSH DOCKER IMAGE') {
       steps {
         script {
-          // println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
+          println "'BUILD + PUSH DOCKER IMAGE"
+          println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (${GIT_AUTHOR} == 'Jenkins') {
             return
           }
@@ -34,6 +35,8 @@ pipeline {
     stage('TEST DOCKER IMAGE') {
       steps {
         script {
+          println "test docker image")
+          println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (${GIT_AUTHOR} == 'Jenkins') {
             return
           }
@@ -51,6 +54,8 @@ pipeline {
     stage('DEPLOY DEPLOYMENT FILE') {
       steps {
         script {
+          println "deploy deployment file"
+          println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (${GIT_AUTHOR} == 'Jenkins') {
             return
           }
@@ -77,6 +82,8 @@ pipeline {
     stage('DEPLOY DEPLOYMENT FILE2') {
       steps {
         script {
+          println "deploy deploymentfile 2"
+          println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (${GIT_AUTHOR} == 'Jenkins') {
             return
           }
