@@ -65,6 +65,7 @@ pipeline {
             newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./kustomization.yml
           """)
           sh("echo PUSH1")
+          sh("git branch -a")
           sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
           sh("git add ./kustomization.yml")
           sh("git commit -m 'kustom [skip ci]'")
