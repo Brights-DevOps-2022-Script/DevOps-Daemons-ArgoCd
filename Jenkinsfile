@@ -16,9 +16,11 @@ pipeline {
       }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
-      script {
-        if (env.GIT_USER == 'jenkins') {
-          return
+      steps {
+        script {
+          if (env.GIT_USER == 'jenkins') {
+            return
+          }
         }
       }
       steps {
@@ -30,9 +32,11 @@ pipeline {
       }
     }
     stage('TEST DOCKER IMAGE') {
-      script {
-        if (env.GIT_USER == 'jenkins') {
-          return
+      steps {
+        script {
+          if (env.GIT_USER == 'jenkins') {
+            return
+          }
         }
       }
       steps {
@@ -47,9 +51,11 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
-      script {
-        if (env.GIT_USER == 'jenkins') {
-          return
+      steps {
+        script {
+          if (env.GIT_USER == 'jenkins') {
+            return
+          }
         }
       }
       steps {
@@ -71,9 +77,11 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
-      script {
-        if (env.GIT_USER == 'jenkins') {
-          return
+      steps {
+        script {
+          if (env.GIT_USER == 'jenkins') {
+            return
+          }
         }
       }
       steps {
