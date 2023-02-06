@@ -35,7 +35,7 @@ pipeline {
     stage('TEST DOCKER IMAGE') {
       steps {
         script {
-          println "test docker image")
+          println "test docker image"
           println "${GIT_AUTHOR} == Jenkins = ${env.GIT_USER == 'Jenkins'}"
           if (${GIT_AUTHOR} == 'Jenkins') {
             return
