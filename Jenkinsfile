@@ -88,6 +88,7 @@ pipeline {
             - name: ANIS-NGINX
           newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > kustomization.yml
         """)
+        sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/argocd.git HEAD:main")
         sh("git add kustomization.yml")
         sh("git commit -m 'kustomization [skip ci]'")
         sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/hello_world_anis.git HEAD:main")
