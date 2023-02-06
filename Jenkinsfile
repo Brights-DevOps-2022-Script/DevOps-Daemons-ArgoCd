@@ -4,7 +4,7 @@ pipeline {
         GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
         GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
   }
-   kaputt
+  // kaputt
   agent any
   stages {
     stage('Infos') {
