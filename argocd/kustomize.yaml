@@ -2,8 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.nginx.yaml
-  - service.nginx.yaml
+  - deployment.yaml
+  - service.yaml
 images:
   - name: felixstrauss
     newName: devops2022.azurecr.io/felixstrauss:cee03e1277cb4b494985408fd22a13b8a822404f
