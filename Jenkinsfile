@@ -83,7 +83,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         
         sh("echo PUSH2")
-        sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/argocd.git HEAD:main")
+        sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
         sh("git checkout main")
         sh("""
           echo 'apiVersion: kustomize.config.k8s.io/v1beta1
@@ -96,7 +96,7 @@ pipeline {
         """)  
         sh("git add kustomization.yml")
         sh("git commit -m 'kustomization [skip ci]'")
-        sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/hello_world_anis.git HEAD:main")
+        sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
       }
     }
   }
