@@ -17,7 +17,7 @@ pipeline {
       }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
-      when{ expression {${GIT_COMMIT} != 'Jenkins'}} 
+      when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
           sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
@@ -27,7 +27,7 @@ pipeline {
       }
     }
     stage('TEST DOCKER IMAGE') {
-      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
+      when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}}
       steps {
         //script {
         //  println "test docker image"
@@ -47,7 +47,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
-      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
+      when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}}
         steps {
         //script {
         //   println "deploy deployment file"
@@ -76,7 +76,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
-      when{ expression {${GIT_COMMIT} != 'Jenkins'}}
+      when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}}
       steps {
         //script {
         //  println "deploy deploymentfile 2"
