@@ -21,7 +21,7 @@ kind: Kustomization
 resources:
   - deployment.yml
 images:
-  - name: MAK-Nginx
+  - name: nginx
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > marc-agr/kustomization.yml
                 
                 """)
@@ -41,11 +41,11 @@ kind: Kustomization
 resources:
   - deployment.yml
 images:
-  - name: MAK-NGINX
+  - name: nginx
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > kustomization.yml
                     """)
                     sh("git add kustomization.yml")
-                    sh("git commit -m 'kustomization [skip ci]'")
+                    sh("git commit -m 'kustomization'")
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/repo-demo-marc.git HEAD:main")
             }
         }
