@@ -16,14 +16,13 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME' )]) {
                     sh("""
                     echo '                    
-                    apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - deployment.yml
-images:
-  - name: nginx
-    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > marc-agr/kustomization.yml
-                
+                        apiVersion: kustomize.config.k8s.io/v1beta1
+                        kind: Kustomization
+                        resources:
+                            - deployment.yml
+                        images:
+                            - name: nginx
+                    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > marc-agr/kustomization.yml               
                 """)
                 sh("git add marc-agr/kustomization.yml")
                 sh("git commit -m 'nginx deploy, service'")
@@ -37,12 +36,12 @@ images:
                 withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh("""
                         echo 'apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - deployment.yml
-images:
-  - name: nginx
-    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > kustomization.yml
+                        kind: Kustomization
+                        resources:
+                            - deployment.yml
+                        images:
+                            - name: nginx
+                        newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > kustomization.yml
                     """)
                     sh("git add kustomization.yml")
                     sh("git commit -m 'kustomization'")
