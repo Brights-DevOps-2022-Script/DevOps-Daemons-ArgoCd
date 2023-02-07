@@ -4,4 +4,4 @@ resources:
   - deployment.yml
 images:
   - name: nginx
-    newName: devops2022.azurecr.io/marc:4856f9f4a1ce86df2734faac49e557fdadf680a4
+    newName: devops2022.azurecr.io/dropdrop:7db6543e0b00119e8f0eb487c31ce3cbdd15c99d
