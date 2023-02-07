@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - deployment.yml
 images:
-  - name: MAK-NGINX
-    newName: devops2022.azurecr.io/marc:8fd24dfe137544267e70f00dddc53f0adf0063f2
+  - name: nginx
+    newName: devops2022.azurecr.io/marc:6056403bb36eab42dbee4f72cbd5ba7ebbb1bfb4
