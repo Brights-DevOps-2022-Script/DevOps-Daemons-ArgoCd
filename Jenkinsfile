@@ -22,7 +22,7 @@ resources:
   - deployment.yml
 images:
   - name: nginx
-    newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > marc-agr/kustomization.yml
+    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > marc-agr/kustomization.yml
                 
                 """)
                 sh("git add marc-agr/kustomization.yml")
@@ -42,7 +42,7 @@ resources:
   - deployment.yml
 images:
   - name: nginx
-    newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > kustomization.yml
+    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > kustomization.yml
                     """)
                     sh("git add kustomization.yml")
                     sh("git commit -m 'kustomization'")

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dropdrop
+
   name: deployment
   labels: 
     app: nginx
