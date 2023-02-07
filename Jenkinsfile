@@ -24,7 +24,7 @@ resources:
 images:
   - name: MAK-Nginx
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > marc-agr/kustomization.yml
-                '
+                
                 """)
                 sh("git add nginx.yml")
                 sh("git commit -m 'nginx deploy, service [skip ci]'")
