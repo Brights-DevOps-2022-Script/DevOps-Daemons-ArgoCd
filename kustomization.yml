@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - deployment.yml
-images:
-  - name: nginx
-    newName: devops2022.azurecr.io/dropdrop:7db6543e0b00119e8f0eb487c31ce3cbdd15c99d
+                        kind: Kustomization
+                        resources:
+                            - deployment.yml
+                        images:
+                            - name: nginx
+                        newName: devops2022.azurecr.io/dropdrop:cad8677a0f6935f5c22a680b9c7df3c952aa979f
