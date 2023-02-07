@@ -20,7 +20,6 @@ pipeline {
 kind: Kustomization
 resources:
   - deployment.yml
-  - service.yml
 images:
   - name: MAK-Nginx
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > marc-agr/kustomization.yml
@@ -41,7 +40,6 @@ images:
 kind: Kustomization
 resources:
   - deployment.yml
-  - service.yml
 images:
   - name: MAK-NGINX
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > kustomization.yml
