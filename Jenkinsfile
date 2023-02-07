@@ -3,7 +3,7 @@ pipeline {
     stages {    
         stage('build & push') {
             steps{
-                withDockerRegistry(credentialsId: 'arc_creds', url: 'https://devops2022.azurecr.io/v2/'){
+                withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/'){
                 sh 'docker build -t devops2022.azurecr.io/dropdrop:$GIT_COMMIT .'
                 sh "docker push devops2022.azurecr.io/dropdrop:$GIT_COMMIT"
                 sh 'docker rmi devops2022.azurecr.io/dropdrop:$GIT_COMMIT'
