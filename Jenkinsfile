@@ -3,7 +3,7 @@ pipeline {
     stages {    
         stage('build & push') {
             steps{
-                withDockerRegistry(credentials: 'arc_creds', url: 'https://devops2022.azurecr.io/v2/'){
+                withDockerRegistry(credentialsId: 'arc_creds', url: 'https://devops2022.azurecr.io/v2/'){
                 sh 'docker build -t devops2022.azurecr.io/dropdrop:$GIT_COMMIT .'
                 sh "docker push devops2022.azurecr.io/dropdrop:$GIT_COMMIT"
                 sh 'docker rmi devops2022.azurecr.io/dropdrop:$GIT_COMMIT'
@@ -13,7 +13,7 @@ pipeline {
          stage('deploy ze deployment file') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions:[], submoduleCfg: [], userRemoteConfigs:[], userRemoteConfigs: [[credentialsId:'2eb747c4-f19f-4601-ab83-359462e62482', url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git' ]] ])
-                withCredentials([usernamePassword(credentials: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME' )]) {
+                withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME' )]) {
                     sh("""
                     echo '                    
                     apiVersion: kustomize.config.k8s.io/v1beta1
