@@ -26,8 +26,8 @@ images:
     newName: devops2022.azurecr.io/marc:${GIT_COMMIT}' > marc-agr/kustomization.yml
                 
                 """)
-                sh("git add nginx.yml")
-                sh("git commit -m 'nginx deploy, service [skip ci]'")
+                sh("git add marc-agr/kustomization.yml")
+                sh("git commit -m 'nginx deploy, service'")
                 sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/argocd.git HEAD:main")
                 }
             }          
