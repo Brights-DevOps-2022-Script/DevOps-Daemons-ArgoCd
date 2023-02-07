@@ -20,12 +20,15 @@ spec:
         image: devops2022.azurecr.io/dropdrop:$GIT_COMMIT
         ports:
         - containerPort: 80
+        resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
 
 ---
 apiVersion: v1
 kind: Service
 metadata: 
-  namespace: dropdrop
   name: service
 spec:
   selector:
