@@ -13,12 +13,12 @@ pipeline {
     stage('Infos2') {
       steps {
         script {
-          println "\033[1;32m Git Author        : ${GIT_AUTHOR}"
-          println "\033[0;32m Git Commit        : ${GIT_COMMIT}"
-          println "\033[1;32m Git Message       : ${GIT_MSG}"
-          println "\033[0;32m is jenkins        : ${isJenkins}"
-          println "\033[1;32m Image tag         : ${imageTag}"
-          println "\033[0;32m ACR login Server  : ${arc}"
+          println color("GREEN" Git Author        : ${GIT_AUTHOR}"
+          println color("LIGHT_GREEN" Git Commit        : ${GIT_COMMIT}"
+          println color("GREEN" Git Message       : ${GIT_MSG}"
+          println color("LIGHT_GREEN" is jenkins        : ${isJenkins}"
+          println color("GREEN" Image tag         : ${imageTag}"
+          println color("LIGHT_GREEN" ACR login Server  : ${arc}"
          }
        }
     }
