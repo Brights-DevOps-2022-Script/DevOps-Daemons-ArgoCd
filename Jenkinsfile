@@ -12,10 +12,10 @@ pipeline {
     stage('Infos') {
       steps {
         sh """
-          echo " Git Author    : ${GIT_AUTHOR}"
+          echo "Git Author    : ${GIT_AUTHOR}"
           echo "Git Commit    : ${GIT_COMMIT}"
           echo "Git Message   : ${GIT_MSG}"
-          echo "is not jenkins: ${isNotJenkins}"
+          echo "is jenkins    : ${isJenkins}"
           echo "Image tag     : ${imageTag}"
           echo "ACR login Server  : ${arcLoginServer}"
         """
@@ -27,7 +27,7 @@ pipeline {
           echo "\u001B[32mGreen Git Author    : ${GIT_AUTHOR}"
           echo "Git Commit    : ${GIT_COMMIT}"
           echo "Git Message   : ${GIT_MSG}"
-          echo "is not jenkins: ${isNotJenkins}"
+          echo "is jenkins    : ${isJenkins}"
           echo "Image tag     : ${imageTag}"
           echo "ACR login Server  : ${arcLoginServer}"
         }
