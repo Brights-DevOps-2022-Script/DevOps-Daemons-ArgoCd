@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: felixstrauss
+  # namespace: felixstrauss
 spec:
   selector:
     app: nginx
