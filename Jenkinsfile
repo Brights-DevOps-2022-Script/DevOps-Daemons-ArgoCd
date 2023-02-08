@@ -26,7 +26,7 @@ pipeline {
        }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
-      when{ expression {!isJenkins}} 
+      when{ expression {isJenkins}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: 'https://' + $acr + '/v2/') {
           sh "docker build -t $acr + '/' + $imageTag ."
@@ -36,7 +36,7 @@ pipeline {
       }
     }
     stage('TEST DOCKER IMAGE') {
-      when{ expression {!isJenkins}}
+      when{ expression {isJenkins}}
       steps {
         script {
           def imageExists = sh(script: "set +x curl -fL ${acr}/v2/manifests/${imageTag}", returnStatus: true) == 0
@@ -47,7 +47,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
-      when{ expression {!isJenkins}}
+      when{ expression {isJenkins}}
       steps {
         checkout(
           [$class: 'GitSCM',
@@ -66,7 +66,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
-      when{ expression {!isJenkins}}
+      when{ expression {isJenkins}}
       steps {
         checkout(
           [$class: 'GitSCM',
