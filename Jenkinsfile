@@ -3,7 +3,7 @@ pipeline {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
-    isNotJenkins = env.GIT_AUTHOR != 'Jenkins'
+    isJenkins = env.GIT_AUTHOR == 'Jenkins'
     imageTag = "nginxanis:$GIT_COMMIT"
     acrLoginServer = "devops2022.azurecr.io"
   }
@@ -34,7 +34,7 @@ pipeline {
       }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
-      when{ expression {isNotJenkins}} 
+      when{ expression {!isJenkins}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
           sh 'docker build -t devops2022.azurecr.io/felixstrauss:$GIT_COMMIT .'
@@ -44,7 +44,7 @@ pipeline {
       }
     }
     stage('TEST DOCKER IMAGE') {
-      when{ expression {isNotJenkins}}
+      when{ expression {!isJenkins}}
       steps {
         script {
           def imageExists = sh(script: "set +x curl -fL ${acrLoginServer}/v2/manifests/${imageTag}", returnStatus: true) == 0
@@ -55,7 +55,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
-      when{ expression {isNotJenkins}}
+      when{ expression {!isJenkins}}
       steps {
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git']]])
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -77,7 +77,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
-      when{ expression {isNotJenkins}}
+      when{ expression {!isJenkins}}
       steps {
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'MessageExclusion', excludedMessage: '.*\\[skip ci\\].*']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git']]])
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
