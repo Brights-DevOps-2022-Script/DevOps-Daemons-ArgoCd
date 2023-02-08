@@ -7,19 +7,21 @@ pipeline {
     imageTag   = "felixstrauss:$GIT_COMMIT"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
+    blue       = "${(char)44}[$fg;$bg"+"m"
+    cyan       = "${(char)46}[$fg;$bg"+"m"
   }
   agent any
   stages {
     stage('Infos2') {
       steps {
         script {
-          println ("Git Author        : ${GIT_AUTHOR}"
-          println ("Git Commit        : ${GIT_COMMIT}"
-          println ("Git Message       : ${GIT_MSG}"
-          println ("is jenkins        : ${isJenkins}"
-          println ("Image tag         : ${imageTag}"
-          println ("ACR login Server  : ${arc}"
-          println ("Repo              : ${repo}"
+          println "Git Author        : ${GIT_AUTHOR}"
+          println "Git Commit        : ${GIT_COMMIT}"
+          println "Git Message       : ${GIT_MSG}"
+          println "is jenkins        : ${isJenkins}"
+          println "Image tag         : ${imageTag}"
+          println "ACR login Server  : ${arc}"
+          println "Repo              : ${repo}"
          }
        }
     }
