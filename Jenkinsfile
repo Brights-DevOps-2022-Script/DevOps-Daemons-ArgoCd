@@ -30,8 +30,8 @@ pipeline {
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: "https://${acr}/v2/") {
           sh "docker build -t ${acr}/${imageTag} ."
-          sh "docker push "${acr}/${imageTag}"
-          sh "docker rmi "${acr}/${imageTag}"
+          sh "docker push ${acr}/${imageTag}"
+          sh "docker rmi ${acr}/${imageTag}"
         }
       }
     }
