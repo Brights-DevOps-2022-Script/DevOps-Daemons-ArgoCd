@@ -19,9 +19,12 @@ pipeline {
       when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
-          sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
-          sh "docker push devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
-          sh "docker rmi devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+          //sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
+          //sh "docker push devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+          //sh "docker rmi devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+          sh 'docker build -t devops2022.azurecr.io/felixstrauss:$GIT_COMMIT .'
+          sh "docker push devops2022.azurecr.io/felixstrauss:$GIT_COMMIT"
+          sh 'docker rmi devops2022.azurecr.io/felixstrauss:$GIT_COMMIT'
         }
       }
     }
