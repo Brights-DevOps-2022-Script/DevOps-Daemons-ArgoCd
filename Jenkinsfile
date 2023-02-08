@@ -14,7 +14,6 @@ pipeline {
           echo "Git Message: ${GIT_MSG}"
         """
       }
-    }
     stage('BUILD + PUSH DOCKER IMAGE') {
       when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}} 
         steps {
@@ -106,4 +105,4 @@ pipeline {
     }
   }
 }
-
+}
