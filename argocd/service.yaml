@@ -27,7 +27,7 @@ spec:
       paths:
       - path: /felixstrauss
         pathType: Prefix
-        - backend:
+      backend:
             service:
               name: nginx-service
               port: 
