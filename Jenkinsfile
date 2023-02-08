@@ -1,9 +1,8 @@
 pipeline {
-  
   environment {
-        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-        GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
-        GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
+    GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
+    GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
   }
   agent any
   stages {
@@ -18,11 +17,12 @@ pipeline {
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
       when{ expression {env.GIT_AUTHOR_NAME != 'Jenkins'}} 
-      steps {
-        withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
-          sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
-          sh "docker push devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
-          sh "docker rmi devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+        steps {
+          withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
+            sh "docker build -t devops2022.azurecr.io/nginxanis:$GIT_COMMIT ."
+            sh "docker push devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+            sh "docker rmi devops2022.azurecr.io/nginxanis:$GIT_COMMIT"
+          }
         }
       }
     }
@@ -87,7 +87,6 @@ pipeline {
         //}
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'MessageExclusion', excludedMessage: '.*\\[skip ci\\].*']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/team-3-argoTest.git']]])
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        
         sh("echo PUSH2")
         sh("git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
         sh("git checkout main")
@@ -107,4 +106,4 @@ pipeline {
     }
   }
 }
-}
+
