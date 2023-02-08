@@ -1,5 +1,3 @@
-#!/bin/Bash
-
 echo inside 
 git pull https://$1:$2@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main
 git checkout main
