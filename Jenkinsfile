@@ -7,21 +7,19 @@ pipeline {
     imageTag   = "felixstrauss:$GIT_COMMIT"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
-    blue       = "${(char)27}[44;49"+"m"
-    cyan       = "${(char)27}[46;49"+"m"
   }
   agent any
   stages {
     stage('Infos2') {
       steps {
         script {
-          println "${blue}Git Author        : ${GIT_AUTHOR}"
-          println "${cyan}Git Commit        : ${GIT_COMMIT}"
-          println "${blue}Git Message       : ${GIT_MSG}"
-          println "${cyan}is jenkins        : ${isJenkins}"
-          println "${blue}Image tag         : ${imageTag}"
-          println "${cyan}ACR login Server  : ${acr}"
-          println "${blue}Repo              : ${repo}"
+          println "Git Author        : ${GIT_AUTHOR}"
+          println "Git Commit        : ${GIT_COMMIT}"
+          println "Git Message       : ${GIT_MSG}"
+          println "is jenkins        : ${isJenkins}"
+          println "Image tag         : ${imageTag}"
+          println "ACR login Server  : ${acr}"
+          println "Repo              : ${repo}"
          }
        }
     }
@@ -60,6 +58,9 @@ pipeline {
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+          sh "ls"
+          sh "ls ./BashScripts"
+          sh "cat ./BashScripts/deployFile1.sh"
           sh "chmod +x ./BashScripts/deployFile1.sh"
           sh ('./BaseScripts/deployFile1.sh ${GIT_USERNAME} ${GIT_PASSWORD} ${imageTag} ${acr} ${repo}')
         }
