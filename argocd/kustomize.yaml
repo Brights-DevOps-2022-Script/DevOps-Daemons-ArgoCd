@@ -4,4 +4,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
               - nginx.yml
             images:
               - name: ANIS-NGINX
-            newName: devops2022.azurecr.io/nginxanis:16ae2a1fd61c66f229aadfe69ca293f8f35bce97
+            newName: devops2022.azurecr.io/nginxanis:9575fd0238e47a25a80473860c7ae658911f0a4d
