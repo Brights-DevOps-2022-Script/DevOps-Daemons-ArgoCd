@@ -56,7 +56,7 @@ pipeline {
            extensions: [],
            submoduleCfg: [],
            userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',
-           url: 'https://' + $repo]]
+           url: "https://${repo}"]]
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -75,7 +75,7 @@ pipeline {
            extensions: [],
            submoduleCfg: [],
            userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',
-           url: 'https://' + $repo]]
+           url: "https://${repo}"]]
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
