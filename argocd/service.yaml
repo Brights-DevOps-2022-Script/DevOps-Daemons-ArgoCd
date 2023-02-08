@@ -7,7 +7,7 @@ spec:
   selector:
     app: nginx
   ports:
-   - name: http
+   - name: https
 #   - protocol: TCP
      port: 80
      targetPort: 80
@@ -31,5 +31,5 @@ spec:
             service:
               name: nginx-service
               port: 
-                name: http
+                name: https
 #                number: 80
