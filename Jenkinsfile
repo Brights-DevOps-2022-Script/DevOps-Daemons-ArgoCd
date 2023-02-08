@@ -20,7 +20,7 @@ pipeline {
           println "${blue}Git Message       : ${GIT_MSG}"
           println "${cyan}is jenkins        : ${isJenkins}"
           println "${blue}Image tag         : ${imageTag}"
-          println "${cyan}ACR login Server  : ${arc}"
+          println "${cyan}ACR login Server  : ${acr}"
           println "${blue}Repo              : ${repo}"
          }
        }
