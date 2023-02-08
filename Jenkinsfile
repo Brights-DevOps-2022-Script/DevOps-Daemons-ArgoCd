@@ -66,7 +66,7 @@ pipeline {
               - nginx.yml
             images:
               - name: ANIS-NGINX
-            newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomization.yml
+            newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomize.yaml
           """)
           sh("git add ./kustomization.yml")
           sh("git commit -m 'kustom [skip ci]'")
@@ -96,7 +96,7 @@ pipeline {
               - nginx.yml
              images:
               - name: ANIS-NGINX
-            newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomization.yml
+            newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomize.yaml
           """)  
           sh("git add kustomization.yml")
           sh("git commit -m 'kustomization [skip ci]'")
