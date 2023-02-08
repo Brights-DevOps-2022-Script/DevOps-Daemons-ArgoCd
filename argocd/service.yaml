@@ -31,8 +31,8 @@ spec:
       - path: /felixstrauss
         pathType: Prefix
         backend:
-            service:
-              name: nginx-service
-              port: 
-                name: https
-#                number: 80
+          service:
+            name: nginx-service
+            port: 
+              name: https
+#              number: 80
