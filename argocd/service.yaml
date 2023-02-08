@@ -7,8 +7,8 @@ spec:
   selector:
     app: nginx
   ports:
-#   - name: https
-   - protocol: TCP
+   - name: https
+#   - protocol: TCP
      port: 443
      targetPort: 80
   type: ClusterIP  
@@ -19,8 +19,8 @@ metadata:
   name: ingress
   annotations:
     # kubernetes.io/ingress.class: "nginx"
-    kubernetes.io/ingress.allow-http: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # kubernetes.io/ingress.allow-http: "true"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
