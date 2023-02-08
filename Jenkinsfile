@@ -12,7 +12,7 @@ pipeline {
     stage('Infos') {
       steps {
         sh """
-          echo "\u001B[32mGreen Git Author    : ${GIT_AUTHOR}"
+          echo " Git Author    : ${GIT_AUTHOR}"
           echo "Git Commit    : ${GIT_COMMIT}"
           echo "Git Message   : ${GIT_MSG}"
           echo "is not jenkins: ${isNotJenkins}"
@@ -22,17 +22,17 @@ pipeline {
       }
     }
     stage('Infos') {
-  steps {
-    script {
-      echo "Git Author    : ${GIT_AUTHOR}"
-      echo "Git Commit    : ${GIT_COMMIT}"
-      echo "Git Message   : ${GIT_MSG}"
-      echo "is not jenkins: ${isNotJenkins}"
-      echo "Image tag     : ${imageTag}"
-      echo "ACR login Server  : ${arcLoginServer}"
+      steps {
+        script {
+          echo "\u001B[32mGreen Git Author    : ${GIT_AUTHOR}"
+          echo "Git Commit    : ${GIT_COMMIT}"
+          echo "Git Message   : ${GIT_MSG}"
+          echo "is not jenkins: ${isNotJenkins}"
+          echo "Image tag     : ${imageTag}"
+          echo "ACR login Server  : ${arcLoginServer}"
+        }
+      }
     }
-  }
-}
     stage('BUILD + PUSH DOCKER IMAGE') {
       when{ expression {isNotJenkins}} 
       steps {
