@@ -7,8 +7,8 @@ git checkout main
   echo"  - nginx.yml"                                           >> ./argocd/kustomize.yaml
   echo" images:"                                                >> ./argocd/kustomize.yaml
   echo "  - name: ANIS-NGINX"                                   >> ./argocd/kustomize.yaml
-  echo "newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}" >> ./argocd/kustomize.yaml
+  echo "newName: $3:$4" >> ./argocd/kustomize.yaml
 
 git add ./argocd/kustomize.yaml"
 git commit -m 'kustom [skip ci]'"
-git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main
+git push https://${GIT_USERNAME}:$5 +'HEAD:main'
