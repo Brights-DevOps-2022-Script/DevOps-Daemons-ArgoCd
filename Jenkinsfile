@@ -68,7 +68,7 @@ pipeline {
               - name: ANIS-NGINX
             newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomize.yaml
           """)
-          sh("git add ./kustomization.yml")
+          sh("git add ./argocd/kustomize.yamll")
           sh("git commit -m 'kustom [skip ci]'")
           sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
         }
@@ -98,7 +98,7 @@ pipeline {
               - name: ANIS-NGINX
             newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomize.yaml
           """)  
-          sh("git add kustomization.yml")
+          sh("git add ./argocd/kustomize.yaml")
           sh("git commit -m 'kustomization [skip ci]'")
           sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main")
         }
