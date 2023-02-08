@@ -36,9 +36,9 @@ pipeline {
       when{ expression {!isJenkins}}
       steps {
         script {
-          def imageExists = sh(script: "set +x curl -fL ${acrLoginServer}/v2/manifests/${imageTag}", returnStatus: true) == 0
+          def imageExists = sh(script: "set +x curl -fL ${acr}/v2/manifests/${imageTag}", returnStatus: true) == 0
           if (!imageExists) {
-            error("The image ${imageTag} was not found in the registry ${acrLoginServer}")
+            error("The image ${imageTag} was not found in the registry ${acr}")
           }
         }
       }
