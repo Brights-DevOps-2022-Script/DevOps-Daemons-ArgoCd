@@ -3,7 +3,7 @@ pipeline {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
-    isJenkins = env.GIT_AUTHOR == 'Jenkins'
+    isJenkins = (env.GIT_AUTHOR == 'Jenkins')
     imageTag = "nginxanis:$GIT_COMMIT"
     acrLoginServer = "devops2022.azurecr.io"
   }
