@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: felixstrauss
+  # namespace: felixstrauss
 spec:
   replicas: 1
   selector:
