@@ -93,7 +93,7 @@ pipeline {
           sh "ls"
           sh "ls ./BashScripts"
           sh "chmod +x ./BashScripts/deployFile2.sh"
-          sh ("./BashScripts/deployFile2.sh ${GIT_USERNAME} ${GIT_PASSWORD}") 
+          sh ('./BashScripts/deployFile2.sh ${GIT_USERNAME} ${GIT_PASSWORD}') 
           //sh "git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main"
           //sh "git checkout main")
           //sh """
