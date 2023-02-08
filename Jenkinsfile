@@ -21,7 +21,7 @@ pipeline {
         """
       }
     }
-    stage('Infos') {
+    stage('Infos2') {
       steps {
         script {
           echo "\u001B[32mGreen Git Author    : ${GIT_AUTHOR}"
