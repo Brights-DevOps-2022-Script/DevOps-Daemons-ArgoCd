@@ -37,7 +37,7 @@ pipeline {
     stage('BUILD + PUSH DOCKER IMAGE') {
       when{ expression {!isJenkins}} 
       steps {
-        withDockerRegistry(credentialsId: 'acr_creds', url: 'https://' $acr + '/v2/') {
+        withDockerRegistry(credentialsId: 'acr_creds', url: 'https://' + $acr + '/v2/') {
           sh "docker build -t $acr + '/' + $imageTag ."
           sh "docker push $acr + '/' + $imageTag"
           sh "docker rmi $acr + '/' + $imageTag"
@@ -69,20 +69,8 @@ pipeline {
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-          sh "git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main"
-          sh "git checkout main" 
-          sh """
-            echo 'apiVersion: kustomize.config.k8s.io/v1beta1
-            kind: Kustomization
-            resources:
-              - nginx.yml
-            images:
-              - name: ANIS-NGINX
-            newName: devops2022.azurecr.io/nginxanis:${GIT_COMMIT}' > ./argocd/kustomize.yaml
-          """
-          sh "git add ./argocd/kustomize.yaml"
-          sh "git commit -m 'kustom [skip ci]'"
-          sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main"
+          sh "chmod +x ./BashScripts/deployFile1.sh"
+          sh ('.BaseScripts/deployFile1.sh ${GIT_USERNAME} ${GIT_PASSWORD}')
         }
       }
     }
