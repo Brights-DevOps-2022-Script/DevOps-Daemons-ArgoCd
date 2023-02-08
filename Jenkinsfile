@@ -2,35 +2,23 @@ pipeline {
   environment {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
-    GIT_MSG = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
-    isJenkins = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
-    imageTag = "felixstrauss:$GIT_COMMIT"
-    repo = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
-    acr = "devops2022.azurecr.io"
+    GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
+    isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
+    imageTag   = "felixstrauss:$GIT_COMMIT"
+    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
+    acr        = "devops2022.azurecr.io"
   }
   agent any
   stages {
-    stage('Infos') {
-      steps {
-        sh """
-          echo "Git Author    : ${GIT_AUTHOR}"
-          echo "Git Commit    : ${GIT_COMMIT}"
-          echo "Git Message   : ${GIT_MSG}"
-          echo "is jenkins    : ${isJenkins}"
-          echo "Image tag     : ${imageTag}"
-          echo "ACR login Server  : ${arc}"
-        """
-      }
-    }
     stage('Infos2') {
       steps {
         script {
-          echo "\u001B[32mGreen Git Author    : ${GIT_AUTHOR}"
-          echo "Git Commit    : ${GIT_COMMIT}"
-          echo "Git Message   : ${GIT_MSG}"
-          echo "is jenkins    : ${isJenkins}"
-          echo "Image tag     : ${imageTag}"
-          echo "ACR login Server  : ${arc}"
+          println "\033[1;32mGit Author        : ${GIT_AUTHOR}"
+          println "\033[0;32mGit Commit        : ${GIT_COMMIT}"
+          println "\033[1;32mGit Message       : ${GIT_MSG}"
+          println "\033[0;32mis jenkins        : ${isJenkins}"
+          println "\033[1;32mImage tag         : ${imageTag}"
+          println "\033[0;32mACR login Server  : ${arc}"
          }
        }
     }
@@ -70,7 +58,7 @@ pipeline {
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
           sh "chmod +x ./BashScripts/deployFile1.sh"
-          sh ('.BaseScripts/deployFile1.sh ${GIT_USERNAME} ${GIT_PASSWORD}')
+          sh ('.BaseScripts/deployFile1.sh ${GIT_USERNAME} ${GIT_PASSWORD} ${imageTag} ${acr} ${repo}')
         }
       }
     }
@@ -89,7 +77,7 @@ pipeline {
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
           sh "chmod +x ./BashScripts/deployFile2.sh"
-          sh ('./BashScripts/deployFile2.sh ${GIT_USERNAME} ${GIT_PASSWORD}') 
+          sh ('./BashScripts/deployFile2.sh ${GIT_USERNAME} ${GIT_PASSWORD} ${imageTag} ${acr} ${repo}') 
         }
       }
     }
