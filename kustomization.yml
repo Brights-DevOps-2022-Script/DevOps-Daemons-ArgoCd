@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-            kind: Kustomization
-            resources:
-              - nginx.yml
-            images:
-              - name: ANIS-NGINX
-            newName: devops2022.azurecr.io/nginxanis:85f339cd38210dff60150eec058d7a7f2429a1f4
+          kind: Kustomization
+          resources:
+            - nginx.yml
+          images:
+            - name: ANIS-NGINX
+          newName: devops2022.azurecr.io/nginxanis:85f339cd38210dff60150eec058d7a7f2429a1f4
