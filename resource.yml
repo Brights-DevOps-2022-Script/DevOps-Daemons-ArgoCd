@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: team1-ingress
+spec:
+  rules:
+  - host: devops2022.de
+    http:
+      paths:
+      - path: /team3
+        pathType: Prefix
+        backend:
+          service:
+            name: my-service
+            port:
+              name: http
