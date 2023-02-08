@@ -7,8 +7,8 @@ pipeline {
     imageTag   = "felixstrauss:$GIT_COMMIT"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
-    blue       = "${(char)44}[$fg;$bg"+"m"
-    cyan       = "${(char)46}[$fg;$bg"+"m"
+    blue       = "${(char)27}[$44;$49"+"m"
+    cyan       = "${(char)27}[$46;$49"+"m"
   }
   agent any
   stages {
