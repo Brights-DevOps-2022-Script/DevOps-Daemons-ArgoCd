@@ -33,6 +33,11 @@ function check_config () {
     then
         create_config
         fill_config_default
+        create_version_tag
+        exit 0
+    else
+        create_version_tag
+        exit 1
     fi
 }
 
@@ -51,8 +56,6 @@ function increment_version_segment () {
     done < "${file}"
     update_config
     return 0
-fi
-exit
 }
 
 function set_version_build () {
@@ -67,9 +70,6 @@ function set_version_build () {
         fi
     done < "${file}"
     update_config
-    return 0
-fi
-return 1
 }
 
 function push_to_git () {
@@ -80,11 +80,24 @@ function push_to_git () {
     git push https://$2:$3@$3 HEAD:main
 }
 
+function create_version_tag () {
+    file="../App/version.config"
+    def version = "v" 
+    while read line; do
+            value=$(echo ${line} | awk -F: '{print $2}')
+            version = ${version}.${2}   
+    done < "${file}"
+    echo ${version}
+}
+
 changes=$(git diff HEAD^ --name-only ../App)
 if [ -n "$changes" ]; then
-  if [ "$4" = "Build" ]; then
-    set_version_build "$@"
-  else
-    increment_version_segment "$@"
-  fi
+    if [ "$4" = "Build" ]; then
+        set_version_build "$@"
+    else
+        increment_version_segment "$@"
+    fi
+else 
+    create_version_tag
+    exit 1
 fi
