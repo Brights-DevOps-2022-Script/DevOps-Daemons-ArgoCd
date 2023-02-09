@@ -24,6 +24,10 @@ metadata:
     # nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+    - hosts:
+      - devops2022.de
+      secretName: team3_secret
   ingressClassName: nginx
   rules: 
   - host: devops2022.de
