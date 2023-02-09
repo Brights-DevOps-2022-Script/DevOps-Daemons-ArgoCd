@@ -1,8 +1,10 @@
 pipeline {
   environment {
+    // Bash variables in SCREAMING_SNAKE_CASE
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
+    // Groovy variables in camelCase
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
     buildNo    = env.BUILD_NUMBER
     image      = "felixstrauss"
@@ -29,16 +31,6 @@ pipeline {
          }
        }
     }
-    stage('BUILD + PUSH DOCKER IMAGE') {
-      when{ expression {isJenkins}} 
-      steps {
-        withDockerRegistry(credentialsId: 'acr_creds', url: "https://${acr}/v2/") {
-          sh "docker build -t ${acr}/${imageTag} ./App"
-          sh "docker push ${acr}/${imageTag}"
-          sh "docker rmi ${acr}/${imageTag}"
-        }
-      }
-    }
     stage('CHECH DOCKER IMAGE TAG')
       when{ expression {isJenkins}} 
       steps {
@@ -50,6 +42,16 @@ pipeline {
           imageTag = "$image:$tag"
           println "Script output: ${imageTag}"
           println "app has changed: $
+      }
+    }
+    stage('BUILD + PUSH DOCKER IMAGE') {
+      when{ expression {isNewImage}} 
+      steps {
+        withDockerRegistry(credentialsId: 'acr_creds', url: "https://${acr}/v2/") {
+          sh "docker build -t ${acr}/${imageTag} ./App"
+          sh "docker push ${acr}/${imageTag}"
+          sh "docker rmi ${acr}/${imageTag}"
+        }
       }
     }
     stage('DEPLOY DEPLOYMENT FILE') {
