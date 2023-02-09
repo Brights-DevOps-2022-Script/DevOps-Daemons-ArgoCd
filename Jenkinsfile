@@ -5,9 +5,12 @@ pipeline {
     GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
     buildNo    = env.BUILD_NUMBER
-    imageTag   = "felixstrauss:$GIT_COMMIT"
+    image      = "felixstrauss"
+    tag        = "$GIT_COMMIT"
+    imageTag   = "$image:$tag"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
+    newImage   = true
   }
   agent any
   stages {
@@ -33,6 +36,17 @@ pipeline {
           sh "docker push ${acr}/${imageTag}"
           sh "docker rmi ${acr}/${imageTag}"
         }
+      }
+    }
+    stage('CHECH DOCKER IMAGE TAG')
+      when{ expression {isJenkins}} 
+      steps {
+          sh "chmod +x ./BashScripts/checkDockerImageTag.sh"
+          def result = sh(script: "./BashScripts/checkDockerImageTag.sh ${GIT_USERNAME} ${GIT_PASSWORD} 'Build' ${buildNO}", returnStdout: true, returnStatus: true)
+          tag = ${result.stdout}"
+          newImage = result.status
+          imageTag = "$image:$tag"
+          println "Script output: ${imageTag}
       }
     }
     //stage('TEST DOCKER IMAGE') {
