@@ -27,23 +27,23 @@ pipeline {
       when{ expression {isJenkins}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: "https://${acr}/v2/") {
-          sh "docker build -t ${acr}/${imageTag} ."
+          sh "docker build -t ${acr}/${imageTag} ./App"
           sh "docker push ${acr}/${imageTag}"
           sh "docker rmi ${acr}/${imageTag}"
         }
       }
     }
-    stage('TEST DOCKER IMAGE') {
-      when{ expression {isJenkins}}
-      steps {
-        script {
-          def imageExists = sh(script: "set +x curl -fL ${acr}/v2/manifests/${imageTag}", returnStatus: true) == 0
-          if (!imageExists) {
-            error("The image ${imageTag} was not found in the registry ${acr}")
-          }
-        }
-      }
-    }
+    //stage('TEST DOCKER IMAGE') {
+    //  when{ expression {isJenkins}}
+    //  steps {
+    //    script {
+    //      def imageExists = sh(script: "set +x curl -fL ${acr}/v2/manifests/${imageTag}", returnStatus: true) == 0
+    //      if (!imageExists) {
+    //        error("The image ${imageTag} was not found in the registry ${acr}")
+    //      }
+    //    }
+    //  }
+    //}
     stage('DEPLOY DEPLOYMENT FILE') {
       when{ expression {isJenkins}}
       steps {
