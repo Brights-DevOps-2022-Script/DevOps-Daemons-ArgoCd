@@ -10,7 +10,8 @@ pipeline {
     imageTag   = "$image:$tag"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
-    newImage   = true
+    isNewImage = false
+    gitCred     = '2eb747c4-f19f-4601-ab83-359462e62482'
   }
   agent any
   stages {
@@ -42,26 +43,17 @@ pipeline {
       when{ expression {isJenkins}} 
       steps {
           sh "chmod +x ./BashScripts/checkDockerImageTag.sh"
-          def result = sh(script: "./BashScripts/checkDockerImageTag.sh ${GIT_USERNAME} ${GIT_PASSWORD} 'Build' ${buildNO}", returnStdout: true, returnStatus: true)
+          def result = sh(script: "./BashScripts/checkDockerImageTag.sh ${GIT_USERNAME} ${GIT_PASSWORD} 'Build' ${buildNO}",
+                          returnStdout: true, returnStatus: true)
           tag = ${result.stdout}"
-          newImage = result.status
+          isNewImage = result.status
           imageTag = "$image:$tag"
-          println "Script output: ${imageTag}
+          println "Script output: ${imageTag}"
+          println "app has changed: $
       }
     }
-    //stage('TEST DOCKER IMAGE') {
-    //  when{ expression {isJenkins}}
-    //  steps {
-    //    script {
-    //      def imageExists = sh(script: "set +x curl -fL ${acr}/v2/manifests/${imageTag}", returnStatus: true) == 0
-    //      if (!imageExists) {
-    //        error("The image ${imageTag} was not found in the registry ${acr}")
-    //      }
-    //    }
-    //  }
-    //}
     stage('DEPLOY DEPLOYMENT FILE') {
-      when{ expression {isJenkins}}
+      when{ expression {isNewImage}}
       steps {
         checkout(
           [$class: 'GitSCM',
@@ -69,11 +61,14 @@ pipeline {
            doGenerateSubmoduleConfigurations: false,
            extensions: [],
            submoduleCfg: [],
-           userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',
-           url: "https://${repo}"]]
+           userRemoteConfigs: [[
+              credentialsId: ${gitCred},
+              url: "https://${repo}"
+           ]]
           ]
         )
-        withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD',
+                                          usernameVariable: 'GIT_USERNAME')]) {
           sh "ls"
           sh "ls ./BashScripts"
           sh "cat ./BashScripts/deployFile1.sh"
@@ -83,7 +78,7 @@ pipeline {
       }
     }
     stage('DEPLOY DEPLOYMENT FILE2') {
-      when{ expression {isJenkins}}
+      when{ expression {isNewImage}}
       steps {
         checkout(
           [$class: 'GitSCM',
@@ -91,8 +86,10 @@ pipeline {
            doGenerateSubmoduleConfigurations: false,
            extensions: [],
            submoduleCfg: [],
-           userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',
-           url: "https://${repo}"]]
+           userRemoteConfigs: [[
+              credentialsId: ${gitCred},
+              url: "https://${repo}"
+           ]]
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
