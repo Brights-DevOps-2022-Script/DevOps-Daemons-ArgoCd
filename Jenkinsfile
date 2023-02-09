@@ -4,6 +4,7 @@ pipeline {
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
+    buildNo    = env.BUILD_NUMBER
     imageTag   = "felixstrauss:$GIT_COMMIT"
     repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     acr        = "devops2022.azurecr.io"
@@ -20,6 +21,7 @@ pipeline {
           println "Image tag         : ${imageTag}"
           println "ACR login Server  : ${acr}"
           println "Repo              : ${repo}"
+          println "build number      : ${buildNO}"
          }
        }
     }
