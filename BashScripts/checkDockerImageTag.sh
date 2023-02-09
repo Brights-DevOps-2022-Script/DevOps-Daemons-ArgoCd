@@ -1,14 +1,12 @@
 function update_config () {
-  rm ../App/version.config
-  cp ../App/temp.file ../App/version.config
-  rm ../App/temp.file
-  push_to_git
-  return 0
+    rm ../App/version.config
+    cp ../App/temp.file ../App/version.config
+    rm ../App/temp.file
+    push_to_git
 }
 
 function create_temp () {
     echo -n "" >../App/temp.file
-    return 0
 }
 
 function reset_config () {
@@ -55,7 +53,6 @@ function increment_version_segment () {
         fi
     done < "${file}"
     update_config
-    return 0
 }
 
 function set_version_build () {
