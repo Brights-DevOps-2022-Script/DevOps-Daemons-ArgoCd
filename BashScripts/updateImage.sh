@@ -1,5 +1,5 @@
 function update_config () {
-  rm ../App/version.config;
+  rm ../App/version.config
   cp ../App/temp.file ../App/version.config
   rm ../App/temp.file
   push_to_git
