@@ -61,11 +61,11 @@ pipeline {
           sh "chmod +x ./BashScripts/checkDockerImageTag.sh"
           def result = sh(script: "./BashScripts/checkDockerImageTag.sh ${GIT_USERNAME} ${GIT_PASSWORD} 'Build' ${buildNO}",
                           returnStdout: true, returnStatus: true)
-          tag = ${result.stdout}"
+          tag = ${result.stdout}
           isNewImage = result.status
-          imageTag = "$image:$tag"
+          imageTag = "${image}:${tag}"
           println "Script output: ${imageTag}"
-          println "app has changed: $
+          println "app has changed: ${isNewImage}"
       }
     }
     stage('BUILD + PUSH DOCKER IMAGE') {
