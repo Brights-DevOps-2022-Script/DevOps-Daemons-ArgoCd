@@ -1,0 +1,66 @@
+{
+    "Header": "Scope",
+    "PageNo": 3,
+    "Content": [
+        {
+        "paragraphs": [
+            [
+                {
+                "Alignment": "TextLeft" 
+                },
+                {
+                "Type": "TextParagraph",
+                "Text": "Da es beim DevOps ComicBook-Verlag immer sehr hektisch zugeht gibt es auf dem Firmengelände viele Uhren (*Variablen*). Im Innenhof steht ein Uhrenturm (*globale Variable*) der vom gesamten Firmenlände gut zu sehen ist. In den einzelen Büros und Werkstätten kann man den Uhrenturm sehr gut sehen aber es gibt auch Wanduhren (*lokale Variable*). Die Wanduhren kann man nur sehen wenn man in dem betrefenden Büro ist. Die Uhren sind alle sehr unzuverlässig und zeigen nicht zwangsläufig die selbe Zeit an. Im Büro der Autoren kann es nach der Wanduhr viel später sein als bei den Showrunner. Die meisten Mitarbeiter stellen die Uhr nach der Turmuhr. Aber auch die Turmuhr ist nicht zuverlässig. Daher haben alle Mitarbeiter stets einen langen Stock dabei mit dem sie die Turmuhr umstellen können. Sowohl auf dem Gelände als auch durchs Bürofenster. Macht das Jemand ändert sich die globale Zeit für alle Mitarbeiter.",
+                "Links": [
+                    {
+                        "start": 27,
+                        "end": 35,
+                        "page": 5
+                    },
+                    {
+                        "start": 18,
+                        "end": 12,
+                        "page": 7
+                    }
+                ]
+                },{
+                "Type": "ImageParagraph",
+                "Image": "arlarm_clock.png",
+                "Links": [
+                    {
+                        "start": 27,
+                        "end": 35,
+                        "page": 5
+                    }
+                ]
+                }
+                
+            ],[
+                {
+                    "Alignment": "TextOnly" 
+                    },
+                {
+                    "Type": "TextParagraph",
+                    "Text": "In der Druckerei gibt es zeitkritische Abläufe. Daher müsten die Uhren synchron laufen. Daher werden die halbgedrucktem Seiten mit einem Zeitstempel(*Parameter*) nach derren Wanduhr~ an die nächste Werkstatt weitergegeben~ und die Uhr dort~ nach dem Zeitstempel gestellt.",
+                    "Links": [{}]
+                },{
+                    "Type": "ImageParagraph",
+                    "Image": "",
+                    "Links": [{}]
+                }
+            ],[
+                {
+                    "Alignment": "NoText" 
+                },{
+                    "Type": "NoText",
+                    "Text": "",
+                    "Links": [{}]
+                },{
+                    "Type": "ImageParagraph",
+                    "Image": "arlarm_clock.png",
+                    "Links": [{}]
+                }
+            ]
+        ]
+    }]
+}

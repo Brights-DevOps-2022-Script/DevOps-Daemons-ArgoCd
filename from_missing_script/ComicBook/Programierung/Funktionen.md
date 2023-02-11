@@ -1,0 +1,5 @@
+Im Writing Room arbeitet das Team "Aktion" unter der Leitung des Projektmanagers Michael an der Comic-Heftreihe "Der verrückte Professor". Michael hat eine enge Beziehung zu einer Person, die äußerst bewandert in der "Lore" der Geschichten ist und Fragen zur Finanzsituation von Nancy oder dem Aufenthaltsort des verrückten Professors beantworten kann.
+
+Wenn die Autoren des Teams eine Frage haben, die die Person sofort beantworten kann, ruft sie die Person synchron an und erhält sofort eine Antwort. Wenn die Frage jedoch komplexer ist und mehr Recherche erfordert, ruft die Person asynchron an und ruft zu einem späteren Zeitpunkt zurück, um die Autoren mit der notwendigen Information zu versorgen.
+
+Dieser Ansatz ermöglicht es dem Team, effektiv zu arbeiten und gleichzeitig die Konsistenz und Logik der Geschichte sicherzustellen. Michael und das Team verwenden sowohl synchronen als auch asynchronen Ansätze, um sicherzustellen, dass sie die bestmöglichen Ergebnisse erzielen.
