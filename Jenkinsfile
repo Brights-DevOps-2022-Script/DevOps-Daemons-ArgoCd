@@ -28,35 +28,34 @@ pipeline {
           println "ACR login Server  : ${acr}"
           println "Repo              : ${repo}"
           println "build number      : ${buildNO}"
-         }
-       }
-    }
-    stage('Reset build number') {
-      steps {
-        script {
-          def resetBuildNumber() {
-            def jobName = env.JOB_NAME
-            def buildNumber = env.BUILD_NUMBER
-
-            def crumb = sh(script: "curl '$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'", returnStdout: true).trim()
-            def response = sh(script: "curl -X POST -H '$crumb' -d 'json={\"buildNumber\":\"$buildNumber\",\"reset\":true}' '$JENKINS_URL/job/$jobName/doResetBuildNumber'", returnStdout: true).trim()
-
-            if (response == "") {
-              println("Build number reset successfully")
-            } else {
-              println("Failed to reset build number: $response")
-            }
-          }
-
-          if (/*condition for resetting build number*/) {
-            env.BUILD_NUMBER = "1"
-            resetBuildNumber()
-            // other logic for major change
-          }
         }
       }
     }
-    stage('CHECH DOCKER IMAGE TAG')
+    //stage('Reset build number') {
+    //  steps {
+    //    script {
+    //      def resetBuildNumber() {
+    //        def jobName = env.JOB_NAME
+    //        def buildNumber = env.BUILD_NUMBER
+    //
+    //        def crumb = sh(script: "curl '$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'", returnStdout: true).trim()
+    //        def response = sh(script: "curl -X POST -H '$crumb' -d 'json={\"buildNumber\":\"$buildNumber\",
+    //                          \"reset\":true}' '$JENKINS_URL/job/$jobName/doResetBuildNumber'", returnStdout: true).trim()
+    //        if (response == "") {
+    //          println("Build number reset successfully")
+    //        } else {
+    //          println("Failed to reset build number: $response")
+    //        }
+    //      }
+    //      if (/*condition for resetting build number*/) {
+    //        env.BUILD_NUMBER = "1"
+    //        resetBuildNumber()
+    //        // other logic for major change
+    //      }
+    //    }
+    //  }
+    //}
+    stage('CHECK DOCKER IMAGE TAG') {
       when{ expression {isJenkins}} 
       steps {
           sh "chmod +x ./BashScripts/checkDockerImageTag.sh"
@@ -108,15 +107,16 @@ pipeline {
       when{ expression {isNewImage}}
       steps {
         checkout(
-          [$class: 'GitSCM',
-           branches: [[name: '*/main']],
-           doGenerateSubmoduleConfigurations: false,
-           extensions: [],
-           submoduleCfg: [],
-           userRemoteConfigs: [[
-              credentialsId: ${gitCred},
-              url: "https://${repo}"
-           ]]
+          [
+            $class: 'GitSCM',
+            branches: [[name: '*/main']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [],
+            submoduleCfg: [],
+            userRemoteConfigs: [[
+               credentialsId: ${gitCred},
+               url: "https://${repo}"
+            ]]
           ]
         )
         withCredentials([usernamePassword(credentialsId: 'devopsProjectTocken', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
