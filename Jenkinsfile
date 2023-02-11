@@ -1,20 +1,29 @@
 pipeline {
   environment {
+    // HARDCODED VARIABLES
+    // These variables are manually set and can be changed if necessary
+    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
+    branch     = '*/main'
+    acr        = "devops2022.azurecr.io"
+    image      = "felixstrauss"
+    gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
+    // AUTOMATICALLY  GENERATED VARIABLES
+    // These variables are automatically generated and should not be edited manually
     // Bash variables in SCREAMING_SNAKE_CASE
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
     // Groovy variables in camelCase
-    isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
     buildNo    = env.BUILD_NUMBER
-    image      = "felixstrauss"
     tag        = "$GIT_COMMIT"
     imageTag   = "${image}:${tag}"
-    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
-    branch     = '*/main'
-    acr        = "devops2022.azurecr.io"
-    isNewImage = false
-    gitCred     = '2eb747c4-f19f-4601-ab83-359462e62482'
+    // conditions
+    isNewImage          = false
+    isNonBuildRelease   = false
+    isJenkins           = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
+    if (GIT_MSG.contains("update") && (GIT_MSG.contains("minor") || GIT_MSG.contains("major") || GIT_MSG.contains("patch"))) {
+      isNonBuildRelease = true;
+    }
   }
   agent any
   stages {
@@ -46,9 +55,10 @@ pipeline {
       }
     }
     stage('Reset build number') {
-      when{ expression {isNewImage}}
+      when{ expression {isNonBuildRelease}}
       steps {
         script {
+          // resets the Jenkin controller build number to 1
           def resetBuildNumber() {
             def jobName = env.JOB_NAME
             def buildNumber = env.BUILD_NUMBER
