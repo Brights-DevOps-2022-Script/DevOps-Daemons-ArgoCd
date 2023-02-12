@@ -1,0 +1,10 @@
+Variablen       : https://cdn1.vogel.de/unsafe/fit-in/1000x0/images.vogel.de/vogelonline/bdb/1422500/1422535/original.jpg
+XP              : https://www.publicdomainpictures.net/pictures/40000/nahled/antique-typewriter.jpg
+Agil 1          : https://th.bing.com/th/id/OIP.J1kytepHwdGFhtUUeL-LVgHaFI?w=254&h=180&c=7&r=0&o=5&pid=1.7
+Agil 2          : https://late.am/static/lego-retrospective.jpg
+Agil 3          : https://c0.wallpaperflare.com/preview/909/617/264/kanban-work-team-work-process.jpg
+Containerhafen  : https://live.staticflickr.com/65535/49013152298_8126ecb203_b.jpg
+Jenkins         : https://live.staticflickr.com/7323/16390467105_ae2ae0e8d3_z.jpg
+Netzwerk        : https://th.bing.com/th/id/R.118ab750fa5466ee7f5a4a651d2bce36?rik=RtrGddJR%2b%2bZ6SQ&pid=ImgRaw&r=0
+Network-Ports   : https://static.pexels.com/photos/162472/lost-places-factory-old-lapsed-162472.jpeg
+Funktionen      : https://live.staticflickr.com/5719/20172598843_36fab941b6.jpg

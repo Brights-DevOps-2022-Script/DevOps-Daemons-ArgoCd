@@ -7,6 +7,7 @@ pipeline {
     acr        = "devops2022.azurecr.io"
     image      = "felixstrauss"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
+    dockerPath = "./comicBook"
     // AUTOMATICALLY  GENERATED VARIABLES
     // These variables are automatically generated and should not be edited manually
     // Bash variables in SCREAMING_SNAKE_CASE
@@ -15,7 +16,7 @@ pipeline {
     GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
     // Groovy variables in camelCase
     buildNo    = env.BUILD_NUMBER
-    tag        = "$GIT_COMMIT"
+    tag        = "${GIT_COMMIT}"
     imageTag   = "${image}:${tag}"
     // conditions
     isNewImage          = false
@@ -27,7 +28,7 @@ pipeline {
   }
   agent any
   stages {
-    stage('Infos2') {
+    stage('print Infos') {
       steps {
         script {
           println "Git Author        : ${GIT_AUTHOR}"
@@ -60,16 +61,13 @@ pipeline {
         script {
           // resets the Jenkin controller build number to 1
           def resetBuildNumber() {
-            def jobName = env.JOB_NAME
-            def buildNumber = env.BUILD_NUMBER
-            def crumb = sh(script: "curl '$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'", returnStdout: true).trim()
-            def response = sh(script: "curl -X POST -H '$crumb' -d 'json={\"buildNumber\":\"$buildNumber\",
-                              \"reset\":true}' '$JENKINS_URL/job/$jobName/doResetBuildNumber'", returnStdout: true).trim()
-            if (response == "") { 
-              println("Build number reset successfully")
-            } else { 
-              println("Failed to reset build number: $response")
-            }
+              def jobName = env.JOB_NAME
+              def buildNumber = env.BUILD_NUMBER
+              def crumb = sh(script: "curl '$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'", returnStdout: true).trim()
+              def response = sh(script: "curl -X POST -H '$crumb' -d 'json={\"buildNumber\":\"$buildNumber\",
+                                \"reset\":true}' '$JENKINS_URL/job/$jobName/doResetBuildNumber'", returnStdout: true).trim()
+              if (response == "") { println("Build number reset successfully") }
+              if (response != "") { println("Failed to reset build number: $response") }
           }
           env.BUILD_NUMBER = "1"
           resetBuildNumber()
