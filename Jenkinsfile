@@ -7,7 +7,11 @@ pipeline {
     acr        = "devops2022.azurecr.io"
     image      = "felixstrauss"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
-    dockerPath = "./comicBook"
+    dockerPath = "./App/Docker/Helloworld"
+    // dockerPath = "./App/Docker/ColorQuiz"
+    // dockerPath = "./App/Docker/HtmlComicBook"
+    // dockerPath = "./App/Docker/ReactComicBook"
+
     // AUTOMATICALLY  GENERATED VARIABLES
     // These variables are automatically generated and should not be edited manually
     // Bash variables in SCREAMING_SNAKE_CASE
@@ -78,7 +82,7 @@ pipeline {
       when{ expression {isNewImage}} 
       steps {
         withDockerRegistry(credentialsId: 'acr_creds', url: "https://${acr}/v2/") {
-          sh "docker build -t ${acr}/${imageTag} ./App"
+          sh "docker build -t ${acr}/${imageTag} ${dockerPath}"
           sh "docker push ${acr}/${imageTag}"
           sh "docker rmi ${acr}/${imageTag}"
         }
