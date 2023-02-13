@@ -1,17 +1,32 @@
 1) plan/ feedback
-
+    
+    https://th.bing.com/th/id/OIP.D0ivcUQUJ9DAOfGFTQHXZwHaFY?pid=ImgDet&rs=1
+    https://img00.deviantart.net/00d4/i/2009/025/8/7/crime_storyboard_by_nube.jpg
+  
 2) Code
+    https://th.bing.com/th/id/OIP.HfP08OQzkzV4tl4CVgwfeQHaE8?pid=ImgDet&rs=1
     https://live.staticflickr.com/1041/1162284306_0da7ed6b94_b.jpg
 
 3) Build
+    https://live.staticflickr.com/4320/35978238535_07e2bb6e8d_b.jpg
 
 4) Test
+    https://c.pxhere.com/photos/bf/fe/checklist_daily_report_data_desk_paper_paperwork_pen-1531329.jpg!d
 
 5) Release/Confing
 
+    https://th.bing.com/th/id/OIP.DSZ8rX_hCzVcFOR_M788ZgHaF6?pid=ImgDet&rs=1
+    
+
 6) Deploy
+    https://th.bing.com/th/id/R.3c76baa082744019c2bb54204517b402?rik=zOmyu9ONW82S%2bg&pid=ImgRaw&r=0
+    https://th.bing.com/th/id/OIP.MNh6h_P2D0PrL3hDbMKYlAAAAA?pid=ImgDet&rs=1
 
 6) Operate
 
+    https://lh3.googleusercontent.com/-BnOmZDdxEPM/TdKv13mJE_I/AAAAAAAADGc/PrGTWlrZlZc/s400/DSC_0200.JPG
+
 7) Monitor/ Observe
+
+    https://images.pexels.com/videos/7221187/pexels-photo-7221187.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200
 
