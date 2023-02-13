@@ -1,0 +1,17 @@
+1) plan/ feedback
+
+2) Code
+    https://live.staticflickr.com/1041/1162284306_0da7ed6b94_b.jpg
+
+3) Build
+
+4) Test
+
+5) Release/Confing
+
+6) Deploy
+
+6) Operate
+
+7) Monitor/ Observe
+
