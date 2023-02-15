@@ -9,7 +9,7 @@ pipeline {
   environment {
     // HARDCODED VARIABLES
     // These variables are manually set and can be changed if necessary
-    repo       = 'github.com/Brights-DevOps-2022-Script/repo-demo-marc.git'
+    repo       = 'github.com/Brights-DevOps-2022-Script/DevOps-Daemons-ArgoCd.git'
     branch     = 'main'
     acr        = "devops2022.azurecr.io"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
@@ -19,7 +19,7 @@ pipeline {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     tag        = "${GIT_COMMIT}"
-    image1     = "repo-demo-marc"
+    image1     = "devops-daemons-argocd"
     imageTag   = "${image1}:${tag}"
     // conditions
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
@@ -121,7 +121,7 @@ pipeline {
             sh "git add ."
             sh "git commit -m 'jenkins push'"
             try {
-              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/repo-demo-marc.git HEAD:main"
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/DevOps-Daemons-ArgoCd.git HEAD:main"
             } catch (Exception e) {
               println "Error pushing deployment file: ${e.getMessage()}"
               currentBuild.result = 'FAILURE'
