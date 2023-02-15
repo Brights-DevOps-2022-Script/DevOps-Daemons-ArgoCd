@@ -19,7 +19,7 @@ pipeline {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     tag        = "${GIT_COMMIT}"
-    image1     = "comicbook"
+    image1     = "repo-demo-marc"
     imageTag   = "${image1}:${tag}"
     // conditions
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
