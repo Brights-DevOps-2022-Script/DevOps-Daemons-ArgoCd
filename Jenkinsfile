@@ -1,12 +1,23 @@
-pipeline
+pipeline{
 
     environment {
         repo    = 'github.com/Brights-DevOps-2022-Script/repo-demo-marc.git'
         branch  = 'main'
         acr     = 'devops2022.azurecr.io'
         gitCred = '2eb747c4-f19f-4601-ab83-359462e62482'
-        tag     = '${GIT_Commit}'
-        isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
+        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
+        GIT_MSG    = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"').trim()
+        // CHANGES    = sh(script: 'git diff HEAD^ --name-only ../frontend', returnStdout: true).trim()
+        // Groovy variables in camelCase
+        buildNo    = "${env.BUILD_NUMBER}"
+        tag        = "${GIT_COMMIT}"
+        //tag        = "${env.BUILD_NUMBER}"
+       imageTag   = "${image}:${tag}"
+       // conditions
+      isNewImage          = true
+      isNonBuildRelease   = false
+      isJenkins           = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
     }
 
     agent any
@@ -113,4 +124,5 @@ pipeline
       }
       }
     }
+}
 }
