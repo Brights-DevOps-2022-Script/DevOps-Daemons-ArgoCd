@@ -79,7 +79,7 @@ pipeline{
           }
         }
       }
-        
+   }
        stage('DEPLOY DEPLOYMENT FILE') {
       when { expression { images.any { it.needUpdate } } }
           steps{
@@ -122,6 +122,6 @@ pipeline{
         }
       }
       }
-    }
+    
 }
 }
