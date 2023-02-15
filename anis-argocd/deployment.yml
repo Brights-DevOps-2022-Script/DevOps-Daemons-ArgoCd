@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: devops2022.azurecr.io/nginxanis
+        image: devops2022.azurecr.io/nginxanisbook:f651c5995e6f85ff0a84d787749e0285bd53fb06
         ports:
         - containerPort: 80
 ---
@@ -36,16 +36,21 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
- name: nginxanis
+  name: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/enable-metrics: "true"
+    nginx-ingress.controller.metrics.enabled: "true"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9113"
+    prometheus.io/scheme: "https"
 spec:
   ingressClassName: nginx
   rules:
   - host: devops2022.de
     http:
       paths:
-      - path: "/anis"
+      - path: "/anisbook"
         pathType: Prefix
         backend:
           service:
