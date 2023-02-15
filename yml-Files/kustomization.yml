@@ -6,5 +6,5 @@ resources:
   - ingress.yml
 images:
   - name: nodejs
-    newName: devops2022.azurecr.io/comicbook
-    newTag: e938199b57962a0203a58d5d886a795478b32847
+    newName: devops2022.azurecr.io/repo-demo-marc
+    newTag: 9f4a54e9a848846f49d48257642b5af7b8880e70
