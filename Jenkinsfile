@@ -11,30 +11,29 @@ pipeline{
         // CHANGES    = sh(script: 'git diff HEAD^ --name-only ../frontend', returnStdout: true).trim()
         // Groovy variables in camelCase
         buildNo    = "${env.BUILD_NUMBER}"
-        tag        = "${GIT_COMMIT}"
+        //tag        = "${GIT_COMMIT}"
         //tag        = "${env.BUILD_NUMBER}"
-       imageTag   = "${image}:${tag}"
-       // conditions
-      isNewImage          = true
-      isNonBuildRelease   = false
-      isJenkins           = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
+        imageTag   = "${image}:${tag}"
+        // conditions
+        isNewImage          = true
+        isNonBuildRelease   = false
+        isJenkins           = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
     }
 
     agent any
 
     stages {
 
-         stage('Check for Image Changes') {
-      when{ expression {isJenkins}}
-      steps {
-        script {
-          for (def image : images) {
-            def path = image["path"]
-            def changes = sh(script: "git diff HEAD^ --name-only ${path}", returnStdout: true).trim()
-             def commitMsg = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
-
-            if (changes != "" || commitMsg =~ /force/) {
-              image["needUpdate"] = true
+        stage('Check for Image Changes') {
+            when{ expression {isJenkins}}
+             steps {
+              script {
+                  for (def image : images) {
+                    def path = image["path"]
+                    def changes = sh(script: "git diff HEAD^ --name-only ${path}", returnStdout: true).trim()
+                     def commitMsg = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                  if (changes != "" || commitMsg =~ /force/) {
+                image["needUpdate"] = true
             }
           }
         }
@@ -42,40 +41,40 @@ pipeline{
       }
     
 
-    stage('print Infos') {
-      steps {
-        script {
-          println "Git Author        : ${GIT_AUTHOR}"
-          println "Git Commit        : ${GIT_COMMIT}"
-          println "is jenkins        : ${isJenkins}"
-          println "ACR login Server  : ${acr}"
-          println "Repo              : ${repo}"
-          println "Images:"
-          for (def image : images) {
-              println "  name: ${image['name']}, path: ${image['path']}, need update: ${image['needUpdate']}"
+        stage('print Infos') {
+          steps {
+            script {
+             println "Git Author        : ${GIT_AUTHOR}"
+             println "Git Commit        : ${GIT_COMMIT}"
+             println "is jenkins        : ${isJenkins}"
+             println "ACR login Server  : ${acr}"
+             println "Repo              : ${repo}"
+             println "Images:"
+             for (def image : images) {
+                 println "  name: ${image['name']}, path: ${image['path']}, need update: ${image['needUpdate']}"
           }
         }
       }
     }
 
-    stage('Docker image'){
-        when { expression {images.any { image -> image.needUpdate }}}
-      steps{
-        script {
-          for (int i = 0; i < images.size(); i++) {
-            def image = images[i]
-            try {           
-                WithDockerRegistry([ credentialsId: 'acr_creds', url: 'https://']) {
-                    sh "docker build -t ${acr}/${image.name}:${tag} ${image.path}"
-                    sh "docker push ${acr}/${image.name}:${tag}"
-                    sh "docker rmi ${acr}/${image.name}:${tag}"
+        stage('Docker image'){
+           when { expression {images.any { image -> image.needUpdate }}}
+             steps{
+                script {
+                 for (int i = 0; i < images.size(); i++) {
+                   def image = images[i]
+                  try {           
+                  WithDockerRegistry([ credentialsId: 'acr_creds', url: "https://${arc}/v2/"]) {
+                     sh "docker build -t ${acr}/${image.name}:${tag} ${image.path}"
+                     sh "docker push ${acr}/${image.name}:${tag}"
+                     sh "docker rmi ${acr}/${image.name}:${tag}"
+                    }
                 }
-            }
                     
-            catch (Exception e) {
-              println "Error building Docker image: ${e.getMessage()}"
-              currentBuild.result = 'FAILURE'
-              error "Failed to build Docker image for ${image.name}"
+                 catch (Exception e) {
+                  println "Error building Docker image: ${e.getMessage()}"
+                  currentBuild.result = 'FAILURE'
+                  error "Failed to build Docker image for ${image.name}"
             }
           }
         }
@@ -83,18 +82,18 @@ pipeline{
         
        stage('DEPLOY DEPLOYMENT FILE') {
       when { expression { images.any { it.needUpdate } } }
-      steps{
-        script {
-          withCredentials([usernamePassword(credentialsId: "${gitCred}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-            checkout([
-              $class: 'GitSCM',
-              branches: [[name: '*/main']],
-              doGenerateSubmoduleConfigurations: false,
-              extensions: [],
-              submoduleCfg: [],
-              userRemoteConfigs: [[
-                credentialsId: "${gitCred}",
-                url: "https://${repo}"
+          steps{
+            script {
+             withCredentials([usernamePassword(credentialsId: "${gitCred}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+              checkout([
+               $class: 'GitSCM',
+               branches: [[name: '*/main']],
+               doGenerateSubmoduleConfigurations: false,
+               extensions: [],
+               submoduleCfg: [],
+               userRemoteConfigs: [[
+               credentialsId: "${gitCred}",
+               url: "https://${repo}"
               ]]
             ])
             sh "chmod +x './BashScripts/deployFile.sh'"
