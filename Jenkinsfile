@@ -68,18 +68,46 @@ pipeline
               error "Failed to build Docker image for ${image.name}"
             }
         
-        stage('Update Manifest') {
-            steps {
-                withCredentials([usernamePassword(credentialsID: ' GitHubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
-                    sh "rm -rf gitops-demo-deployment"
-                    sh "git clone git-repo"
-                    sh "cd gitops-demo-deploymnent"
-                    dir('gitos-demo-deployment'){
-                        sh " sed -i 's/newTag: v${BUILD_NUMBER}/g' kustomize/overlays/*/*kustomization.yaml"
-                        sh "git commit -m 'Update Image version to: ${BUILD_NUMBER}'"
-                        sh "git push gitrepo-target.git HEAD:master -f "
-                    }
+       stage('DEPLOY DEPLOYMENT FILE') {
+      when { expression { images.any { it.needUpdate } } }
+      steps{
+        script {
+          withCredentials([usernamePassword(credentialsId: "${gitCred}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            checkout([
+              $class: 'GitSCM',
+              branches: [[name: '*/main']],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [],
+              submoduleCfg: [],
+              userRemoteConfigs: [[
+                credentialsId: "${gitCred}",
+                url: "https://${repo}"
+              ]]
+            ])
+            sh "chmod +x './BashScripts/deployFile1.sh'"
+            for (int i = 0; i < images.size(); i++) {
+              def image = images[i]
+              if (image.needUpdate) {
+                try {
+                  sh "./BashScripts/deployFile1.sh --name=${image.name} --newTag=${tag} --newName=${image.name} --repo=${repo}"
+                } catch (Exception e) {
+                  println "Error deploying deployment file: ${e.getMessage()}"
+                  currentBuild.result = 'FAILURE'
+                  error "Failed to deploy deployment file for ${image.name}"
                 }
+              }
             }
+            sh "git add ./yml-Files/kustomization.yml"
+            sh "git commit -m 'jenkins push'"
+            try {
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git HEAD:main"
+            } catch (Exception e) {
+              println "Error pushing deployment file: ${e.getMessage()}"
+              currentBuild.result = 'FAILURE'
+              error "Failed to push deployment file"
+            }
+          }
         }
+      }
     }
+}
