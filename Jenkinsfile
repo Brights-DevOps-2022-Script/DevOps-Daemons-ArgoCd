@@ -35,7 +35,7 @@ pipeline{
           }
         }
       }
-    }
+    
 
         stage('Docker image'){
            when { expression {images.any { image -> image.needUpdate }}}
@@ -102,5 +102,5 @@ pipeline{
         }
       }
       }
-    
+    }
 }
