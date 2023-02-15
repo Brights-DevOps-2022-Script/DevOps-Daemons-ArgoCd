@@ -117,7 +117,7 @@ pipeline {
             }
             sh "sed -i 's|image:.*|image: devops2022.azurecr.io/${imageTag} |' ./yml-Files/deployment.yml"
             sh "git add ./yml-Files/kustomization.yml"
-            sh "git add ./yml-Files/allinone.yml"
+            sh "git add ./yml-Files/deployment.yml"
             sh "git add ."
             sh "git commit -m 'jenkins push'"
             try {
