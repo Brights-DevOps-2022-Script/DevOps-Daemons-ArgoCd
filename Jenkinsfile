@@ -32,9 +32,6 @@ pipeline{
              println "is jenkins        : ${isJenkins}"
              println "ACR login Server  : ${acr}"
              println "Repo              : ${repo}"
-             println "Images:"
-             for (def image : images) {
-                 println "  name: ${image['name']}, path: ${image['path']}, need update: ${image['needUpdate']}"
           }
         }
       }
