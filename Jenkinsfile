@@ -29,7 +29,7 @@ pipeline
         }
       }
       }
-    }
+    
 
     stage('print Infos') {
       steps {
@@ -84,12 +84,12 @@ pipeline
                 url: "https://${repo}"
               ]]
             ])
-            sh "chmod +x './BashScripts/deployFile1.sh'"
+            sh "chmod +x './BashScripts/deployFile.sh'"
             for (int i = 0; i < images.size(); i++) {
               def image = images[i]
               if (image.needUpdate) {
                 try {
-                  sh "./BashScripts/deployFile1.sh --name=${image.name} --newTag=${tag} --newName=${image.name} --repo=${repo}"
+                  sh "./BashScripts/deployFile.sh --name=${image.name} --newTag=${tag} --newName=${image.name} --repo=${repo}"
                 } catch (Exception e) {
                   println "Error deploying deployment file: ${e.getMessage()}"
                   currentBuild.result = 'FAILURE'
@@ -109,5 +109,7 @@ pipeline
           }
         }
       }
+      }
     }
+}
 }
