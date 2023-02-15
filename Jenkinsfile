@@ -1,54 +1,45 @@
-pipeline {
+pipeline
+
+    environment {
+        imagerepo = 'limarktest'
+        imagename = 'nodejs-docker'
+    }
+
     agent any
-    stages {    
-        stage('build & push') {
+
+    stages {
+
+        stage('Docker image'){
             steps{
-                withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/'){
-                sh 'docker build -t devops2022.azurecr.io/dropdrop:$GIT_COMMIT .'
-                sh "docker push devops2022.azurecr.io/dropdrop:$GIT_COMMIT"
-                sh 'docker rmi devops2022.azurecr.io/dropdrop:$GIT_COMMIT'
-                }               
+                sh "docker build --no-cache . -t ${imagename}:v${BUILD_NUMBER}"
             }
         }
-         stage('deploy ze deployment file') {
+        stage('Tag Docker Image'){
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions:[], submoduleCfg: [], userRemoteConfigs:[], userRemoteConfigs: [[credentialsId:'2eb747c4-f19f-4601-ab83-359462e62482', url: 'https://github.com/Brights-DevOps-2022-Script/argocd.git' ]] ])
-                withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME' )]) {
-                    sh("""
-                    echo '                    
-                        apiVersion: kustomize.config.k8s.io/v1beta1
-                        kind: Kustomization
-                        resources:
-                            - deployment.yml
-                        images:
-                            - name: nginx
-                    newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > marc-agr/kustomization.yml               
-                """)
-                sh("git add marc-agr/kustomization.yml")
-                sh("git commit -m 'nginx deploy, service'")
-                sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/argocd.git HEAD:main")
+                sh "docker tag nodejs-docker:v${BUILD_NUmber} ${imagerepo}/${imagename}:${BUILD_NUMBER}"
+            }
+        }
+
+        stage('Push Docker image') {
+            steps{
+                WithDockerRegistry([ credentialsId: 'DockerHubCredentials', url: '']) {
+                    sh "docker push ${imagerepo}/${imagename}:v${BUILD_NUMBER}"
                 }
-            }          
-        }
-        stage('ze other file'){
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'MessageExclusion', excludedMessage: '.*\\[skip ci\\].*']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/repo-demo-marc.git']]])
-                withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh("""
-                        echo 'apiVersion: kustomize.config.k8s.io/v1beta1
-                        kind: Kustomization
-                        resources:
-                            - deployment.yml
-                        images:
-                            - name: nginx
-                        newName: devops2022.azurecr.io/dropdrop:${GIT_COMMIT}' > kustomization.yml
-                    """)
-                    sh("git add kustomization.yml")
-                    sh("git commit -m 'kustomization'")
-                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/repo-demo-marc.git HEAD:main")
             }
         }
+
+        stage('Update Manifest') {
+            steps {
+                withCredentials([usernamePassword(credentialsID: ' GitHubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+                    sh "rm -rf gitops-demo-deployment"
+                    sh "git clone git-repo"
+                    sh "cd gitops-demo-deploymnent"
+                    dir('gitos-demo-deployment'){
+                        sh " sed -i 's/newTag: v${BUILD_NUMBER}/g' kustomize/overlays/*/*kustomization.yaml"
+                        sh "git commit -m 'Update Image version to: ${BUILD_NUMBER}'"
+                        sh "git push gitrepo-target.git HEAD:master -f "
+                    }
+                }
+            }
         }
     }
-}
-        
