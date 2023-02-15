@@ -9,7 +9,7 @@ pipeline {
   environment {
     // HARDCODED VARIABLES
     // These variables are manually set and can be changed if necessary
-    repo       = 'github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git'
+    repo       = 'github.com/Brights-DevOps-2022-Script/repo-demo-marc.git'
     branch     = 'main'
     acr        = "devops2022.azurecr.io"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
