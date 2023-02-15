@@ -1,6 +1,6 @@
 def images = [  
  // ["name": "farbenspiel", "path": "./Farbenspiel",  "needUpdate": false ],
-  ["name": "nodeTest",   "path": "./",    "needUpdate": false ],
+  ["name": "nodeTest",   "path": " .",    "needUpdate": false ],
  // ["name": "reactcomic",  "path": "./ReactComic",   "needUpdate": false ],  
  // ["name": "testcomic",   "path": "./TestComic",    "needUpdate": false ]
 ]
@@ -101,7 +101,8 @@ pipeline {
                 url: "https://${repo}"
               ]]
             ])
-            sh "chmod +x './BashScripts/deployFile.sh'"
+            sh "ls"
+            sh "chmod +x ./BashScripts/deployFile.sh"
             for (int i = 0; i < images.size(); i++) {
               def image = images[i]
               if (image.needUpdate) {
