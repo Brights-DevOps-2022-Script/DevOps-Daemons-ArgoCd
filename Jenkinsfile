@@ -60,13 +60,15 @@ pipeline
                     sh "docker rmi ${acr}/${image.name}:${tag}"
                 }
             }
-          }
-          }
+                    
             catch (Exception e) {
               println "Error building Docker image: ${e.getMessage()}"
               currentBuild.result = 'FAILURE'
               error "Failed to build Docker image for ${image.name}"
             }
+          }
+        }
+      }
         
        stage('DEPLOY DEPLOYMENT FILE') {
       when { expression { images.any { it.needUpdate } } }
@@ -111,5 +113,4 @@ pipeline
       }
       }
     }
-}
 }
