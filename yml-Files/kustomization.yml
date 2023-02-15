@@ -6,5 +6,5 @@ resources:
   - ingress.yml
 images:
   - name: nodejs
-    newName: devops2022.azurecr.io/repo-demo-marc
-    newTag: 9f4a54e9a848846f49d48257642b5af7b8880e70
+    newName: devops2022.azurecr.io/devops-daemons-argocd
+    newTag: 76bb488623c5c6c4c49809984d7803613579cb42
