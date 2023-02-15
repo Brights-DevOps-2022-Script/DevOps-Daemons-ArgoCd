@@ -1,4 +1,10 @@
-resurces:
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
   - deployment.yml
   - service.yml
   - ingress.yml
+images:
+  - name: nodejs
+    newName: devops2022.azurecr.io/comicbook
+    newTag: e938199b57962a0203a58d5d886a795478b32847

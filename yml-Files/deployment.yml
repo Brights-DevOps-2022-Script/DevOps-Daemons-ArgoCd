@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: devops2022.azurecr.io/comicbook
+          image: devops2022.azurecr.io/comicbook:e938199b57962a0203a58d5d886a795478b32847 
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
