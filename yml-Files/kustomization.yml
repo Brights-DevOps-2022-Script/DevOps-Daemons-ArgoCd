@@ -7,4 +7,4 @@ resources:
 images:
   - name: nodejs
     newName: devops2022.azurecr.io/devops-daemons-argocd
-    newTag: 76bb488623c5c6c4c49809984d7803613579cb42
+    newTag: 79a3bb6d0883222db3e0396508b3cb12c901c7e1
