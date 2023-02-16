@@ -78,7 +78,7 @@ spec:
   - host: devopsdaemons.devops2022.de
     http:
       paths:
-      - path: /.*
+      - path: /metrics
         pathType: Prefix
         backend:
           service:
