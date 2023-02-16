@@ -21,7 +21,7 @@ pipeline {
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     tag        = "${GIT_COMMIT}"
     //tag        =  BUILD_NUMBER.toString()
-    image1     = "comicbook"
+    image1     = "dod-pro-test"
     imageTag   = "${image1}:${tag}"
     // conditions
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')

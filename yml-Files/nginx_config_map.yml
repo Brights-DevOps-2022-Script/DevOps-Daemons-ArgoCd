@@ -13,7 +13,7 @@ data:
           index.html index.htm;
       }
 
-      locaton / nginx_status {
+      location / nginx_status {
           stub_status;
           allow 127.0.0.1; 
           deny all; 
