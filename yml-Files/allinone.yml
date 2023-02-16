@@ -2,7 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testcomic
+  annotaions:
+    prometheus.io/scrape: "true"
+    prometheus.io/port "10254"
 spec:
+  ports: 
+    - name: prometheus
+      containerPort: 10254 
   replicas: 1
   selector:
     matchLabels:
@@ -22,10 +28,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: testcomic-service
+  annotaions:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "10254"
 spec:
   selector:
     app: testcomic
   ports:
+    - name: prometheus
+      port: 10254
+      targetPort: prometheus
     - protocol: TCP
       port: 80
       targetPort: 80
