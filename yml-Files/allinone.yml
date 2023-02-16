@@ -2,13 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testcomic
-  annotaions:
-    prometheus.io/scrape: "true"
-    prometheus.io/port "10254"
 spec:
   ports: 
-    - name: prometheus
-      containerPort: 10254 
   replicas: 1
   selector:
     matchLabels:
@@ -23,24 +18,46 @@ spec:
         image: devops2022.azurecr.io/comicbook:4430e7e40c5e7253b3e3c7452b94550e9edc2bc3 
         ports:
         - containerPort: 80
+        volumeMounts:
+          - mountPath: /etc/nginx/conf.d
+            name: nginx-conf
+            readOnly: true
+        resources:
+          limits: 
+            memory: 512Mi
+            cpu: "1"
+      - name: adapter
+        image:/nginx-prometheus-exporter:0.8.0
+        args: ["-nginx.scrape-url", "https://localhost/nginx_status"]
+        ports:
+          - containerPort: 9113
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-configmap
+            items:
+              - key: default.conf
+                path: default.conf    
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: testcomic-service
-  annotaions:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "10254"
 spec:
   selector:
     app: testcomic
   ports:
-    - name: prometheus
-      port: 10254
-      targetPort: prometheus
-    - protocol: TCP
+    - name: ngmon
+      protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 9113
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1

@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: monitoring-nginx
+  namespace: monitoring-dod
+spec:
+  selector:
+    matchLables:
+      # Tagert nginx-metrics service
+      app: nginx-metrics
+    endpoints:
+    - interval: 10s
+      path: /metrics
+      port: ngmon
+    namespaceSelector:
+      matchesNames:
+        - default
