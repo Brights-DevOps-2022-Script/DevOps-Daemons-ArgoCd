@@ -95,7 +95,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: "${gitCred}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             checkout([
               $class: 'GitSCM',
-              branches: [[name: '*/main']],
+              branches: [[name: '*/nodejs']],
               doGenerateSubmoduleConfigurations: false,
               extensions: [],
               submoduleCfg: [],
@@ -124,7 +124,7 @@ pipeline {
             // sh "git add ."
             sh "git commit -m 'jenkins push'"
             try {
-              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main"
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:nodejs"
             } catch (Exception e) {
               println "Error pushing deployment file: ${e.getMessage()}"
               currentBuild.result = 'FAILURE'
