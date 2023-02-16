@@ -3,6 +3,8 @@ echo "apiVersion: kustomize.config.k8s.io/v1beta1"    >  ./yml-Files/kustomizati
 echo "kind: Kustomization"                            >> ./yml-Files/kustomization.yml
 echo "resources:"                                     >> ./yml-Files/kustomization.yml
 echo "  - allinone.yml"                               >> ./yml-Files/kustomization.yml
+echo "  - nginx_config_map.yml"                       >> ./yml-Files/kustomization.yml
+echo "  - service_monitor.yml"                        >> ./yml-Files/kustomization.yml
 echo "images:"                                        >> ./yml-Files/kustomization.yml
 echo "   - name: nginxcomic"                          >> ./yml-Files/kustomization.yml
 echo "     newName: devops2022.azurecr.io/${1}"       >> ./yml-Files/kustomization.yml
