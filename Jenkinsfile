@@ -10,7 +10,7 @@ pipeline {
   environment {
     // HARDCODED VARIABLES
     // These variables are manually set and can be changed if necessary
-    repo       = 'github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git'
+    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
     branch     = 'main'
     acr        = "devops2022.azurecr.io"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
@@ -124,7 +124,7 @@ pipeline {
             // sh "git add ."
             sh "git commit -m 'jenkins push'"
             try {
-              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git HEAD:main"
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:main"
             } catch (Exception e) {
               println "Error pushing deployment file: ${e.getMessage()}"
               currentBuild.result = 'FAILURE'
