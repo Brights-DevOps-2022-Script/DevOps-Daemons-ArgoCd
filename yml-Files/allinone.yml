@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginxcomic
-        image: devops2022.azurecr.io/comicbook:e44bd0544f17929185613f4622f1e2aa52bf7962 
+        image: devops2022.azurecr.io/comicbook:2c2fbc37f56585473864e62038458113663124e3 
         ports:
         - containerPort: 80
         volumeMounts:
@@ -27,7 +27,7 @@ spec:
             memory: 512Mi
             cpu: "1"
       - name: adapter
-        image: devops2022.azurecr.io/comicbook:e44bd0544f17929185613f4622f1e2aa52bf7962 
+        image: devops2022.azurecr.io/comicbook:2c2fbc37f56585473864e62038458113663124e3 
         args: ["-nginx.scrape-url", "https://localhost/nginx_status"]
         ports:
           - containerPort: 9113
