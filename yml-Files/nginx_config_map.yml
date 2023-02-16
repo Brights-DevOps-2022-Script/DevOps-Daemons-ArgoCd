@@ -6,7 +6,7 @@ data:
   default.conf: |
     server {
       listen    80;
-      server_name localhost;
+      server_name devopsdaemons.devops2022.de;
 
       location / {
           root /usr/share/nginx/html;
@@ -15,7 +15,7 @@ data:
 
       location / nginx_status {
           stub_status;
-          allow 127.0.0.1; 
+          allow 20.23.166.37; 
           deny all; 
       }
 
