@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - allinone.yml
+images:
+  - name: nginxcomic
+    newName: devops2022.azurecr.io/--name=testcomic
+    newTag: --newTag=241bb11f15dd8070b8fa8590cde765b71945d099

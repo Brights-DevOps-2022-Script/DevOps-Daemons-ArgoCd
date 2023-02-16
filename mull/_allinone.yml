@@ -1,0 +1,172 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: htmlcomic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: htmlcomic
+  template:
+    metadata:
+      labels:
+        app: htmlcomic
+    spec:
+      containers:
+      - name: htmlcomic
+        image: devops2022.azurecr.io/comicbook:farbenspiel
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: htmlcomic-service
+spec:
+  selector:
+    app: htmlcomic
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+//  type: ClusterIP
+//---
+//apiVersion: apps/v1
+//kind: Deployment
+//metadata:
+//  name: reactcomic
+//spec:
+//  replicas: 1
+//  selector:
+//    matchLabels:
+//      app: reactcomic
+//  template:
+//    metadata:
+//      labels:
+//        app: reactcomic
+//    spec:
+//      containers:
+//      - name: reactcomic
+//        image: devops2022.azurecr.io/comicbook:testcomic
+//        ports:
+//        - containerPort: 80
+//---
+//apiVersion: v1
+//kind: Service
+//metadata:
+//  name: reactcomic-service
+//spec:
+//  selector:
+//    app: reactcomic
+//  ports:
+//    - protocol: TCP
+//      port: 80
+//      targetPort: 80
+//  type: ClusterIP
+//---
+//apiVersion: apps/v1
+//kind: Deployment
+//metadata:
+//  name: farbenspiel
+//spec:
+//  replicas: 1
+//  selector:
+//    matchLabels:
+//      app: farbenspiel
+//  template:
+//    metadata:
+//      labels:
+//        app: farbenspiel
+//    spec:
+//      containers:
+//      - name: farbenspiel
+//        image: devops2022.azurecr.io/comicbook:farbenspiel
+//        ports:
+//        - containerPort: 80
+//---
+//apiVersion: v1
+//kind: Service
+//metadata:
+//  name: farbenspiel-service
+//spec:
+//  selector:
+//    app: farbenspiel
+//  ports:
+//    - protocol: TCP
+//      port: 80
+//      targetPort: 80
+//  type: ClusterIP
+//---
+//apiVersion: apps/v1
+//kind: Deployment
+//metadata:
+//  name: testcomic
+//spec:
+//  replicas: 1
+//  selector:
+//    matchLabels:
+//      app: testcomic
+//  template:
+//    metadata:
+//      labels:
+//        app: testcomic
+//    spec:
+//      containers:
+//      - name: testcomic
+//        image: devops2022.azurecr.io/comicbook:testcomic
+//        ports:
+//        - containerPort: 80
+//---
+//apiVersion: v1
+//kind: Service
+//metadata:
+//  name: testcomic-service
+//spec:
+//  selector:
+//    app: testcomic
+//  ports:
+//    - protocol: TCP
+//      port: 80
+//      targetPort: 80
+//  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: comicingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: devopsdaemons.devops2022.de
+    http:
+      paths:
+      - path: "/htmlcomic"
+        pathType: Prefix
+        backend:
+          service:
+            name: htmlcomic-service
+            port:
+              number: 80
+//    - path: "/reactcomic"
+//      pathType: Prefix
+//      backend:
+//        service:
+//          name: reactcomic-service
+//          port:
+//            number: 80
+//    - path: "/farbenspiel"
+//      pathType: Prefix
+//      backend:
+//        service:
+//          name: farbenspiel-service
+//          port:
+//            number: 80
+//    - path: "/testcomic"
+//      pathType: Prefix
+//      backend:
+//        service:
+//          name: testcomic-service
+//          port:
+//            number: 80

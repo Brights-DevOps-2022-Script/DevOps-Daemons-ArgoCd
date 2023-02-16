@@ -1,0 +1,129 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  #container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+  }
+  
+  #container div {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #000;
+  }
+  
+  #container .plan,
+  #container .feedback,
+  #container .code,
+  #container .build,
+  #container .test,
+  #container .release,
+  #container .config,
+  #container .deploy,
+  #container .operate,
+  #container .observe {
+    font-size: 2rem;
+  }
+  
+  #container .infinite {
+    font-size: 3rem;
+  }
+  
+  #container .plan {
+    background-color: #ee5f5b;
+    color: #fff;
+  }
+  
+  #container .feedback {
+    background-color: #2f8fdd;
+    color: #fff;
+  }
+  
+  #container .code {
+    background-color: #f49a2e;
+    color: #fff;
+  }
+  
+  #container .build {
+    background-color: #69c965;
+    color: #fff;
+  }
+  
+  #container .test {
+    background-color: #a27fc5;
+    color: #fff;
+  }
+  
+  #container .release {
+    background-color: #ffd61d;
+    color: #fff;
+  }
+  
+  #container .config {
+    background-color: #6c6d6d;
+    color: #fff;
+  }
+  
+  #container .deploy {
+    background-color: #673ab7;
+    color: #fff;
+  }
+  
+  #container .operate {
+    background-color: #14b9d5;
+    color: #fff;
+  }
+  
+  #container .observe {
+    background-color: #9b9b9b;
+    color: #fff;
+  }
+  
+  #container .plan,
+  #container .feedback {
+    margin-right: 15px;
+  }
+  
+  #container .test,
+  #container .release {
+    margin-left: 15px;
+  }
+  
+  @media (max-width: 600px) {
+    #container {
+      flex-wrap: wrap;
+      width: 90%;
+    }
+  
+    #container .plan,
+    #container .feedback {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  
+    #container .test,
+    #container .release {
+      margin-left: 0;
+      margin-top: 15px;
+    }
+  }
+  

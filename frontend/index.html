@@ -1,0 +1,4445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>DevOps-Daemons</title>
+  <meta name="title" content="Bookish - Read More And Make Success" />
+  <meta name="description"
+    content="Read More And Make Success The Result Of Perfection. - Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad harum quibusdam, assumenda quia explicabo." />
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+
+  <!-- 
+    - custom css link
+  -->
+  <!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
+  <style>
+    /*-----------------------------------*\
+  #style.css
+\*-----------------------------------*/
+
+    /**
+ * copyright 2022 codewithsadee
+ */
+
+    /*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
+    :root {
+      /**
+ * colors
+ */
+
+      --chinese-violet_30: hsla(304, 14%, 46%, 0.3);
+      --chinese-violet: hsl(304, 14%, 46%);
+      --sonic-silver: hsl(208, 7%, 46%);
+      --old-rose_30: hsla(357, 37%, 62%, 0.3);
+      --ghost-white: hsl(233, 33%, 95%);
+      --light-pink: hsl(357, 93%, 84%);
+      --light-gray: hsl(0, 0%, 80%);
+      --old-rose: hsl(357, 37%, 62%);
+      --seashell: hsl(20, 43%, 93%);
+      --charcoal: hsl(203, 30%, 26%);
+      --white: hsl(0, 0%, 100%);
+
+      /**
+ * typography
+ */
+
+      --ff-philosopher: "Philosopher", sans-serif;
+      --ff-poppins: "Poppins", sans-serif;
+
+      --fs-1: 4rem;
+      --fs-2: 3.2rem;
+      --fs-3: 2.7rem;
+      --fs-4: 2.4rem;
+      --fs-5: 2.2rem;
+      --fs-6: 2rem;
+      --fs-7: 1.8rem;
+
+      --fw-500: 500;
+      --fw-700: 700;
+
+      /**
+ * spacing
+ */
+
+      --section-padding: 80px;
+
+      /**
+ * shadow
+ */
+
+      --shadow-1: 4px 6px 10px hsla(231, 94%, 7%, 0.06);
+      --shadow-2: 2px 0 15px 5px hsla(231, 94%, 7%, 0.06);
+      --shadow-3: 3px 3px var(--chinese-violet);
+      --shadow-4: 5px 5px var(--chinese-violet);
+
+      /**
+ * radius
+ */
+
+      --radius-5: 5px;
+      --radius-10: 10px;
+
+      /**
+ * clip path
+ */
+
+      --polygon: polygon(100% 29%, 100% 100%, 19% 99%, 0 56%);
+
+      /**
+ * transition
+ */
+
+      --transition-1: 0.25s ease;
+      --transition-2: 0.5s ease;
+      --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
+    }
+
+    /*-----------------------------------*\
+#RESET
+\*-----------------------------------*/
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a,
+    img,
+    span,
+    data,
+    input,
+    button,
+    textarea,
+    ion-icon {
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      height: auto;
+    }
+
+    input,
+    button,
+    textarea {
+      background: none;
+      border: none;
+      font: inherit;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    ion-icon {
+      pointer-events: none;
+    }
+
+    html {
+      font-family: var(--ff-poppins);
+      font-size: 10px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--sonic-silver);
+      font-size: 1.6rem;
+      line-height: 1.8;
+    }
+
+    :focus-visible {
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background-color: var(--old-rose);
+      color: var(--white);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: hsl(0, 0%, 98%);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: hsl(0, 0%, 80%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: hsl(0, 0%, 70%);
+    }
+
+    /*-----------------------------------*\
+#REUSED STYLE
+\*-----------------------------------*/
+
+    .container {
+      padding-inline: 15px;
+    }
+
+    .section {
+      padding-block: var(--section-padding);
+    }
+
+    .section:nth-child(odd) {
+      background-color: var(--seashell);
+    }
+
+    .section-subtitle {
+      color: var(--old-rose);
+      text-transform: uppercase;
+      font-weight: var(--fw-700);
+      letter-spacing: 4px;
+      text-align: center;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .tab-text {
+      color: var(--charcoal);
+      font-family: var(--ff-philosopher);
+      line-height: 1.2;
+    }
+
+    .h1 {
+      font-size: var(--fs-2);
+    }
+
+    .h2 {
+      font-size: var(--fs-3);
+    }
+
+    .h3 {
+      font-size: var(--fs-5);
+    }
+
+    .section-text {
+      font-size: var(--fs-7);
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
+    .has-before,
+    .has-after {
+      position: relative;
+      z-index: 1;
+    }
+
+    .has-before::before,
+    .has-after::after {
+      content: "";
+      position: absolute;
+    }
+
+    .section-title {
+      text-align: center;
+    }
+
+    .grid-list {
+      display: grid;
+      gap: 25px;
+    }
+
+    .btn-link {
+      color: var(--old-rose);
+      font-weight: var(--fw-500);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition-1);
+    }
+
+    .btn-link:is(:hover, :focus) {
+      color: var(--chinese-violet);
+    }
+
+    .has-underline {
+      position: relative;
+      margin-block-end: 60px;
+    }
+
+    .has-underline .span {
+      height: 2px;
+      background-color: var(--old-rose_30);
+      width: 200px;
+      margin-inline: auto;
+      margin-block-start: 30px;
+    }
+
+    .has-underline .has-before::before {
+      width: 18px;
+      height: 18px;
+      top: 2px;
+      left: 45%;
+      transform: translateY(-50%) rotate(45deg);
+      background-color: var(--old-rose_30);
+      box-shadow: 7px -7px var(--old-rose_30);
+    }
+
+    .btn {
+      padding: 12px 30px;
+      transition: var(--transition-1);
+    }
+
+    .btn-primary {
+      background-color: var(--old-rose);
+      color: var(--white);
+    }
+
+    .btn-primary:is(:hover, :focus) {
+      background-color: var(--chinese-violet);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--old-rose);
+      color: var(--old-rose);
+    }
+
+    .btn-secondary:is(:hover, :focus) {
+      background-color: var(--old-rose);
+      color: var(--white);
+    }
+
+    .img-holder {
+      aspect-ratio: var(--width) / var(--height);
+      background-color: var(--light-gray);
+    }
+
+    .img-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /*-----------------------------------*\
+#HEADER
+\*-----------------------------------*/
+
+    .header {
+      background-color: var(--white);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      padding-block: 12px;
+      z-index: 4;
+      transition: var(--transition-2);
+    }
+
+    .header.active {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      filter: drop-shadow(var(--shadow-1));
+      transform: translateY(-100%);
+      transition: none;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--ff-philosopher);
+      font-size: 4rem;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .nav-toggle-btn {
+      font-size: 40px;
+      color: var(--charcoal);
+    }
+
+    .nav-toggle-btn ion-icon {
+      --ionicon-stroke-width: 20px;
+    }
+
+    .nav-toggle-btn.active .open,
+    .nav-toggle-btn .close {
+      display: none;
+    }
+
+    .nav-toggle-btn .open,
+    .nav-toggle-btn.active .close {
+      display: block;
+    }
+
+    .navbar {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: var(--white);
+      padding-inline: 15px;
+      max-height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition: 0.25s var(--cubic-out);
+    }
+
+    .navbar.active {
+      max-height: 300px;
+      visibility: visible;
+      transition-duration: 0.5s;
+    }
+
+    .navbar-list {
+      margin-block-end: 10px;
+    }
+
+    .navbar-link {
+      color: var(--charcoal);
+      padding-block: 8px;
+      line-height: 1.5;
+      transition: var(--transition-1);
+    }
+
+    .navbar-link:is(:hover, :focus) {
+      color: var(--old-rose);
+    }
+
+    /*-----------------------------------*\
+#HERO
+\*-----------------------------------*/
+
+    .hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      text-align: center;
+    }
+
+    .hero .container {
+      display: grid;
+      gap: 60px;
+    }
+
+    .hero .hero-title {
+      margin-block: 10px 25px;
+    }
+
+    .hero-banner {
+      padding-inline-start: 30px;
+      padding-block-end: 30px;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .hero-banner .w-100 {
+      border-radius: 10px 30px;
+    }
+
+    .hero-banner::before {
+      top: 30px;
+      right: 30px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--light-pink);
+      border-radius: var(--radius-10);
+      z-index: -1;
+    }
+
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--white);
+      color: var(--chinese-violet);
+      font-size: 22px;
+      padding: 24px;
+      border-radius: 50%;
+      transition: var(--transition-1);
+      animation: pulse 3s ease infinite;
+    }
+
+    .play-btn:is(:hover, :focus) {
+      color: var(--old-rose);
+    }
+
+    @keyframes pulse {
+
+      0%,
+      50% {
+        box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 0 10px transparent;
+      }
+    }
+
+    /*-----------------------------------*\
+#BENEFITS
+\*-----------------------------------*/
+
+    .benefits .section-text {
+      text-align: center;
+      margin-block: 8px 25px;
+    }
+
+    .benefits-card {
+      padding: 25px;
+      box-shadow: var(--shadow-2);
+      border-radius: var(--radius-5);
+      overflow: hidden;
+      transition: var(--transition-2);
+    }
+
+    .benefits-card::before,
+    .benefits-card::after {
+      bottom: 0;
+      right: 0;
+      clip-path: var(--polygon);
+      transition: var(--transition-2);
+    }
+
+    .benefits-card::before {
+      width: 80px;
+      height: 80px;
+      background-color: var(--old-rose_30);
+      transform: translateY(60px);
+    }
+
+    .benefits-card::after {
+      width: 70px;
+      height: 70px;
+      background-color: var(--chinese-violet_30);
+      transform: translateY(65px);
+    }
+
+    .benefits-card:is(:hover, :focus-within) {
+      transform: translateY(-10px);
+    }
+
+    .benefits-card:is(:hover, :focus-within)::before,
+    .benefits-card:is(:hover, :focus-within)::after {
+      transform: translateY(0);
+    }
+
+    .benefits-card:is(:hover, :focus-within)::after {
+      transition-delay: 0.1s;
+    }
+
+    .benefits-card .card-icon {
+      background-color: var(--old-rose);
+      max-width: max-content;
+      padding: 10px;
+      box-shadow: var(--shadow-3);
+      transition: var(--transition-1);
+    }
+
+    .benefits-card:is(:hover, :focus) .card-icon {
+      box-shadow: none;
+    }
+
+    .benefits-card .card-title {
+      margin-block: 20px 15px;
+    }
+
+    .benefits-card .btn-link {
+      margin-block-start: 15px;
+    }
+
+    /*-----------------------------------*\
+#KapitelS
+\*-----------------------------------*/
+
+    .Kapitel-card {
+      height: 100%;
+      background-color: var(--white);
+      padding: 25px;
+      border-radius: var(--radius-5);
+      box-shadow: var(--shadow-2);
+      transition: var(--transition-2);
+      width: 100%;
+      height: 270px;
+      overflow: scroll;
+    }
+
+    .Kapitel-card:is(:hover, :focus-within) {
+      transform: translateY(-10px);
+    }
+
+    .Kapitel-card .card-title {
+      margin-block-end: 15px;
+    }
+
+    /*-----------------------------------*\
+#PREVIEW
+\*-----------------------------------*/
+
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tab-card {
+      position: relative;
+      height: 60px;
+      background-color: var(--seashell);
+      border-radius: var(--radius-10);
+      box-shadow: var(--shadow-3);
+      display: grid;
+      place-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition-1);
+    }
+
+    .tab-card .w-100 {
+      pointer-events: none;
+      opacity: 0;
+      transition: var(--transition-2);
+    }
+
+    .tab-card.active .w-100 {
+      opacity: 1;
+    }
+
+    .tab-card.active {
+      height: 40vh;
+      box-shadow: none;
+    }
+
+    .tab-text {
+      font-size: var(--fs-4);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .tab-card.active .tab-text {
+      display: none;
+    }
+
+    /*-----------------------------------*\
+#PRICING
+\*-----------------------------------*/
+
+    .pricing-card {
+      padding: 40px 50px;
+      background-color: var(--white);
+      text-align: center;
+      transition: var(--transition-2);
+    }
+
+    .pricing-card:is(:hover, :focus-within),
+    .pricing-card.bundle {
+      box-shadow: var(--shadow-4);
+    }
+
+    .pricing-card:is(:hover, :focus-within) {
+      transform: translateY(-10px);
+    }
+
+    .pricing-card .price {
+      font-family: var(--ff-philosopher);
+      font-size: var(--fs-1);
+      color: var(--charcoal);
+      font-weight: var(--fw-700);
+      margin-block-start: 10px;
+    }
+
+    .pricing-card-list {
+      margin-block: 20px 40px;
+    }
+
+    .pricing-card-list .card-item:not(:last-child) {
+      border-block-end: 1px solid var(--ghost-white);
+    }
+
+    .pricing-card .card-text {
+      padding-block: 10px;
+    }
+
+    .pricing-card .btn {
+      margin-inline: auto;
+    }
+
+    /*-----------------------------------*\
+#AUTHOR
+\*-----------------------------------*/
+
+    .author {
+      background-color: var(--seashell);
+    }
+
+    /*     .author .container {
+        display: grid;
+        gap: 40px;
+      } */
+
+    .author :is(.section-subtitle, .section-title) {
+      text-align: left;
+    }
+
+    .author-content {
+      background-color: var(--white);
+      padding: 30px;
+    }
+
+    .author-name {
+      font-size: var(--fs-6);
+      margin-block-end: 30px;
+    }
+
+    .author .section-text {
+      font-size: unset;
+    }
+
+    /*-----------------------------------*\
+#ACHIEVEMENT
+\*-----------------------------------*/
+
+    .section.achievement {
+      background-color: var(--white);
+    }
+
+    .achievement-card {
+      background-color: var(--seashell);
+      box-shadow: var(--shadow-4);
+      overflow: hidden;
+      transition: var(--transition-2);
+    }
+
+    .achievement-card:is(:hover, :focus-within) {
+      transform: translateY(-10px);
+    }
+
+    .achievement-card .card-content {
+      position: relative;
+      padding: 15px;
+    }
+
+    .achievement-card .abs-img {
+      position: absolute;
+      top: 0;
+      right: -5px;
+      opacity: 0.3;
+    }
+
+    /*-----------------------------------*\
+#CONTACT
+\*-----------------------------------*/
+
+    .contact .wrapper {
+      display: grid;
+      gap: 25px;
+    }
+
+    .contact-form {
+      background-color: var(--seashell);
+      padding: 20px;
+    }
+
+    .input-field {
+      background-color: var(--white);
+      padding: 10px;
+      margin-block-end: 15px;
+      outline: none;
+      border-block-end: 2px solid transparent;
+    }
+
+    .input-field:focus {
+      border-color: var(--old-rose);
+    }
+
+    textarea.input-field {
+      resize: vertical;
+      min-height: 120px;
+      height: 120px;
+      max-height: 200px;
+    }
+
+    .contact-form .btn {
+      margin-inline: auto;
+    }
+
+    .contact-card {
+      background-color: var(--seashell);
+      padding: 30px;
+    }
+
+    .contact-card .card-title {
+      font-family: var(--ff-philosopher);
+      text-transform: uppercase;
+      font-weight: var(--fw-700);
+    }
+
+    .contact-card>li:not(:last-child) {
+      margin-block-end: 30px;
+    }
+
+    .contact-card .card-link {
+      color: var(--chinese-violet);
+      transition: var(--transition-1);
+    }
+
+    .contact-card .card-link:is(:hover, :focus) {
+      color: var(--old-rose);
+    }
+
+    .social-list-title {
+      font-size: var(--fs-6);
+      font-weight: var(--fw-700);
+      margin-block-end: 15px;
+    }
+
+    .social-list {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-link {
+      background-color: var(--old-rose);
+      color: var(--white);
+      font-size: 20px;
+      padding: 5px;
+      box-shadow: var(--shadow-3);
+      transition: var(--transition-1);
+    }
+
+    .social-link:is(:hover, :focus) {
+      background-color: var(--chinese-violet);
+      box-shadow: none;
+    }
+
+    /*-----------------------------------*\
+#FOOTER
+\*-----------------------------------*/
+
+    .footer {
+      background-color: var(--seashell);
+      text-align: center;
+    }
+
+    .footer-top {
+      padding-block: 50px;
+      border-block-end: 1px solid var(--chinese-violet_30);
+    }
+
+    .footer .logo {
+      margin-block-end: 15px;
+    }
+
+    .footer-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      column-gap: 20px;
+    }
+
+    .footer-link {
+      color: var(--charcoal);
+      transition: var(--transition-1);
+    }
+
+    .footer-link:is(:hover, :focus) {
+      color: var(--old-rose);
+    }
+
+    .footer-bottom {
+      padding-block: 20px;
+    }
+
+    /*-----------------------------------*\
+#MEDIA QUERIES
+\*-----------------------------------*/
+
+    /**
+* responsive for large than 575px screen
+*/
+
+    @media (min-width: 575px) {
+      /**
+ * CUSTOM PROPERTY
+ */
+
+      :root {
+        /**
+   * typography
+   */
+
+        --fs-2: 4.5rem;
+        --fs-3: 3.5rem;
+        --fs-5: 2.5rem;
+      }
+
+      /**
+ * REUSED STYLE
+ */
+
+      .container,
+      .header,
+      .navbar {
+        max-width: 540px;
+        width: 100%;
+        margin-inline: auto;
+      }
+
+      .section-text {
+        --fs-7: 2rem;
+      }
+
+      /**
+ * HEADER
+ */
+
+      .header {
+        top: 30px;
+      }
+
+      .header.active {
+        max-width: unset;
+      }
+
+      .navbar {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /**
+ * PREVIEW
+ */
+
+      .tab-card.active {
+        height: 50vh;
+      }
+
+      /**
+ * ACHIEVEMENT
+ */
+
+      .achievement-card {
+        display: flex;
+      }
+
+      .achievement-card>* {
+        width: 50%;
+      }
+
+      .achievement-card .card-content {
+        padding-block: 30px;
+      }
+
+      .achievement-card .card-title {
+        margin-block-end: 20px;
+      }
+
+      /**
+ * CONTACT
+ */
+
+      .social-list-title {
+        --fs-6: 2.2rem;
+      }
+
+      .social-link {
+        font-size: 25px;
+        padding: 8px;
+      }
+    }
+
+    /**
+* responsive for large than 768px screen
+*/
+
+    @media (min-width: 768px) {
+      /**
+ * CUSTOM PROPERTY
+ */
+
+      :root {
+        /**
+   * typography
+   */
+
+        --fs-2: 4.8rem;
+      }
+
+      /**
+ * REUSED STYLE
+ */
+
+      .container,
+      .header,
+      .navbar {
+        max-width: 720px;
+      }
+
+      .grid-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /**
+ * HERO
+ */
+
+      .hero {
+        padding-block-start: calc(var(--section-padding) + 100px);
+        text-align: left;
+      }
+
+      .hero .container {
+        grid-template-columns: 1fr 0.8fr;
+        align-items: center;
+      }
+
+      .hero .section-subtitle {
+        text-align: left;
+      }
+
+      /**
+ * BENEFITS
+ */
+
+      .benefits :is(.section-title, .section-text) {
+        text-align: left;
+      }
+
+      .benefits-content {
+        grid-column: 1 / 3;
+      }
+
+      /**
+ * KapitelS, PRICING
+ */
+
+      :is(.Kapitels, .pricing) .grid-list li:last-child {
+        grid-column: 1 / 3;
+        max-width: calc(50% - 12.5px);
+        width: 100%;
+        margin-inline: auto;
+      }
+
+      /**
+ * PREVIEW
+ */
+
+      .tab-card.active {
+        height: 70vh;
+      }
+
+      /**
+ * AUTHOR
+ */
+
+      .author .h2 {
+        --fs-3: 4.2rem;
+      }
+
+      /**
+ * ACHIEVEMENT
+ */
+
+      .achievement-card {
+        flex-direction: column;
+      }
+
+      .achievement-card>* {
+        width: 100%;
+      }
+
+      /**
+ * CONTACT
+ */
+
+      .contact .wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /**
+* responsive for large than 992px screen
+*/
+
+    @media (min-width: 992px) {
+      /**
+ * CUSTOM PROPERTY
+ */
+
+      :root {
+        /**
+   * typography
+   */
+
+        --fs-2: 5.4rem;
+        --fs-3: 4rem;
+      }
+
+      /**
+ * REUSED STYLE
+ */
+
+      .container,
+      .header,
+      .navbar {
+        max-width: 960px;
+      }
+
+      .grid-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /**
+ * HEADER
+ */
+
+      .header .container {
+        padding-inline: 20px 30px;
+      }
+
+      .nav-toggle-btn {
+        display: none;
+      }
+
+      .navbar,
+      .navbar.active {
+        all: unset;
+      }
+
+      .navbar-list {
+        margin-block-end: 0;
+        display: flex;
+        gap: 30px;
+      }
+
+      /**
+ * BENEFITS
+ */
+
+      .benefits .grid-list {
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+      }
+
+      .benefits-content {
+        max-width: 80%;
+      }
+
+      /**
+ * Kapitel, PRICING
+ */
+
+      :is(.Kapitels, .pricing) .grid-list li:last-child {
+        all: unset;
+      }
+
+      /**
+ * PREVIEW
+ */
+
+      .tab-list {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .tab-text {
+        text-orientation: upright;
+        white-space: nowrap;
+        writing-mode: vertical-lr;
+      }
+
+      .tab-card {
+        height: 70vh;
+        max-width: 60px;
+      }
+
+      .tab-card.active {
+        max-width: 650px;
+      }
+
+      /**
+ * AUTHOR
+ */
+
+      /*         .author .container {
+          grid-template-columns: 0.6fr 1fr;
+          gap: 0;
+        } */
+
+      .author-content {
+        margin-block-start: 40px;
+        margin-inline-start: -30px;
+        padding-block-end: 70px;
+      }
+
+      /**
+ * ACHIEVEMENT
+ */
+
+      .achievement .grid-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .achievement-card {
+        flex-direction: row;
+      }
+
+      .achievement-card>* {
+        width: 50%;
+      }
+
+      /**
+ * CONTACT
+ */
+
+      .contact .wrapper {
+        grid-template-columns: 1fr 0.5fr;
+      }
+
+      .contact-form {
+        padding: 40px;
+      }
+    }
+
+    /**
+* responsive for large than 1200px screen
+*/
+
+    @media (min-width: 1200px) {
+      /**
+ * CUSTOM PROPERTY
+ */
+
+      :root {
+        /**
+   * typography
+   */
+
+        --fs-2: 6rem;
+        --fs-3: 4.5rem;
+        --fs-4: 3rem;
+        --fs-5: 3rem;
+      }
+
+      /**
+ * REUSED STYLE
+ */
+
+      .container,
+      .header,
+      .navbar {
+        max-width: 1140px;
+      }
+
+      /**
+ * PREVIEW
+ */
+
+      .tab-card {
+        max-width: 75px;
+      }
+
+      .tab-card.active {
+        max-width: 750px;
+      }
+
+      /**
+ * AUTHOR
+ */
+
+      .author-content {
+        padding: 85px 60px 115px;
+      }
+
+      /**
+ * FOOTER
+ */
+
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer .logo {
+        margin-block-end: 0;
+      }
+    }
+  </style>
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- 
+    - preload image
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png" />
+</head>
+
+<body>
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo">DevOps-Daemons</a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link" data-nav-link>Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="http://20.113.26.169:8080/" target="_blank" class="navbar-link" data-nav-link>Links</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#Kapitels"  class="navbar-link" data-nav-link>Kapitels</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="https://20.76.251.70/" target="_blank" class="navbar-link" data-nav-link>argo</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#author" class="navbar-link" data-nav-link>Author</a>
+          </li>
+
+          <!--     <li class="navbar-item">
+            <a href="#achievements" class="navbar-link" data-nav-link>Achievements</a>
+          </li> -->
+
+          <li class="navbar-item">
+            <a href="#contact" class="navbar-link" data-nav-link>Kontakt</a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true" class="open"></ion-icon>
+
+        <ion-icon name="close-outline" aria-hidden="true" class="close"></ion-icon>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" id="home" aria-label="home">
+        <div class="container">
+          <div class="hero-content">
+            <p class="section-subtitle">Let's Make The Best Investment</p>
+
+            <h1 class="h1 hero-title">
+              Read More And Make Success The Result Of Perfection.
+            </h1>
+
+            <p class="section-text">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad
+              harum quibusdam, assumenda quia explicabo.
+            </p>
+          </div>
+
+          <div class="hero-banner has-before">
+            <img
+              src="https://w7.pngwing.com/pngs/661/447/png-transparent-bachelorette-party-devops-logo-fictional-character-art-thumbnail.png"
+              width="431" height="596" alt="things i never said, a novel by claudia wilson" class="w-100" />
+
+            <button class="play-btn" aria-label="play video">
+              <ion-icon name="play-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+        - #BENEFITS
+      -->
+
+      <section class="section benefits" id="benefits" aria-label="benefits">
+        <div class="container">
+          <!--             <img
+                      src="https://theisozone.com/wp-content/uploads/2020/08/DevOps-1024x608.jpg"
+                      width="100%"
+                      height="100px"
+                      loading="lazy"
+                      alt="Docker"
+                    /> -->
+          <div class="grid-list">
+            <li class="benefits-content">
+              <h2 class="h2 section-title">
+                Was Sie mit diesem Buch erreichen
+              </h2>
+
+              <p class="section-text">
+                Durch die Lektüre dieses Buches lernen Sie die Grundlagen der Devops kennen.
+              </p>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img
+                    src="https://w7.pngwing.com/pngs/475/563/png-transparent-docker-software-deployment-industrial-design-docker-logo-microsoft-azure-industrial-design-thumbnail.png"
+                    width="40" height="40" loading="lazy" alt="Docker" />
+                </div>
+
+                <h3 class="h3 card-title">Entdecken</h3>
+
+                <p class="card-text">
+                  Die Entwicklung von Software ist ein Mannschaftssport. Zur Vorbereitung auf den nächsten Sprint müssen Teams Workshops durchführen, um Ideen zu finden, zu organisieren und zu priorisieren. 
+                  <br />
+                  <br />
+                </p>
+
+<!--                 <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-2.svg" width="40" height="40" loading="lazy" alt="Motivation" />
+                </div>
+
+                <h3 class="h3 card-title">Planen</h3>
+
+                <p class="card-text">
+                  DevOps-Teams sollten agile Praktiken anwenden um die Geschwindigkeit und Qualität zu verbessern. Agile ist ein iterativer Ansatz für das management und die entwicklung. 
+                </p>
+
+                <!-- <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-3.svg" width="40" height="40" loading="lazy" alt="Goals" />
+                </div>
+
+                <h3 class="h3 card-title">Erstellen</h3>
+
+                <p class="card-text">
+                  Git ist ein kostenloses Open-Source-System zur Versionskontrolle. Es bietet zudem umfassende Unterstützung für das Branching, Merging und Umschreiben des Repository-Verlaufs. 
+                </p>
+
+               <!--  <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-4.svg" width="40" height="40" loading="lazy" alt="Vision" />
+                </div>
+
+                <h3 class="h3 card-title">Test</h3>
+
+                <p class="card-text">
+                  Continuous Integration (CI) ermöglicht mehreren Entwicklern zu einem einzigen gemeinsam genutzten Repository beizutragen.Beim mergen von Codeänderungen werden automatisierte Tests durchgeführt, um vor der Integration die fehlerfreiheit des neuen Codes zu bestätigen.
+                </p>
+
+                <!-- <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-5.svg" width="40" height="40" loading="lazy" alt="Mission" />
+                </div>
+
+                <h3 class="h3 card-title">Bereitstellen</h3>
+
+                <p class="card-text">
+                  Continuous Deployment (CD) ermöglicht es Teams, regelmäßig und automatisch Funktionen zu veröffentlichen. Teams haben auch die Option des Deployments mit Feature-Flags. Sie können regelmäßig und methodisch neue Codes an Benutzer ausliefern, anstatt dies in einem Rutsch zu tun. 
+                </p>
+
+               <!--  <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-6.svg" width="40" height="40" loading="lazy" alt="Strategy" />
+                </div>
+
+                <h3 class="h3 card-title">Operate</h3>
+
+                <p class="card-text">
+                  Verwalte die End-to-End-Bereitstellung von IT-Services für Kunden. Dazu zählen die Praktiken für Design, Implementierung, Konfiguration, Deployment und Wartung der gesamten IT-Infrastruktur, die die Services eines Unternehmens unterstützt.
+                </p>
+
+                <!-- <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+            
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-6.svg" width="40" height="40" loading="lazy" alt="Strategy" />
+                </div>
+
+                <h3 class="h3 card-title">Beobachten</h3>
+
+                <p class="card-text">
+                  Identifiziere und behebe schnell Probleme, die sich auf die Verfügbarkeit, Geschwindigkeit und Funktionalität des Produkts auswirken. Informiere dein Team automatisch über Änderungen, risikoreiche Aktionen oder Ausfälle, um Services weiter am Laufen zu halten.
+                </p>
+
+                <!-- <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+            <li>
+              <div class="benefits-card has-before has-after">
+                <div class="card-icon">
+                  <img src="./assets/images/benefits-6.svg" width="40" height="40" loading="lazy" alt="Strategy" />
+                </div>
+
+                <h3 class="h3 card-title">Fortlaufendes Feedback</h3>
+
+                <p class="card-text">
+                  DevOps-Teams sollten jeden Release bewerten und Berichte erstellen, um zukünftige Releases zu verbessern. Durch kontinuierliches Feedback können Teams ihre Prozesse optimieren und Kundenrückmeldungen einbeziehen, um den nächsten Release zu verbessern.
+                </p>
+
+                <!-- <a href="#" class="btn-link">
+                  <span class="span">Read more</span>
+
+                  <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+                </a> -->
+              </div>
+            </li>
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+        - #KapitelS
+      -->
+
+      <section class="section Kapitels" id="Kapitels">
+        <div class="container">
+          <p class="section-subtitle">Kapitels</p>
+
+          <h2 class="h2 section-title has-underline">
+            Kapitel ihrer Wahl
+            <span class="span has-before"></span>
+          </h2>
+
+          <ul id="Kapitel-ul">
+            <!-- < id="Kapitel-ul"  class="grid-list"> -->
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle"></p>
+
+                <h3 class="h3 card-title">Vorwort</h3>
+
+                <p class="card-text">
+                  Der DevOps-Comicbookverlag ist ein kleines Unternehmen in einer magischen Steampunk-Welt.
+                  In dieser Welt gibt es keine Computer.
+                  Es geht hauptsächlich um die Analogie und um das Erklären von It-Begriffen mit anderer Elektronik.
+                  Die Menschen nutzen als soziale Medien daher magische Kristallkugeln und ähnliches....
+                  DevOpsComics gibt mehrere Comic-Hefte und Bücher heraus, die sogenannten **Apps**.
+                  Die Hefte erscheinen wöchentlich oder monatlich.
+                  Die Bücher hingegen erst dann, wenn genügend Vorbestellungen **Tickets** eingegangen sind.
+                  Die Comics werden im eigenen Souvenir-Shop auf dem Firmengelände verkauft, aber auch auf den
+                  Marktplätzen in den Städten und Dörfern.
+                  Viele Fans haben aber auch ein Abo abgeschlossen und bekommen die neusten Ausgaben direkt ins Haus
+                  geliefert.
+                  DevOps beschäftigt eine ganze Reihe Mitarbeiter in verschiedenen Abteilungen, Künstler wie Autoren und
+                  Grafiker, Handwerker wie den Hausmeister und die Drucker, Verwaltungsfachangestellte und Büroboten und
+                  viele mehr...
+                  <br />
+                  <br />
+
+                  Die Fans der Comics sind teilweise richtige Besserwisser und daher wird großer Wert daraufgelegt,
+                  immer pünktlich zu liefern und die Rechtmäßigkeit der einzelnen Geschichten nicht zu verletzten.
+                  <br />
+                  <br />
+
+                  Aus diesem Grund beobachten die Mitarbeiter aus der Abteilung Market-Research, die **Monitoren** und
+                  **Observer** genau was in der Öffentlichkeit, über die neuesten Ausgaben und Entwicklungen der Bücher
+                  gesagt wird.
+                  Es werden die Kritiken in der Tageszeitung und der Fanpost durchgelesen, zusammengefasst und
+                  weitergereicht.
+                  Auch wird tief in die Kristallkugel geschaut, um die Diskussionen der Fans in den sozialen Medien zu
+                  beobachten.
+                  Die **Monitoren** selbst beteiligen sich aber nicht daran. z.B. gab es in der Vergangenheit gehäuft
+                  Anmerkung darüber, dass die Farben neuerdings blasser aussehen und nachdem die **Monitoren** diese
+                  Meinung weitergereicht hatten, wurde (viel) später festgestellt,
+                  dass die Farben zwar in Ordnung aber die Qualität des Papieres nachgelassen hatte...
+                  <br />
+                  <br />
+                  Jeden Morgen lesen die Show-Runner oder auch **Planer** die Berichte der **Monitoren** und die Briefe
+                  der Kunden bei einer Tasse extra starken, heißen Kaffee.
+                  Außer Gwendoline die trinkt lieber Kakao.
+                  Jeder Show-Runner ist für eine oder mehrere Heftreihen verantwortlich.
+                  Gwendoline betreut die langjährige Erfolgsreihen "Phillip liebt Nancy" und "Mein Hut hat vier Ecken".
+                  Bei schwierigen Entscheidungen trifft sie sich öfters sogar mit dem Vorsitzenden des "Phillip liebt
+                  Nancy-Fan-Klubs" um mit ihren Entscheidungen die treuen Anhänger nicht zu enttäuschen, sondern eher
+                  bestenfalls zu erfreuen.
+                  Viele Fans sehnen das erste Rendezvous zwischen Phillip und Nancy herbei und andere würden gerne
+                  sehen, dass der Streit mit Phillips Rivalen eskaliert.
+                  Gwendoline baut auch gerne kleine Eastereggs ein. So tauchen gerne einmal Geschäfte, die besonders
+                  viel Exemplare verkauft haben im Hintergrund einer Grafik auf oder der Geburtstag des allerersten
+                  Abonnenten wird gefeiert.
+                  Die Planer geben grobe Ziele vor, wie sich die einzelnen Geschichten in der Zukunft weiterentwickeln.
+                  Welche Charaktere eher unbeliebt sind oder als eher langweilig empfunden werden und langfristig aus
+                  der Geschichte rausgeschrieben werden sollen.
+                  Der "verrückte Wissenschaftler" aus "mein Hut hat vier Ecken" ist so beliebt, dass die Show-Runner
+                  eine eigene Spin-off-Serie rund um diesen schrulligen Typen vorbereiten...
+                  <br />
+                  <br />
+                  Die Autoren, im Verlag auch gerne die **Coder** genannt, bekommen zum Wochenstart eine eher wage
+                  Zielsetzung für die nächsten Ausgaben.
+                  So soll "Nancy" Probleme an ihrem Arbeitsplatz haben, die sie irgendwie stresst, die Episode soll
+                  lustig sein aber keine tiefgreifenden Impakt auf die langfristige Entwicklung der Geschichte haben.
+                  Die **Coder** prüfen nun, wie diese Anforderung konkret umgesetzt werden kann. Wer in der Drogerie in
+                  welcher Nancy arbeitet, ist lustig?
+                  Da kommen mehrere in Frage: Der Mob-boy, die Chefin oder der Kontrolleur vom Gesundheitsamt? Alle
+                  diese Charaktere sind den Kunden ausreichend bekannt und auch lustig, besonders Mob-boy... aber
+                  Mob-Boy wird noch für einen langfristige Story-Arc gebraucht, wenn sich herausstellt, dass er Phillips
+                  lange vermisster Halbbruder ist und darf für eine kurze Episode nicht verheizt werden.
+                  Daher wird eine kleine Geschichte geschrieben, in der die Chefin immer wieder Nancys
+                  Erdebeermarmeladenbrot mit Honig stibitzt und Nancy anfängt an ihrem Verstand zu zweifeln.
+                  Das Storyboard der **Coder** ist jetzt schon sehr konkret, in wie vielen Bildern wird das Brot gezeigt
+                  und wie breit ist das verschmitzte Lächeln der Chefin...
+                  <br />
+                  <br />
+                  Die Künstler von **Build** erhalten das relativ, uninspirierende Storyboard von den Kollegen aus
+                  **Code**. Soll die nächste Aufgabe auf der 7 Farben Siebdruckmaschine gedruckt werden die mit roter,
+                  grüner und blauer Farbe arbeitet oder auf der Neuen mit Cyan, Magenta und Gelb?
+                  Wieder keine Angaben zum Cover oder ob es ein Vorwort geben soll....
+                  Aber, ist ja nichts neues die **Builder** wissen ja wie sie ihren Job zu machen haben.
+                  Es wird ein großartiges Titelbild entworfen, wie Nancys Chefin lustvoll in ein Brot beißt...
+                  <br />
+                  <br />
+                  Die Editoren von **Test** sind entsetzt. Wie kann **Build** das Geheimnis wer der Pausenbrotdieb ist,
+                  schon auf der Titelseite verraten!
+                  Die **Coder** haben völlig übersehen, dass die Chefin seit Band 12/18 vor drei Jahren eine Allergie
+                  gegen Honig hat und die **Planer** haben vergessen, dass Phillip in dieser Woche das Hochzeitsgeschenk
+                  für seine Schwester vorbereiten muss, damit er es ihr am Monatsende beim großen Staffelfinale
+                  überreichen kann....
+                  Außerdem wird dieses Mal, "Der Hut mit den Vier Ecken" auf der neuen Druckerpresse gedruckt, da es ein
+                  Poster vom "verrückten Wissenschaftler" als Beilage hat... Die Farben müssen daher in RGB sein....
+                  So kann das Heft auf keinen Fall erscheinen....
+                  Ok …. diese Woche war eine gute Woche... nur drei, vier Runden und alles scheint auf dem ersten Blick
+                  zu passen. Über Kleinigkeiten wie den verschwundenen Kaffeefleck auf dem Sofa in der Drogerie wird
+                  diesmal großzügig hinweggesehen.
+                  <br />
+                  <br />
+                  Die Drucker von **Release und Config** sind verzweifelt.
+                  Zugegeben die Cover sehen auch diese Woche wieder einfach fantastisch aus aber wo sollen die Etiketten
+                  mit den Adressen der Abonnenten aufgeklebt werden, ohne diese zu verschandeln.
+                  Die Gewerkschaft der Brieftauben weigert sich doch seid neuesten
+                  Bücher mit Vollverpackung zu transportieren, aus Umweltschutz und Gewichtsgründen.
+                  Die Buchläden bestehen aber darauf, dass die Heftreihe, Bandnummer und Staffel eindeutig auf dem
+                  Buchrücken zu lesen sind, um diese vernünftig in die Bücherregale sortieren zu können.
+                  Da muss auch eine Lösung her, und die soll dauerhaft sein ein Aufkleber tut es da nicht.
+
+                </p>
+                <button onclick="toggleText(e)" id="textButton">
+                  Show More
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 01</p>
+
+                <h3 class="h3 card-title">OPS</h3>
+
+                <p class="card-text">
+                  Ja, das ist eine interessante Analogie, die die Unterschiede
+                  zwischen physischen Maschinen, virtuellen Maschinen,
+                  Cloud-Systemen und containerbasierten Systemen
+                  veranschaulicht.<span id="points">...</span>
+                  <span id="moreText">Eigener Shop (physische Maschine) steht für die volle
+                    Kontrolle über die Hardware und Ressourcen, aber geringere
+                    Portabilität und Wiederverwendbarkeit. Eigene Abteilung in
+                    einer Mall (virtuelle Maschine) steht für teilweise
+                    Kontrolle über die Hardware und Ressourcen, aber höhere
+                    Portabilität und Wiederverwendbarkeit. Fremder Shop
+                    (Cloud-System) steht für die Abhängigkeit von
+                    Drittanbietern und keine Kontrolle über die Hardware, aber
+                    hohe Skalierbarkeit und Flexibilität. Fremder
+                    Franchise-Shop (containerbasiertes System) steht für keine
+                    Kontrolle über die Hardware, aber höhere Portabilität und
+                    Wiederverwendbarkeit durch die Isolation der Anwendungen
+                    von der physischen oder virtuellen Umgebung. In Bezug auf
+                    Zugriffsrechte und Sicherheit, kann man sagen, dass die
+                    Öffnungszeiten des Ladens die Zugriffsrechte darstellen
+                    und die Regalplätze im Laden die Ressourcenverteilung
+                    repräsentieren. Performance und Leistung des Verkäufers
+                    kann man mit der Leistung des Computers vergleichen und
+                    die Ausstattung Ich bin froh, dass Ihnen diese Beispiele
+                    gefallen haben. Es ist wichtig, sich auf mögliche
+                    Katastrophen vorzubereiten, um sicherzustellen, dass das
+                    Unternehmen in der Lage ist, schnell und effektiv zu
+                    reagieren und die Auswirkungen zu minimieren. Ein Streik
+                    kann zum Beispiel zu Lieferengpässen führen und das
+                    Unternehmen dazu zwingen, alternative Lieferanten oder
+                    Lagerräume zu suchen. Ein Feuer oder Hochwasser kann die
+                    physischen Güter des Unternehmens vernichten und zu einem
+                    Verlust des Umsatzes führen. Ein Diebstahl kann zu einem
+                    Verlust von Einnahmen und einer Beeinträchtigung des Rufs
+                    des Unternehmens führen.<br /><br />
+
+                    Physische Maschinen: Ein Bankenunternehmen kann physische
+                    Maschinen verwenden, um wichtige Anwendungen wie
+                    Online-Transaktionsverarbeitung, Kontenverwaltung und
+                    Datenspeicherung für sensible Daten auszuführen. Diese
+                    Anwendungen erfordern hohe Leistung und Sicherheit, daher
+                    ist die Verwendung von dedizierten physischen Servern
+                    sinnvoll.<br /><br />
+
+                    Virtuelle Maschinen: Ein Online-Handelsunternehmen kann
+                    virtuelle Maschinen verwenden, um seinen Online-Shop
+                    auszuführen. Der Online-Shop erfordert nicht die gleiche
+                    Leistung und Sicherheit wie die Anwendungen einer Bank,
+                    daher ist die Verwendung von virtuellen Maschinen
+                    sinnvoll. Die virtuellen Maschinen ermöglichen es dem
+                    Unternehmen auch, Anwendungen leicht zu skalieren und zu
+                    warten, ohne die Verfügbarkeit des Online-Shops
+                    beeinträchtigen.<br /><br />
+
+                    Cloud-Systeme: Ein Bankenunternehmen kann Cloud-Systeme
+                    verwenden, um seine Datensicherung und
+                    Disaster-Recovery-Lösungen auszuführen. Sie können eine
+                    Cloud-basierte Backup-Lösung wie AWS Backup, Azure Backup
+                    oder Google Cloud Storage verwenden, um ihre Daten in der
+                    Cloud zu sichern. Dadurch können sie sicherstellen, dass
+                    ihre Daten im Falle eines Ausfalls oder einer
+                    Naturkatastrophe schnell und einfach wiederhergestellt
+                    werden können.<br /><br />
+
+                    Containerbasierte Systeme: Ein Online-Handelsunternehmen
+                    kann containerbasierte Systeme verwenden, um seinen
+                    Online-Shop auszuführen. Sie können Docker-Container
+                    verwenden, um die verschiedenen Komponenten des
+                    Online-Shops, wie z.B. den Webserver, die Datenbank und
+                    die Anwendungsschicht, zu isolieren. Dadurch können sie
+                    sicherstellen, dass die Anwendung stabil und skalierbar
+                    läuft, ohne dass sich Fehler in einer Komponente auf die
+                    anderen auswirken.<br /><br />
+
+                    ich versuche einen zugang zu ops zu finden, um das in die
+                    comic book welt zu überführen. Ich möchte zunächst die
+                    Konzepte und herausforderungen, vor. und nachteile
+                    verstehen um daraus eine analogie zu machen.... Im
+                    DevOps-Zyklus umfasst der Operations-Teil (Ops) in der
+                    Regel die folgenden Schritte:
+                    <br /><br />
+                    Bereitstellung: Dies beinhaltet die Automatisierung von
+                    Prozessen zur Bereitstellung von Software-Updates und
+                    -Patches auf Produktionssysteme. Überwachung: Dies
+                    beinhaltet die Überwachung von Produktionssystemen, um
+                    Probleme und Ausfälle frühzeitig erkennen und beheben zu
+                    können. Skalierung: Dies beinhaltet die Automatisierung
+                    von Prozessen zur Anpassung der Kapazität von
+                    Produktionssystemen an die aktuelle Last.
+                    Wiederherstellung: Dies beinhaltet die Planung und
+                    Durchführung von Wiederherstellungsmaßnahmen im Falle von
+                    Ausfällen oder Katastrophen. Sicherheit: Dies beinhaltet
+                    die Umsetzung von Sicherheitsmaßnahmen, um
+                    Produktionssysteme und -daten vor Angriffen und
+                    Datenverlust zu schützen.<br /><br />
+
+                    Ja, das ist eine gute Idee. In Bezug auf
+                    Produktionssysteme könnten Sie die verschiedenen Arten von
+                    Systemen besprechen, die in einem Produktionsumfeld
+                    verwendet werden, wie zum Beispiel physische Maschinen,
+                    virtuelle Maschinen, Cloud-Systeme und Container-basierte
+                    Systeme. Sie könnten auch die verschiedenen
+                    Herausforderungen besprechen, die mit der Verwaltung und
+                    Wartung dieser Systeme verbunden sind, sowie die Tools und
+                    Technologien, die verwendet werden, um diese
+                    Herausforderungen zu meistern.<br /><br />
+
+                    Die Unterschiede zwischen physischen Maschinen, virtuellen
+                    Maschinen, Cloud-Systemen und Container-basierten Systemen
+                    liegen hauptsächlich in der Art und Weise, wie sie die
+                    Ressourcen bereitstellen und verwalten.<br /><br />
+
+                    Physische Maschinen sind tatsächliche Computer, die direkt
+                    von einem Unternehmen gekauft und betrieben werden. Sie
+                    bieten die höchste Kontrolle und Flexibilität, aber auch
+                    die höchsten Kosten für Wartung und Wartung.<br /><br />
+
+                    Virtuelle Maschinen sind Software-Emulationen von
+                    physischen Computern, die auf einer physischen Maschine
+                    ausgeführt werden. Sie ermöglichen es, mehrere
+                    Betriebssysteme und Anwendungen auf einer einzigen
+                    physischen Maschine auszuführen und bieten eine höhere
+                    Ressourcenausnutzung als physische Maschinen.
+                    <br />
+                    <br />
+                    Cloud-Systeme sind Dienste, die von einem Cloud-Provider
+                    bereitgestellt werden und es Unternehmen ermöglichen,
+                    Ressourcen wie Speicher, Datenbanken und Anwendungen über
+                    das Internet zu nutzen. Sie bieten eine hohe
+                    Skalierbarkeit und Flexibilität, aber auch Abhängigkeiten
+                    von externen Anbietern und mögliche Sicherheitsrisiken.
+                    <br />
+                    <br />
+                    Container-basierte Systeme sind eine Art von
+                    Virtualisierung, bei der Anwendungen in isolierten
+                    Containern ausgeführt werden, die unabhängig von der
+                    Hardware und dem Betriebssystem des Hosts sind. Sie
+                    ermöglichen eine höhere Portabilität und Skalierbarkeit
+                    von Anwendungen und eine höhere Ressourcenausnutzung als
+                    virtuelle Maschinen, aber auch eine höhere Komplexität im
+                    Management.
+                    <br />
+                    <br />
+                    Wenn man sich für eine der oben genannten Optionen
+                    entscheidet, muss man die Anforderungen an die Ressourcen,
+                    die Verfügbarkeit, die Sicherheit und die Kosten
+                    berücksichtigen.
+                    <br /><br />
+                    OK, eine Analogie könnte sein, den Betrieb von Software
+                    mit dem Betrieb eines Autos zu vergleichen. Wie bei einem
+                    Auto muss die Software regelmäßig gewartet und
+                    aktualisiert werden, um sicherzustellen, dass sie
+                    ordnungsgemäß funktioniert. Wie bei einem Auto, die
+                    Software muss überwacht werden, um sicherzustellen, dass
+                    es keine Probleme gibt, bevor sie zu groß werden. Wie bei
+                    einem Auto, muss die Software manchmal repariert werden,
+                    wenn etwas schief geht.
+                    <br />
+                    <br />
+                    Physische Maschinen sind Computer, die auf physischen
+                    Hardware-Komponenten wie Prozessor, Speicher und
+                    Festplatte basieren. Sie bieten die höchste Leistung und
+                    Kontrolle, aber auch die höchsten Kosten und die größten
+                    Herausforderungen bei der Skalierung und Wartung.
+                    <br />
+                    <br />
+                    Virtuelle Maschinen sind Software-Emulationen von
+                    Computern, die auf einer physischen Hardware ausgeführt
+                    werden. Sie ermöglichen es, mehrere Betriebssysteme und
+                    Anwendungen auf einem einzigen physischen Computer
+                    auszuführen und erleichtern die Skalierung und Wartung,
+                    haben jedoch auch höhere Latenzzeiten und geringere
+                    Leistung als physische Maschinen.
+                    <br />
+                    <br />
+                    Cloud-Systeme sind Dienste, die von Anbietern wie AWS,
+                    Azure oder Google Cloud bereitgestellt werden und es
+                    ermöglichen, Ressourcen wie Speicherplatz, Rechenleistung
+                    und Datenbanken über das Internet zu nutzen. Sie bieten
+                    eine hohe Skalierbarkeit und Flexibilität, aber auch
+                    höhere Kosten und Abhängigkeiten von Drittanbietern.
+                    <br />
+                    <br />
+                    Container-basierte Systeme ermöglichen es, Anwendungen und
+                    ihre Abhängigkeiten in einer abgeschlossenen Umgebung
+                    auszuführen, die von der physischen oder virtuellen
+                    Umgebung isoliert ist. Sie erleichtern die Portierbarkeit
+                    und Wiederverwendbarkeit von Anwendungen, haben jedoch
+                    auch höhere Anforderungen an die Speicherung und
+                    Netzwerkinfrastruktur.
+                    <br />
+                    <br />
+                    Bei der Auswahl einer dieser Technologien sollten Faktoren
+                    wie Kosten, Zugriff, Sicherheit, Skalierbarkeit und
+                    Anforderungen an die Infrastruktur berücksichtigt werden.
+                    Es ist auch wichtig, die Unterstützung und Dokumentation
+                    des Betriebssystems und des Anbieters zu berücksichtigen.
+                    <br />
+                    <br />
+                    Der Unterschied zwischen einer virtuellen Maschine (VM)
+                    und einer Cloud-Maschine besteht hauptsächlich darin, wie
+                    die Ressourcen bereitgestellt werden und wie die Kontrolle
+                    über die Hardware ausgeübt wird.
+                    <br />
+                    <br />
+                    Eine virtuelle Maschine ist eine Software-Emulation eines
+                    Computers, die auf einer physischen Hardware ausgeführt
+                    wird. Der Benutzer hat in der Regel volle Kontrolle über
+                    die Hardware und die virtuellen Maschinen, und kann die
+                    Ressourcen direkt zuweisen und verwalten. Dies ermöglicht
+                    es, mehrere Betriebssysteme und Anwendungen auf einem
+                    einzigen physischen Computer auszuführen und erleichtert
+                    die Skalierung und Wartung, aber hat auch höhere
+                    Latenzzeiten und geringere Leistung als physische
+                    Maschinen.
+                    <br />
+                    <br />
+                    Eine Cloud-Maschine hingegen ist ein Dienst, der von einem
+                    Cloud-Provider wie AWS, Azure oder Google Cloud
+                    bereitgestellt wird. Der Benutzer hat normalerweise keine
+                    Kontrolle über die Hardware, sondern nutzt die Ressourcen
+                    über das Internet. Dies ermöglicht eine hohe
+                    Skalierbarkeit und Flexibilität, aber auch höhere Kosten
+                    und Abhängigkeiten von Drittanbietern. <br / <br />
+                    Physische Maschinen: Ein Unternehmen, das physische
+                    Maschinen verwendet, hat vollständige Kontrolle über die
+                    Hardware und kann die Ressourcen direkt zuweisen und
+                    verwalten. Allerdings sind diese Maschinen nicht portabel
+                    und nicht wiederverwendbar, da sie auf einer bestimmten
+                    physischen Umgebung ausgeführt werden müssen. Wenn das
+                    Unternehmen beschließt, den Standort zu wechseln oder die
+                    Hardware auszutauschen, müssen alle Anwendungen neu
+                    konfiguriert und auf die neue Umgebung angepasst werden.
+                    <br />
+                    <br />
+                    Virtuelle Maschinen: Ein Unternehmen, das virtuelle
+                    Maschinen verwendet, hat teilweise Kontrolle über die
+                    Hardware, da die Ressourcen von der physischen Hardware
+                    abhängig sind. Allerdings ermöglichen virtuelle Maschinen
+                    eine höhere Portabilität und Wiederverwendbarkeit, da die
+                    Anwendungen in einer abgeschlossenen Umgebung ausgeführt
+                    werden und leichter von einer physischen Umgebung auf eine
+                    andere verschoben werden können.
+                    <br />
+                    <br />
+                    Cloud-Systeme: Ein Unternehmen, das Cloud-Systeme
+                    verwendet, hat normalerweise keine Kontrolle über die
+                    Hardware, sondern nutzt die Ressourcen über das Internet.
+                    Cloud-Systeme bieten eine hohe Skalierbarkeit und
+                    Flexibilität, aber die Portabilität und
+                    Wiederverwendbarkeit hängt von dem Angebot und den
+                    Einschränkungen des Cloud-Anbieters ab.
+                    <br />
+                    <br />
+                    Container-basierte Systeme: Ein Unternehmen, das
+                    containerbasierte Systeme verwendet, hat keine Kontrolle
+                    über die Hardware, aber die Anwendungen und ihre
+                    Abhängigkeiten werden in einer abgeschlossenen Umgebung
+                    ausgeführt, die von der physischen oder virtuellen
+                    Umgebung isoliert ist. Dies ermöglicht eine höhere
+                    Portabilität und Wiederverwendbarkeit, da die Anwendungen
+                    leicht von einer Umgebung zur anderen verschoben werden
+                    können.
+                    <br />
+                    <br />
+                    Es hängt von der Art der Anwendung und den Anforderungen
+                    des Unternehmens ab, welche Technologie am besten geeignet
+                    ist.
+                    <br />
+                    <br />
+                    In dem Kontext, in dem ich es bisher beschrieben habe,
+                    bezieht sich die Kontrolle hauptsächlich auf die Hardware,
+                    also die physischen Komponenten des Computers, auf denen
+                    die Anwendungen ausgeführt werden. Dazu gehört die
+                    Kontrolle über die Zuweisung und Verwaltung von Ressourcen
+                    wie Prozessorleistung, Speicher und Speicherplatz.
+                    <br />
+                    <br />
+                    Es gibt jedoch auch andere Aspekte der Kontrolle, wie z.B.
+                    die Kontrolle über das Betriebssystem und die verwendeten
+                    Dienste. Beispielsweise kann ein Unternehmen, das eine
+                    virtuelle Maschine verwendet, die Wahl des Betriebssystems
+                    und der verwendeten Dienste haben, während es bei einem
+                    Cloud-System von dem Angebot des Anbieters abhängt. Auch
+                    die Kontrolle über die Sicherheitseinstellungen,
+                    Zugriffsrechte und die Überwachung sind wichtige Aspekte
+                    die man berücksichtigen sollte.</span>
+                </p>
+                <button onclick="toggleText(e)" id="textButton">
+                  Show More
+                </button>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 02</p>
+
+                <h3 class="h3 card-title">Trelloboard</h3>
+
+                <p class="card-text">
+                  Willkommen zurück zu einer weiteren Ausgabe unserer
+                  Comicbuchreihe. Heute möchte ich euch etwas über unseren
+                  Austauschmitarbeiter Anis erzählen..<span id="points">...</span>
+                  <span id="moreText">
+                    Anis kam aus dem weit entfernten Land Kumbadou, in welchen
+                    die Leute alles perfekt und so schnell wie möglich
+                    erledigen wollen. Sie schlafen kaum und haben eine
+                    Faszination für die sogenannten Woltatz das sind Fahrzeuge
+                    mit großen Reifen, welche es ihnen ermöglichen ihre
+                    felsige Berglandschaft zu bereisen. Woltatz sind schnell,
+                    fast einhundert Mal so schnell wie du oder ich laufen
+                    können. Da jeder Einwohner in Kumbadou ein Woltatz möchte
+                    sind in den letzten Jahren große Fabriken entstanden um
+                    der Nachfrage hinterher zu kommen. Anis ist dort ein Chef
+                    und hat es jeden Tag gehasst, wenn Teile fehlten oder sich
+                    die Produktion in einem Teil der Fabrik verzögerte. Da die
+                    Kumbadouaner es hassen, wenn nicht alles perfekt läuft
+                    schloß sich Anis in sein Büro eine Woche lang ein, bis er
+                    die Lösung hatte. Eine Übersicht(Trelloboard) über die
+                    einzelnen Werkstätten und Produktionsabschnitte der
+                    Fabrik, welche stündlich wenn nicht täglich von den
+                    einzelnen Mitarbeitern und Teams aktualisiert werden
+                    mussten. Dadurch konnte Anis frühzeitig erkennen, wenn
+                    eine Werkstatt Unterstützung von anderen Werkstätten
+                    brauchte oder gerade nichts zu tun war.
+                    <br />
+                    <be />
+                    Als er mir das erzählte, war ich begeistert und bat ihn
+                    sein Konzept in unseren Verlag anzuwenden. Kurze Zeit
+                    später produzierten wir soviele neue Comics, dass sich
+                    unsere Umsätze verfünffacht hatten und das alles nur dank
+                    Anis seiner Übersicht(Trelloboard).
+                  </span>
+                </p>
+                <button onclick="toggleText(e)" id="textButton">
+                  Show More
+                </button>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 03</p>
+
+                <h3 class="h3 card-title">Einführung in agiles Arbeiten</h3>
+
+                <p class="card-text">
+                  Im Verlag der DevOps-Comicbücher haben wir uns entschieden,
+                  agiles Arbeiten zu implementieren, um flexibler und
+                  anpassungsfähiger auf Veränderungen reagieren zu können. Ein
+                  aktuelles Beispiel dafür ist die Veröffentlichung des Films
+                  "Der verrückte Professor", was zu einem sprunghaften Anstieg
+                  der Nachfrage nach Comics zu dieser Geschichte geführt hat.
+                  Zusätzlich ist unsere Titelbilddesignerin Mandy krank
+                  geworden und wir haben gerade eine Druckerpresse
+                  angeschafft, die mit dem CMY-Farbschema statt dem
+                  RGB-Farbschema arbeitet. Diese Veränderungen erfordern uns,
+                  schnell und flexibel handeln zu können, um unsere Deadlines
+                  und Qualitätsstandards zu erfüllen. Agiles Arbeiten
+                  ermöglicht uns, dies zu tun, indem es uns erlaubt, schnell
+                  auf Veränderungen zu reagieren und unsere Prozesse
+                  anzupassen.
+                  <br />
+                  <br />
+                  In unserem DevOps-Szenario, in dem wir einen Comic-Verlag
+                  betrachten, gibt es verschiedene agile Methoden, die wir
+                  anwenden können, um flexibel und anpassungsfähig zu
+                  arbeiten. Eine dieser Methoden ist Scrum, bei der das Team
+                  in sogenannten Sprints arbeitet, um bestimmte Ziele zu
+                  erreichen. Eine andere Methode ist Extreme Programming (XP),
+                  bei der die Schwerpunkte auf der kontinuierlichen
+                  Verbesserung der Qualität und der Zusammenarbeit des Teams
+                  liegen. Eine weitere Methode ist Kanban, bei der die Arbeit
+                  in Form von Karten visualisiert wird und das Team in der
+                  Lage ist, den Arbeitsfluss besser zu steuern und zu
+                  optimieren. Jede dieser Methoden hat ihre eigenen Stärken
+                  und kann in Abhängigkeit von den Anforderungen des Projekts
+                  und des Teams gewählt werden.
+                  <br />
+                  <br />
+                  Um diese Herausforderungen anzugehen werden vier schwarze
+                  Bretter aufgehängt. Das Master-Board zeigt alle derzeitigen
+                  Herausforderungen, da sich die Probleme gegenseitig
+                  beieinflussen. Der Erhöhte Bedarf und die neue Druckerpresse
+                  beinflussen sich gegenseitig...
+                  <br />
+                  <br />
+                  Der erste Ort könnte eine große Wand in der Nähe des
+                  Eingangs sein, wo das Master Whiteboard aufgehängt werden
+                  kann, damit jeder, der das Gebäude betritt, sofort einen
+                  Überblick über die aktuellen Herausforderungen hat. Der
+                  zweite Ort könnte ein Konferenzraum sein, der speziell für
+                  das Team, das sich mit dem erhöhten Bedarf an "verrücktem
+                  Professor" Comics beschäftigt, reserviert ist. Hier könnte
+                  ein Whiteboard aufgestellt werden, auf dem die Schritte und
+                  Aufgaben für dieses Projekt festgehalten werden. Der dritte
+                  Ort könnte ein Aufenthaltsraum für die Mitarbeiter sein, in
+                  dem ein Whiteboard aufgehängt werden kann, auf dem die
+                  Schritte und Aufgaben für das Team, das Mandy ersetzt,
+                  während sie krank ist, festgehalten werden. Der vierte Ort
+                  könnte die Werkstatt sein, wo die neue Druckerpresse
+                  aufgestellt ist. Hier könnte ein Whiteboard aufgestellt
+                  werden, auf dem die Schritte und Aufgaben für das Team, das
+                  für die Umstellung der Prozesse auf die neue Druckerpresse
+                  verantwortlich ist, festgehalten werden.
+                  <br />
+                  <br />
+                  Das Master-Team könnte aus Vertretern aller Abteilungen
+                  bestehen, die an der Produktion der Comics beteiligt sind,
+                  wie z.B. Autoren, Zeichner, Setzer, Marketing und Vertrieb.
+                  Dieses Team trifft sich regelmäßig, um den Fortschritt der
+                  anderen Teams zu überwachen und sicherzustellen, dass die
+                  Projektziele erreicht werden.
+                  <br />
+                  <br />
+                  Für das Team, das sich mit dem erhöhten Bedarf beschäftigt,
+                  könnten vor allem Autoren und Zeichner ausgewählt werden,
+                  die schnell neue Inhalte erstellen können. Das Team für die
+                  Krankheit könnte aus Mitarbeitern bestehen, die schnell
+                  einspringen und die Aufgaben der kranken Mitarbeiter
+                  übernehmen können.
+                  <br />
+                  <br />
+                  Das Team für die neue Druckerpresse sollte aus Mitarbeitern
+                  bestehen, die sich mit der Technologie auskennen und in der
+                  Lage sind, die Prozesse schnell an die neue Ausrüstung
+                  anzupassen. Dies könnten Setzer, Drucker und technisches
+                  Personal sein.
+                  <br />
+                  <br />
+                  Es ist wichtig, dass die Teams aus Mitarbeitern bestehen,
+                  die über die erforderlichen Fähigkeiten und Kenntnisse
+                  verfügen, um die spezifischen Herausforderungen erfolgreich
+                  anzugehen. Es ist auch wichtig, dass die Teams regelmäßig
+                  kommunizieren und zusammenarbeiten, um sicherzustellen, dass
+                  sie auf dem gleichen Stand sind und dass die Projektziele
+                  erreicht werden
+                  <br />
+                  <br />
+                  Ein wichtiger Punkt bei der Zusammenstellung von Teams ist,
+                  dass die Mitglieder kompatibel und gut zusammenarbeiten
+                  können. Es ist wichtig, dass die Teammitglieder
+                  unterschiedliche Fähigkeiten und Erfahrungen haben, um eine
+                  gute Balance und Abdeckung aller notwendigen Aufgaben zu
+                  gewährleisten.
+                  <br />
+                  <br />
+                  Mitarbeiter, die Probleme mit Zeitmanagement haben oder
+                  häufig krank sind, sollten möglicherweise nicht in Teams
+                  aufgenommen werden, da dies die Effizienz und Leistung des
+                  Teams beeinträchtigen kann. Auch Mitarbeiter, die
+                  Schwierigkeiten haben, sich in ein Team einzufügen oder die
+                  Arbeit anderer zu respektieren, sollten möglicherweise nicht
+                  in Teams aufgenommen werden.
+                  <br />
+                  <br />
+                  Es ist auch wichtig, dass die Teams eine ausgewogene
+                  Zusammensetzung aus verschiedenen Abteilungen und Rollen
+                  haben, um sicherzustellen, dass alle relevanten Perspektiven
+                  und Kenntnisse in die Entscheidungsfindung einbezogen
+                  werden.
+                  <br />
+                  <br />
+                  Es ist wichtig zu beachten, dass jeder Mitarbeiter
+                  einzigartig ist und es keine allgemeingültigen Regeln für
+                  die Zusammensetzung von Teams gibt. In einigen Fällen kann
+                  die Rolle des Mitarbeiters tatsächlich ausschlaggebend sein,
+                  in anderen Fällen kann es jedoch sinnvoll sein, auf den
+                  Charakter des Mitarbeiters zu achten. Es kann auch sinnvoll
+                  sein, chronisch kranke Mitarbeiter in Teams einzubeziehen,
+                  insbesondere wenn sie über spezielle Fähigkeiten und
+                  Kenntnisse verfügen, die für das Team von Nutzen sein
+                  können. Es ist jedoch wichtig, sicherzustellen, dass die
+                  Belastungen für diese Mitarbeiter nicht zu hoch sind und sie
+                  ausreichend unterstützt werden. Es ist wichtig, offen und
+                  ehrlich über die Fähigkeiten und Bedürfnisse jedes einzelnen
+                  Mitarbeiters zu kommunizieren, um sicherzustellen, dass das
+                  Team erfolgreich arbeiten kann
+                  <br />
+                  <br />
+                  Das Team würde sich regelmäßig treffen, um die aktuelle
+                  Situation zu besprechen und die Prioritäten festzulegen.
+                  <br />
+                  <br />
+                  Die Aufgaben, die am dringendsten erledigt werden müssen,
+                  werden auf das Kanban-Board geschrieben und in die "To
+                  Do"-Spalte gestellt.
+                  <br />
+                  <br />
+                  Jeder Mitarbeiter würde seine Aufgaben von der "To Do"- in
+                  die "Doing"-Spalte verschieben, wenn er damit beginnt.
+                  <br />
+                  <br />
+                  Sobald eine Aufgabe erledigt ist, würde der Mitarbeiter sie
+                  in die "Done"-Spalte verschieben.
+                  <br />
+                  <br />
+                  Das Team würde regelmäßig über die Fortschritte sprechen und
+                  sicherstellen, dass alle Aufgaben erledigt werden und dass
+                  keine Blockaden vorliegen.
+                  <br />
+                  <br />
+                  Um die Umstellung auf die neue Druckerpresse zu erleichtern,
+                  könnte man einen Arbeitsplatz für Drucker einrichten und
+                  sicherstellen, dass die Drucker mit dem CMYK-Farbschema
+                  vertraut sind.
+                  <br />
+                  <br />
+                  Der Archivar könnte die alten Ausgaben schneller finden und
+                  bereitstellen, indem er sie in eine besondere Kategorie
+                  einordnet und sie schneller zugänglich macht.
+                  <br />
+                  <br />
+                  Der Marketingbereich könnte schneller auf die veränderte
+                  Nachfrage reagieren, indem er den Vertrieb und die
+                  Werbekampagne anpasst.
+                  <br />
+                  <br />
+                  Der Autor und Showrunner könnten schneller neuen Content
+                  erstellen, indem sie enger mit dem Team zusammenarbeiten und
+                  sich regelmäßig treffen, um die Anforderungen und
+                  Prioritäten zu besprechen
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 04</p>
+
+                <h3 class="h3 card-title">scrum</h3>
+
+                <p class="card-text">
+                  Das Team Aktion besteht aus dem Scrum Master "Johanna", dem
+                  ShowRunner "Jack" und den Authoren "Max", "Emma" und
+                  "Laura".
+                  <br />
+                  <br />
+                  Situation 1: Das Team arbeitet an der Entwicklung einer
+                  neuen Funktion für eine bestehende Anwendung. Der Product
+                  Owner "Jack" hat die Anforderungen für die neue Funktion
+                  definiert und sie in die Product Backlog eingetragen. In der
+                  Sprint-Planungs-Sitzung wählt das Team die Aufgaben aus dem
+                  Product Backlog für den aktuellen Sprint aus und schätzt die
+                  Aufwände. Der Scrum Master "Johanna" leitet die Sitzung und
+                  sorgt dafür, dass alle Regeln von Scrum eingehalten werden.
+                  Während des Sprints arbeiten die Entwickler "Max", "Emma"
+                  und "Laura" an den ausgewählten Aufgaben und halten tägliche
+                  Stand-up Meetings ab, um den Fortschritt zu besprechen. Am
+                  Ende des Sprints präsentiert das Team dem Product Owner
+                  "Jack" das Ergebnis und erhält Feedback.
+                  <br />
+                  <br />
+                  Situation 2: Während des Sprints stellt das Team fest, dass
+                  eine Aufgabe schwieriger als erwartet ist und mehr Zeit in
+                  Anspruch nimmt. Der Scrum Master "Johanna" organisiert eine
+                  Sprint-Review-Sitzung, in der das Team das Problem bespricht
+                  und eine Lösung findet. Der Product Owner "Jack"
+                  entscheidet, welche Aufgaben für den nächsten Sprint
+                  priorisiert werden sollten, um das Problem zu lösen.
+                  <br />
+                  <br />
+                  Situation 3: Der Product Owner "Jack" hat eine neue
+                  Anforderung, die dringend umgesetzt werden muss. Er
+                  organisiert eine Sprint-Planungs-Sitzung außerhalb des
+                  regulären Rhythmus, um die Anforderungen in das Sprint
+                  Backlog einzubringen. Das Team schätzt die Aufwände und der
+                  Scrum Master "Johanna" organisiert einen Sprint, um die
+                  Anforderungen zu erfüllen. Am Ende des Sprints wird das
+                  Ergebnis dem Product Owner "Jack" präsentiert und die
+                  Anforderungen als erfüllt markiert.
+                  <br />
+                  <br />
+                  In allen drei Situationen arbeitet das Team eng mit dem
+                  Product Owner "Jack" zusammen, um die Anforderungen der
+                  Anwendung zu erfüllen und sicherzustellen, dass sie den
+                  Bedürfnissen des Kunden entsprechen. Der Scrum Master
+                  "Johanna" sorgt dafür, dass das Team die Regeln von Scrum
+                  einhält und dass alle Beteiligten auf dem gleichen Stand
+                  sind. Die Entwickler "Max", "Emma" und "Laura" arbeiten an
+                  den
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 05</p>
+
+                <h3 class="h3 card-title">xp extrme programming</h3>
+
+                <p class="card-text">
+                  Im Writing Room (Entwicklungsabteilung) arbeiten die vier
+                  Autoren (Programmierer) Emma, Max, Julia und David an zwei
+                  Comic-Heftreihen. Emma ist eine junge, talentierte Autorin,
+                  die gerade erst ihre Karriere im Verlagswesen begonnen hat.
+                  Max ist ein erfahrener Autor, der sich auf
+                  Action-Geschichten spezialisiert hat. Julia ist eine
+                  erfahrene Autorin, die sich auf romantische Geschichten
+                  spezialisiert hat und oft an der Heftreihe "Phillip liebt
+                  Nancy" arbeitet. David ist ein junger, talentierter Autor,
+                  der sich auf humorvolle Geschichten spezialisiert hat und
+                  oft in der Heftreihe "Der verrückte Professor" arbeitet. Das
+                  Team "Romantik", bestehend aus Julia und David, arbeitet an
+                  der Heftreihe "Phillip liebt Nancy", während das Team
+                  "Aktion", bestehend aus Emma und Max, an der Heftreihe "Der
+                  verrückte Professor" arbeitet. Beide Teams arbeiten nach der
+                  Methode XP (Extreme Programming) um die Arbeit an ihren
+                  Geschichten (dem Code) zu optimieren.
+                  <br />
+                  <br />
+                  Im Writing Room arbeitet das Team "Aktion" an der
+                  Comic-Heftreihe "Der verrückte Professor" und hat sich dafür
+                  entschieden, das Pair Programming anzuwenden. Beim Pair
+                  Programming teilen sich zwei Autoren (Emma und Max) eine
+                  Schreibmaschine und arbeiten gemeinsam an einer Geschichte.
+                  <br />
+                  <br />
+                  Wenn Emma und Max an einer bestimmten Szene arbeiten, sitzen
+                  sie Seite an Seite an der Schreibmaschine. Emma beginnt mit
+                  dem Schreiben der ersten Zeile, während Max ihr über die
+                  Schulter schaut und Anmerkungen und Vorschläge macht. Sobald
+                  Emma die erste Zeile geschrieben hat, übernimmt Max und
+                  schreibt die zweite Zeile, während Emma ihm über die
+                  Schulter schaut und Anmerkungen und Vorschläge macht. So
+                  arbeiten sie sich gemeinsam durch die Szene, Zeile für
+                  Zeile.
+                  <br />
+                  <br />
+                  Das Team "Aktion" hat sich für Pair Programming entschieden,
+                  da es ihnen ermöglicht, die Arbeit effizienter und sicherer
+                  abzuschließen. Durch das ständige Überprüfen und Feedback
+                  geben, können sie schneller Fehler erkennen und beheben. Es
+                  ermöglicht ihnen auch, sich gegenseitig zu inspirieren und
+                  kreative Lösungen für schwierige Probleme zu finden. Es ist
+                  eine Methode, die es ihnen ermöglicht, die Qualität und die
+                  Effizienz ihrer Arbeit zu verbessern und schneller ihre
+                  Ziele zu erreichen
+                  <br />
+                  <br />
+                  XP (Extreme Programming) ist eine agile Methode, die sich
+                  auf die schnelle und flexible Entwicklung von Software
+                  konzentriert. Es geht darum, schnell und iterativ zu
+                  arbeiten, Feedback von Kunden und Teammitgliedern zu sammeln
+                  und schnell auf Veränderungen zu reagieren. In unserem
+                  Beispiel des Comic-Verlags könnte XP bedeuten, dass die
+                  Autoren eng mit dem Marketing-Team und dem Verlag
+                  zusammenarbeiten, um schnell auf die Nachfrage nach
+                  bestimmten Comics reagieren zu können. Sie arbeiten in
+                  kurzen Entwicklungszyklen, testen die Geschichten regelmäßig
+                  und passen sie entsprechend an, um sicherzustellen, dass die
+                  Comics den Erwartungen der Leser entsprechen.
+                  <br />
+                  <br />
+                  In Extreme Programming (XP) ist Test-Driven Development
+                  (TDD) ein wichtiger Bestandteil. TDD beinhaltet das
+                  Schreiben von Tests für Code, bevor der Code selbst
+                  geschrieben wird. Dadurch wird sichergestellt, dass der Code
+                  die Anforderungen erfüllt und Fehler frühzeitig erkannt
+                  werden. Continous Integration (CI) ist ein weiteres
+                  wichtiges Konzept in XP. CI beinhaltet das regelmäßige
+                  Integrieren von Codeänderungen in den gemeinsamen Code-Basis
+                  und das Ausführen von Tests, um sicherzustellen, dass die
+                  Änderungen die Anforderungen erfüllen und keine Konflikte
+                  mit dem bestehenden Code verursachen.
+                  <br />
+                  <br />
+                  Im Writing Room arbeitet das Team "Aktion" unter der Leitung
+                  des Projektmanagers Jack an der Comic-Heftreihe "Der
+                  verrückte Professor". Jack ist der Showrunner, der für die
+                  Planung der groben langfristigen Entwicklung der Geschichte
+                  und die Verbindung zum "Market Research" (Kunden)
+                  verantwortlich ist. Er erhält Feedback und gibt Epics an
+                  sein Team weiter. Emma und Max, die Autoren des Teams,
+                  erstellen daraufhin Checklisten für jede Szene der
+                  Geschichte. Bevor sie mit dem Schreiben beginnen, schreiben
+                  sie Tests, die überprüfen, ob die Geschichte diese
+                  Anforderungen erfüllt. Während sie schreiben, überprüfen sie
+                  ständig, ob die Geschichte den Tests entspricht. Dadurch
+                  können sie sicherstellen, dass die Geschichte den
+                  Anforderungen entspricht und frei von Fehlern ist, bevor sie
+                  sie abschließen.
+                  <br />
+                  <br />
+                  Durch die Anwendung von Test-Driven Development (TDD) und
+                  Pair Programming können Emma und Max sicherstellen, dass die
+                  Geschichte den Anforderungen entspricht und ihre Arbeit
+                  effizienter und sicherer abgeschlossen wird. Sie können
+                  schneller Fehler erkennen und beheben und sicherstellen,
+                  dass die Geschichte den Anforderungen des Kunden entspricht.
+                  Jack als der Showrunner und sein Team arbeiten eng zusammen,
+                  um die bestmögliche Geschichte für ihre Leser zu erstellen
+                  und damit erfolgreich zu sein.
+                  <br />
+                  <br />
+                  Im Writing Room arbeitet das Team "Romantik" unter der
+                  Leitung des Projektmanagers Sarah an der Comic-Heftreihe
+                  "Phillip liebt Nancy". Sarah ist die Showrunnerin, die für
+                  die Planung der groben langfristigen Entwicklung der
+                  Geschichte und die Verbindung zum "Market Research" (Kunden)
+                  verantwortlich ist. Sie erhält Feedback und gibt Epics an
+                  ihr Team weiter. Emma und Max, die Autoren des Teams,
+                  erstellen daraufhin Checklisten für jede Szene der
+                  Geschichte. Bevor sie mit dem Schreiben beginnen, schreiben
+                  sie Tests, die überprüfen, ob die Geschichte diese
+                  Anforderungen erfüllt. Während sie schreiben, überprüfen sie
+                  ständig, ob die Geschichte den Tests entspricht.
+                  <br />
+                  <br />
+                  Im Coffee Room hängt ein großes "Conspiracy Board" an der
+                  Wand, das wie ein Git-Repository funktioniert. Emma und Max
+                  können hier ihren Fortschritt der Geschichte "commiten"
+                  indem sie ihre Änderungen auf die Pinnwand schreiben und
+                  wichtige Änderungen wie "Phillip ist geschäftlich ins
+                  Ausland gefahren" mit einem farbigen Pin kennzeichnen. Sie
+                  können auch Fäden zwischen verschiedenen Charakteren und
+                  Ereignissen ziehen, um den Fortschritt der Geschichte zu
+                  verfolgen. Beide Autoren "pullen" regelmäßig die neuen Infos
+                  von dem Board, bevor sie selbst commiten und sie reviewen
+                  das Board zweimal am Tag, um sicherzustellen, dass die
+                  Geschichte konsistent und logisch ist. Diese Methode hilft
+                  ihnen schneller Fehler zu erkennen und zu beheben und
+                  sicherzustellen, dass die Geschichte den Anforderungen des
+                  Kunden entspricht.
+                  <br />
+                  <br />
+                  In unserem Beispiel verwendet das Team "Romantik" sowohl
+                  Test-Driven Development (TDD) als auch Behavior-Driven
+                  Development (BDD). Bevor sie mit dem Schreiben der
+                  Geschichte beginnen, erstellen die Autoren Emma und Max
+                  Checklisten, die sicherstellen sollen, dass die Geschichte
+                  bestimmte Anforderungen erfüllt. Dies ist ein Beispiel für
+                  TDD. Sie schreiben Tests, bevor sie den tatsächlichen Code
+                  schreiben und überprüfen dann, ob der Code den Tests
+                  entspricht.
+                  <br />
+                  <br />
+                  Die Showrunnerin Sarah gibt dem Team Epics, die die groben
+                  langfristigen Entwicklungen der Geschichte beschreiben und
+                  Verbindungen zum "Market Research" (Kunden) herstellt. Diese
+                  Epics sind ein Beispiel für BDD, da sie die Anforderungen
+                  des Kunden und das Verhalten der Anwendung in einer
+                  einfachen Sprache beschreiben, die sowohl für Entwickler als
+                  auch für Nicht-Entwickler verständlich ist
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 06</p>
+
+                <h3 class="h3 card-title">GitLab</h3>
+
+                <p class="card-text">
+                  Willkommen zurück meine Lieben Comicbuchfans. Letztens hatte
+                  ich wieder einen merkwürdigen Traum, in welchem mir meine
+                  Oma eine Geschichte erzählte: Es war einmal ein kleines
+                  Unternehmen, das viele Computerprogramme entwickelte. Die
+                  Programmierer arbeiteten hart daran, ihre Code zu schreiben
+                  und zu verbessern, aber sie hatten immer Schwierigkeiten,
+                  ihre Arbeit zu organisieren. Sie benutzten viele
+                  verschiedene Computer und manchmal arbeiteten sie von
+                  unterschiedlichen Orten aus.Eines Tages entdeckten sie
+                  Gitlab. Gitlab ist ein Werkzeug, mit dem man Code auf
+                  einfache Weise organisieren und teilen kann. Mit Gitlab
+                  konnten die Programmierer ihre Arbeit an einem zentralen Ort
+                  speichern, an dem jeder sie einfach finden und bearbeiten
+                  konnte.Außerdem konnten sie mit Gitlab sehen, wer welche
+                  Änderungen an ihrem Code vorgenommen hatte und jederzeit zu
+                  einer früheren Version zurückkehren, falls etwas
+                  schiefging.Die Programmierer waren begeistert von Gitlab und
+                  konnten nun viel schneller und einfacher zusammenarbeiten.
+                  Sie konnten ihre Projekte schneller abschließen und sogar
+                  neue Projekte starten, weil sie nicht mehr so viel Zeit
+                  damit verbrachten, ihre Arbeit zu organisieren.Die Moral der
+                  Geschichte ist, dass Gitlab ein wunderbares Werkzeug ist, um
+                  die Zusammenarbeit und Organisation bei der Arbeit an
+                  Computerprogrammen zu verbessern.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 07</p>
+
+                <h3 class="h3 card-title">JenPipeline</h3>
+
+                <p class="card-text">
+                  Ja, klar! Im Comic-Buch-Verlag werden Comics produziert,
+                  hergestellt und vertrieben. Um diesen Prozess zu
+                  automatisieren, wurde Jenkins eingestellt. Jenkins hat die
+                  Aufgabe, jeden Schritt in der Produktionskette
+                  durchzuführen, vom Schreiben der Geschichten bis zum
+                  Drucken, Transportieren und Vertreiben der Comics. Um
+                  sicherzustellen, dass die Geschichten den Anforderungen
+                  entsprechen, müssen sie Unit-Tests bestehen, bevor sie zum
+                  Drucken weitergegeben werden. Außerdem müssen sie
+                  Integrationstests bestehen, um sicherzustellen, dass alles,
+                  von der Druckerpresse bis zu den Verkaufsetiketten und
+                  Lieferadressen, funktioniert. Jenkins ist wie ein Assistent,
+                  der jeden Schritt sorgfältig durchführt, um den Prozess
+                  reibungslos und effizient zu gestalten.
+                  <br />
+                  <br />
+                  Ja, klar! Im Comic-Buch-Verlag werden Comics von Autoren
+                  geschrieben, die Geschichten werden dann automatisch von
+                  Jenkins verarbeitet. Jenkins hat die Aufgabe, jeden Schritt
+                  in der Produktionskette durchzuführen, vom Überprüfen der
+                  Geschichten auf Übereinstimmung mit der Lore (d.h.
+                  Rückwärtskompatibilität mit bereits bestehenden Geschichten)
+                  bis zum Drucken, Transportieren und Vertreiben der Comics.
+                  Um sicherzustellen, dass alles reibungslos funktioniert,
+                  müssen die Geschichten Unit-Tests bestehen, bevor sie zum
+                  Drucken weitergegeben werden. Außerdem müssen sie
+                  Integrationstests bestehen, um sicherzustellen, dass alles,
+                  von der Druckerpresse bis zu den Verkaufsetiketten und
+                  Lieferadressen, funktioniert. Jenkins ist wie ein Assistent,
+                  der jeden Schritt sorgfältig durchführt, um den Prozess
+                  reibungslos und effizient zu gestalten.
+                  <br />
+                  <br />
+                  Gleiche Schritte - Jenkins übernimmt immer dieselben
+                  Schritte bei jeder neuen Geschichte. Das bedeutet, dass jede
+                  Geschichte die gleichen Tests durchläuft und dass es keine
+                  Fehler gibt, die durch menschliche Fehler entstehen.
+                  <br />
+                  <br />
+                  Frühzeitiger Abbruch der Kette bei einem Fehler - Jenkins
+                  überwacht jeden Schritt der Pipeline und kann bei einem
+                  Fehler sofort abbrechen. Dies bedeutet, dass Ressourcen
+                  geschont werden und dass Probleme schnell erkannt und
+                  behoben werden können.
+                  <br />
+                  <br />
+                  Pipeline für mehrere Projekte - Jenkins kann seine Prozesse
+                  auf mehrere Projekte gleichzeitig anwenden. Das bedeutet,
+                  dass der Verlag seine Zeit und Ressourcen effizient nutzen
+                  und mehrere Comics gleichzeitig produzieren kann.
+                  <br />
+                  <br />
+                  Vielleicht könnte man sagen, dass Jenkins wie ein
+                  Überwachungsroboter im Verlag arbeitet. Er überwacht jeden
+                  Schritt der Pipeline, um sicherzustellen, dass jede
+                  Geschichte schnell und effizient produziert wird und dass es
+                  keine Fehler gibt. Auf diese Weise kann der Verlag mehrere
+                  Comics gleichzeitig produzieren und seine Ressourcen
+                  effizient nutzen.
+                  <br />
+                  <br />
+                  Reproduzierbarkeit: Jenkins hat einen sehr gewissenhaften
+                  Assistenten namens James, der genau weiß, wie die Schritte
+                  der Produktionskette durchgeführt werden müssen. Falls
+                  Jenkins einmal krank ist, kann James einfach seine Arbeit
+                  übernehmen und garantiert, dass die Schritte immer gleich
+                  ausgeführt werden.
+                  <br />
+                  <br />
+                  Frühzeitiger Abbruch: Der Drucker des Verlags gibt
+                  frühzeitig Rückmeldung, falls bei der Druckproduktion etwas
+                  nicht in Ordnung ist. So kann Jenkins oder James die
+                  Produktionskette unterbrechen, bevor großer Schaden
+                  entsteht.
+                  <br />
+                  <br />
+                  Skalierbarkeit: Der Verlag hat ein Event geplant, bei dem
+                  ein besonderes Heft gedruckt werden soll. Da die Prozesse
+                  sehr ähnlich sind, kann Jenkins die Produktionskette für das
+                  Sonderheft ohne Änderungen durchschleusen.
+                  <br />
+                  <br />
+                  Falscher Pfad: Einmal kam es vor, dass ein Mitarbeiter
+                  versehentlich das falsche Stockwerk in Jenkins' Tagesablauf
+                  eingetragen hatte. Als Jenkins seine Runde durch die
+                  Stockwerke startete, war er auf einmal im falschen
+                  Stockwerk. Hier fand er keine Geschichten, sondern nur
+                  Archivmaterial und alte Ausgaben. Jenkins war verwirrt und
+                  wusste nicht, was er tun sollte. Nach einer Weile fiel ihm
+                  auf, dass er im falschen Stockwerk war. Er machte sich
+                  sofort auf den Weg zurück, um die fehlenden Geschichten zu
+                  finden.
+                  <br />
+                  <br />
+                  Externe Ressourcen: Der Verlag ist darauf angewiesen, dass
+                  die Fanclubs Feedback zu den aktuellen Ausgaben senden,
+                  damit sie auf die Bedürfnisse und Wünsche der Leser eingehen
+                  können. Diese Feedback wird in Form einer Kolumne auf der
+                  letzten Seite des Heftes veröffentlicht. Aber manchmal
+                  geschieht es, dass die Fanclubs kein Feedback senden. Dann
+                  steht Jenkins vor einem Problem. Er kann seine Arbeit nicht
+                  vollständig erledigen, da die letzte Seite leer bleibt. Ohne
+                  das Feedback kann er nicht sicherstellen, dass die
+                  Geschichte die Leser begeistert. Jenkins und sein Team
+                  müssen sich dann auf die Suche nach neuen Ideen machen, um
+                  die letzte Seite zu füllen.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 08</p>
+
+                <h3 class="h3 card-title">jenkins</h3>
+
+                <p class="card-text">
+                  Jenkins ist ein Open-Source-Automatisierungswerkzeug, das
+                  hauptsächlich zur Erstellung und Verwaltung von Continuous
+                  Integration (CI) und Continuous Deployment (CD) Pipelines
+                  verwendet wird. Mit Jenkins können Entwickler automatisch
+                  Tests ausführen, Builds erstellen und Deployments
+                  durchführen, um sicherzustellen, dass ihr Code stabil und
+                  fehlerfrei ist, bevor er in die Produktion bereitgestellt
+                  wird.
+                  <br />
+                  <br />
+                  Wichtigste Aufgaben bei denen Jenkins nützlich ist:
+                  <br />
+                  <br />
+                  Automatisierung von Build- und Testprozessen Überwachung von
+                  Codeänderungen und Ausführung von Tests bei jeder Änderung
+                  Erstellung von benutzerdefinierten Workflows für die
+                  Bereitstellung von Code in verschiedene Umgebungen
+                  Erstellung von Dashboards zur Überwachung der Leistung und
+                  Fehler von Anwendungen Integrierung von anderen Tools und
+                  Technologien in die CI/CD-Pipeline Jenkins funktioniert,
+                  indem es einen Prozess automatisiert, der Code von einem
+                  gemeinsamen Repository abruft, den Code automatisch baut und
+                  dann automatisch Tests ausführt. Wenn die Tests erfolgreich
+                  sind, wird der Code automatisch in eine Produktionsumgebung
+                  bereitgestellt. Jenkins kann auch benutzerdefinierte
+                  Workflows und Regeln für das Deployment von Code in
+                  verschiedene Umgebungen definieren. Jenkins überwacht durch
+                  das Abonnieren von Ereignissen auf dem Repository und
+                  startet dann die vordefinierten Jobs (Tests, Builds,
+                  Deployment) automatisch
+                  <br />
+                  <br />
+                  In Ihrem Theater-Szenario, in dem Git und Jenkins als
+                  Personen dargestellt werden, könnte Git als Bibliothekar,
+                  Archivar oder Fundusmeister dargestellt werden, der für die
+                  Verwaltung und Aufbewahrung der Theaterstücke, Requisiten
+                  und Aufzeichnungen verantwortlich ist. Jenkins könnte als
+                  Techniker oder Regisseur dargestellt werden, der für die
+                  Automatisierung und Durchführung von Proben und Aufführungen
+                  verantwortlich ist. Er würde sicherstellen, dass die Technik
+                  und die Aufführung reibungslos und fehlerfrei laufen.
+                  Jenkins könnte auch als Bühnenmeister dargestellt werden,
+                  der für die Auf- und Abbau der Bühnenbilder verantwortlich
+                  ist. Jenkins würde sicherstellen, dass die Bühnenbilder
+                  schnell und sicher aufgebaut und abgebaut werden und dass
+                  sie für jede Aufführung bereit sind.
+                  <br />
+                  <br />
+                  Ja, Jenkins kann automatisch auf Änderungen im
+                  Git-Repository reagieren und ist ein wichtiger Bestandteil
+                  von Continuous Integration (CI) und Continuous Deployment
+                  (CD) Pipelines. Jenkins unterstützt verschiedene Modi für
+                  die Ausführung von Pipelines, darunter:
+                  <br />
+                  <br />
+                  Freestyle-Projekte: Dies ist der einfachste Modus in
+                  Jenkins, in dem Sie eine einfache Pipeline erstellen können,
+                  indem Sie manuell Schritte hinzufügen und konfigurieren.
+                  Pipeline-as-Code: Dieser Modus ermöglicht es Ihnen, Ihre
+                  Pipeline als Code zu definieren, anstatt sie manuell zu
+                  erstellen. Sie können Ihre Pipeline in einer Skriptsprache
+                  wie Groovy oder Jenkinsfile definieren und diese im
+                  Git-Repository verwalten. Multi-Branch-Pipeline: Dieser
+                  Modus ermöglicht es Ihnen, automatisch Pipelines für jeden
+                  Branch in Ihrem Git-Repository zu erstellen und auszuführen.
+                  Jenkinsfile Runner: Dieser Modus ermöglicht es Ihnen,
+                  Jenkinsfiles in einer isolierten Umgebung auszuführen
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 09</p>
+
+                <h3 class="h3 card-title">pipelines</h3>
+
+                <p class="card-text">
+                  "Im DevOps-Comic-Verlag bringen die fleißigen Autoren jede
+                  Woche brandneue Hefte der Reihen "Der verrückte Professor"
+                  und "Phillip liebt Nanny" heraus und jeden Monat spannende
+                  Bücher wie "Das Geheimnis des verlorenen Schatzes" und "Die
+                  Abenteuer von Superhelden-Team". Um sicherzustellen, dass
+                  die Geschichten konsistent und von höchster Qualität sind,
+                  setzt der Verlag auf die Nutzung von Pipelines. In diesem
+                  Kapitel werden wir uns detailliert die Schritte der
+                  Continuous Integration (CI), Continuous Testing (CT) als
+                  Teil der CI/CD und Continuous Deployment (CD) ansehen und
+                  erklären, wie sie im DevOps-Comic-Verlag eingesetzt werden.
+                  Am Ende des Kapitels werden wir uns die Vorteile und
+                  Nachteile des vorgestellten Ansatzes ansehen."
+                  <br />
+                  <br />
+                  "Die CI-Pipeline ist der erste Schritt im Prozess des
+                  DevOps-Comic-Verlags. Die Autoren (Emma , Jack und Julia ,
+                  David) treffen sich zweimal am Tag an einer gemeinsamen
+                  Pinnwand (beispielsweise in Form eines physischen Pinnwand
+                  mit Notizen, Pins und Fäden) und reviewen und aktualisieren
+                  das "Storyboard" der Comics und Bücher. Dieser Prozess sorgt
+                  dafür, dass die Geschichten konsistent bleiben und Fehler
+                  frühzeitig erkannt werden.
+                  <br />
+                  <br />
+                  Wenn ein Autor Änderungen am Storyboard vornimmt, wird
+                  automatisch ein dieses Vorgehen gestartet, welches die
+                  Änderungen auf Richtigkeit und Konsistenz überprüft. Wenn
+                  das Vorgehen erfolgreich ist, werden die Änderungen in das
+                  gemeinsame Repository eingefügt und die anderen Autoren
+                  werden benachrichtigt.
+                  <br />
+                  <br />
+                  Dieser Prozess der ständigen Integration der Änderungen
+                  sorgt dafür, dass die Comics und Bücher immer auf dem
+                  neuesten Stand sind und Fehler frühzeitig erkannt werden. Es
+                  ermöglicht auch eine schnellere Zusammenarbeit und
+                  Kommunikation innerhalb des Teams und sorgt für eine
+                  effizientere Arbeitsweise."
+                  <br />
+                  <br />
+                  Die CD-Pipeline, auch als Deployment-Pipeline bekannt, ist
+                  der letzte Schritt im CI/CD-Prozess im DevOps-Comic-Verlag.
+                  Es handelt sich um den Prozess, in dem die Comics und Bücher
+                  tatsächlich gedruckt und an die Geschäfte ausgeliefert
+                  werden.
+                  <br />
+                  <br />
+                  Der Prozess beginnt mit dem Drucken der Comics und Bücher,
+                  bei dem die Druckerpressen sichergestellt werden, dass die
+                  richtige Farbpalette und die richtigen Aufkleber verwendet
+                  werden. Sobald die Druckprozesse abgeschlossen sind, werden
+                  die Comics und Bücher in Kartons verpackt und an die Läden
+                  ausgeliefert.
+                  <br />
+                  <br />
+                  Die CD-Pipeline ist automatisiert und parallel zur
+                  CT-Pipeline. Sobald die Tests erfolgreich abgeschlossen
+                  sind, werden die Comics und Bücher automatisch gedruckt und
+                  an die Läden ausgeliefert. Dieser Prozess ermöglicht es dem
+                  DevOps-Comic-Verlag, schnell und effizient auf Änderungen zu
+                  reagieren und gleichzeitig die Qualität der Produkte zu
+                  gewährleisten."
+                  <br />
+                  <br />
+                  "Das Verwenden von CI/CD-Pipelines hat sowohl Vorteile als
+                  auch Nachteile im DevOps-Comic-Verlag. Ein wesentlicher
+                  Vorteil ist die Fähigkeit, schnell und effizient auf
+                  Änderungen zu reagieren und gleichzeitig die Qualität der
+                  Produkte zu gewährleisten. Durch die Automatisierung der
+                  Prozesse wird auch die Fehlerwahrscheinlichkeit reduziert
+                  und die Zeit, die für manuelle Schritte aufgewendet werden
+                  muss, verringert.
+                  <br />
+                  <br />
+                  Ein Nachteil kann sein, dass die Implementierung von
+                  CI/CD-Pipelines eine Initialinvestition erfordert und dass
+                  es Zeit und Ressourcen benötigt, um sie einzurichten und
+                  aufrechtzuerhalten. Es ist auch wichtig zu beachten, dass es
+                  unterschiedliche Grade der Integration von Pipelines in
+                  Unternehmen gibt und dass es für manche Unternehmen
+                  möglicherweise nicht die beste Lösung ist.
+                  <br />
+                  <br />
+                  Insgesamt ist die Verwendung von CI/CD-Pipelines ein
+                  wertvolles Werkzeug im DevOps-Comic-Verlag, um schnell und
+                  effizient auf Änderungen zu reagieren, die Qualität der
+                  Produkte zu gewährleisten und die Fehlerwahrscheinlichkeit
+                  zu reduzieren. Es ist jedoch wichtig, die spezifischen
+                  Anforderungen des Unternehmens zu berücksichtigen und die
+                  potenziellen Kosten und Ressourcenaufwendungen sorgfältig
+                  abzuwägen, bevor eine Entscheidung getroffen wird."
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 09</p>
+
+                <h3 class="h3 card-title">pipelines</h3>
+
+                <p class="card-text">
+                  "Im DevOps-Comic-Verlag bringen die fleißigen Autoren jede
+                  Woche brandneue Hefte der Reihen "Der verrückte Professor"
+                  und "Phillip liebt Nanny" heraus und jeden Monat spannende
+                  Bücher wie "Das Geheimnis des verlorenen Schatzes" und "Die
+                  Abenteuer von Superhelden-Team". Um sicherzustellen, dass
+                  die Geschichten konsistent und von höchster Qualität sind,
+                  setzt der Verlag auf die Nutzung von Pipelines. In diesem
+                  Kapitel werden wir uns detailliert die Schritte der
+                  Continuous Integration (CI), Continuous Testing (CT) als
+                  Teil der CI/CD und Continuous Deployment (CD) ansehen und
+                  erklären, wie sie im DevOps-Comic-Verlag eingesetzt werden.
+                  Am Ende des Kapitels werden wir uns die Vorteile und
+                  Nachteile des vorgestellten Ansatzes ansehen."
+                  <br />
+                  <br />
+                  "Die CI-Pipeline ist der erste Schritt im Prozess des
+                  DevOps-Comic-Verlags. Die Autoren (Emma , Jack und Julia ,
+                  David) treffen sich zweimal am Tag an einer gemeinsamen
+                  Pinnwand (beispielsweise in Form eines physischen Pinnwand
+                  mit Notizen, Pins und Fäden) und reviewen und aktualisieren
+                  das "Storyboard" der Comics und Bücher. Dieser Prozess sorgt
+                  dafür, dass die Geschichten konsistent bleiben und Fehler
+                  frühzeitig erkannt werden.
+                  <br />
+                  <br />
+                  Wenn ein Autor Änderungen am Storyboard vornimmt, wird
+                  automatisch ein dieses Vorgehen gestartet, welches die
+                  Änderungen auf Richtigkeit und Konsistenz überprüft. Wenn
+                  das Vorgehen erfolgreich ist, werden die Änderungen in das
+                  gemeinsame Repository eingefügt und die anderen Autoren
+                  werden benachrichtigt.
+                  <br />
+                  <br />
+                  Dieser Prozess der ständigen Integration der Änderungen
+                  sorgt dafür, dass die Comics und Bücher immer auf dem
+                  neuesten Stand sind und Fehler frühzeitig erkannt werden. Es
+                  ermöglicht auch eine schnellere Zusammenarbeit und
+                  Kommunikation innerhalb des Teams und sorgt für eine
+                  effizientere Arbeitsweise."
+                  <br />
+                  <br />
+                  Die CD-Pipeline, auch als Deployment-Pipeline bekannt, ist
+                  der letzte Schritt im CI/CD-Prozess im DevOps-Comic-Verlag.
+                  Es handelt sich um den Prozess, in dem die Comics und Bücher
+                  tatsächlich gedruckt und an die Geschäfte ausgeliefert
+                  werden.
+                  <br />
+                  <br />
+                  Der Prozess beginnt mit dem Drucken der Comics und Bücher,
+                  bei dem die Druckerpressen sichergestellt werden, dass die
+                  richtige Farbpalette und die richtigen Aufkleber verwendet
+                  werden. Sobald die Druckprozesse abgeschlossen sind, werden
+                  die Comics und Bücher in Kartons verpackt und an die Läden
+                  ausgeliefert.
+                  <br />
+                  <br />
+                  Die CD-Pipeline ist automatisiert und parallel zur
+                  CT-Pipeline. Sobald die Tests erfolgreich abgeschlossen
+                  sind, werden die Comics und Bücher automatisch gedruckt und
+                  an die Läden ausgeliefert. Dieser Prozess ermöglicht es dem
+                  DevOps-Comic-Verlag, schnell und effizient auf Änderungen zu
+                  reagieren und gleichzeitig die Qualität der Produkte zu
+                  gewährleisten."
+                  <br />
+                  <br />
+                  "Das Verwenden von CI/CD-Pipelines hat sowohl Vorteile als
+                  auch Nachteile im DevOps-Comic-Verlag. Ein wesentlicher
+                  Vorteil ist die Fähigkeit, schnell und effizient auf
+                  Änderungen zu reagieren und gleichzeitig die Qualität der
+                  Produkte zu gewährleisten. Durch die Automatisierung der
+                  Prozesse wird auch die Fehlerwahrscheinlichkeit reduziert
+                  und die Zeit, die für manuelle Schritte aufgewendet werden
+                  muss, verringert.
+                  <br />
+                  <br />
+                  Ein Nachteil kann sein, dass die Implementierung von
+                  CI/CD-Pipelines eine Initialinvestition erfordert und dass
+                  es Zeit und Ressourcen benötigt, um sie einzurichten und
+                  aufrechtzuerhalten. Es ist auch wichtig zu beachten, dass es
+                  unterschiedliche Grade der Integration von Pipelines in
+                  Unternehmen gibt und dass es für manche Unternehmen
+                  möglicherweise nicht die beste Lösung ist.
+                  <br />
+                  <br />
+                  Insgesamt ist die Verwendung von CI/CD-Pipelines ein
+                  wertvolles Werkzeug im DevOps-Comic-Verlag, um schnell und
+                  effizient auf Änderungen zu reagieren, die Qualität der
+                  Produkte zu gewährleisten und die Fehlerwahrscheinlichkeit
+                  zu reduzieren. Es ist jedoch wichtig, die spezifischen
+                  Anforderungen des Unternehmens zu berücksichtigen und die
+                  potenziellen Kosten und Ressourcenaufwendungen sorgfältig
+                  abzuwägen, bevor eine Entscheidung getroffen wird."
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 10</p>
+
+                <h3 class="h3 card-title">DockerHafen</h3>
+
+                <p class="card-text">
+                  Viele unserer Waren werden mit dem Schiff transportiert, so
+                  auch unsere Comicbücher. Diese werden verladen (Docker
+                  Image) in einen Container zum transport(Docker Container)
+                  auf einem Schiff (Docker Container pushen).
+                  <br />
+                  <br />
+                  Dieses Schiff fährt meinen Container in den Hafen (Docker
+                  Hub).
+                  <br />
+                  <br />
+                  Im Hafen kann nun jeder Lkw (andere Member) oder nur
+                  bestimmte Lkw(wenn private Repo) diesen Container laden und
+                  zu den Lesern transportieren (pullen) und ausladen, damit
+                  ihr alle unsere tollen Geschichten lesen könnt.
+                  <br />
+                  <br />
+                  Damit mir der Container nicht abhanden kommt, erstellen wir
+                  eine Ladeliste (Docker Image). Sollten wir eine größere
+                  Menge an Ladung haben für welche wir mehrere Container
+                  benötige verpacke wir diese in ein Transportflugzeug, welche
+                  alles verbindet (Docker network).
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 11</p>
+
+                <h3 class="h3 card-title">Kubernetes</h3>
+
+                <p class="card-text">
+                  Kubernetes ist eine Plattform, die es ermöglicht,
+                  Anwendungen in einem Cluster, ähnlich einem Buchladen,
+                  auszuführen und zu verwalten. Ein Cluster besteht aus
+                  mehreren Knoten (Nodes), die als Abteilungen des Buchladens
+                  betrachtet werden können, wie zum Beispiel Sifi, Romantik,
+                  Krimi usw. Jeder Knoten hat einen bestimmten Arbeitspeicher
+                  (freie Plätze in den Regalen) zur Verfügung, der von den
+                  Anwendungen genutzt werden kann.
+                  <br />
+                  <br />
+                  In Kubernetes gibt es auch Namespaces, die ähnlich wie die
+                  Abteilungen für Comics und Comichefte im Buchladen
+                  organisieren. Ein Namespace kann zum Beispiel für die Comics
+                  verwendet werden und ein anderer für die Comichefte.
+                  <br />
+                  <br />
+                  Eine Anwendung, die in Kubernetes ausgeführt wird, wird als
+                  Pod bezeichnet. Ein Pod kann verglichen werden mit einem
+                  Comicbuch, das in den Regalen des Buchladens platziert wird.
+                  Ein Pod ist erst bereit, wenn es ein Preisschild erhalten
+                  hat.
+                  <br />
+                  <br />
+                  In Kubernetes gibt es auch die Möglichkeit, die gewünschte
+                  Anzahl von Pods für eine bestimmte Anwendung festzulegen.
+                  Dies kann verglichen werden mit der gewünschten Anzahl von
+                  Comicbüchern, die im Regal platziert werden sollen. Wenn die
+                  gewünschte Anzahl nicht erreicht wird, kann Kubernetes
+                  automatisch neue Pods erstellen, um die Anforderungen zu
+                  erfüllen.
+                  <br />
+                  <br />
+                  Der Scheduler in Kubernetes ist vergleichbar mit dem
+                  Einräumer im Buchladen. Er ist dafür verantwortlich, die
+                  Pods auf den Knoten zu verteilen und sicherzustellen, dass
+                  die gewünschte Anzahl von Pods auf jedem Knoten ausgeführt
+                  wird.
+                  <br />
+                  <br />
+                  Insgesamt ermöglicht Kubernetes die Verwaltung und
+                  Automatisierung der Anwendungen in einem Cluster, ähnlich
+                  wie es ein Buchladen mit seinen Abteilungen, Regalen und
+                  Einräumer tut.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 12</p>
+
+                <h3 class="h3 card-title">Docker</h3>
+
+                <p class="card-text">
+                  Als hippes und flexibles Unternehmen setzt der
+                  DevOpsComicBook-Verlag mobile Arbeitsplatzmodelle ein. Diese
+                  können Büro-Container für die Autoren und Grafiker sein. Es
+                  gibt kleine Film- und Fotostudios in denen Beiträge für die
+                  sozialen Medien erstellt werden können. Werkstätten in denen
+                  Prototypen für Fanartikel und Miniaturen für die Grafiker
+                  gebaut werden. Auch ein paar kleine Büchereien gibt es, in
+                  denen z.B. alle bisher erschienenen Hefte einzusehen sind
+                  oder die gesammelte Lore zu den einzelnen Heftreihen und
+                  Hintergrundgeschichten zu den Charakteren nachgelesen werden
+                  können und vieles mehr...
+                  <br />
+                  <br />
+                  Ein großer Vorteil dieser Container ist es, dass sie sehr
+                  klein zusammen gefaltet werden können und sehr günstig sind.
+                  Ist der Container zusammengepackt wird er Image genannt und
+                  kann in einem Lagerraum, dem sogenanntem Hub aufbewahrt
+                  werden bis er wieder gebraucht wird. Natürlich kann kein
+                  Mitarbeiter in einem gefalteten Container arbeiten :-). Um
+                  häufige Transporte zwischen dem Lager und den Büroflächen zu
+                  vermeiden, sind in einer Ecke des Büros ein paar öfters
+                  benötigte Images gestapelt um sie bei Bedarf griffbereit zu
+                  haben. Mit der Zeit hat sich gezeigt, dass es immer wieder
+                  die gleichen Anforderungen an einen Container gibt. Viele
+                  Container brauchen einen Stuhl für den Mitarbeiter, andere
+                  wie die Studios brauchen spezielle Lampen und in den
+                  Büchereien sollen viele Regale aufgestellt werden. Diese
+                  Bauarten sind aber nur der erste Layer, die Büro- und
+                  Werkstattcontainer sind zwar jeweils mit einem Stuhl
+                  ausgestattet, aber die Tische unterscheiden sich. Deshalb
+                  werden die Bürocontainer im zweiten Layer mit einem
+                  Schreibtisch und die Werkstätten mit einer Werkbank
+                  ausgerüstet. Hier ist aber noch nicht Schluß, auch die
+                  Grafiker und die Autoren haben unterschiedliche Bedürfnisse.
+                  Die Autoren brauchen eine Schreibmaschine in ihrem Container
+                  und die Grafiker Pinsel und Farben... ein weiteres Layer.
+                  Manchmal passt aber keiner der vorgefertigten Container für
+                  eine Arbeitsplatz. In so einem Fall bekommt der Hausmeister
+                  eine Bauanleitung, das Dockerfile um ein weiteres Layer
+                  hinzuzufügen. Für die anstehende ComicCon sollen gerahmte
+                  Bilder von den beliebtesten Figuren produziert werden. In
+                  der Bauanleitung wird mit einem Grafikercontainer gestartet,
+                  da hier schon die benötigten Pinsel und Farben vorhanden
+                  sind, und eine Säge für die Bilderrahmen beigelegt...
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 13</p>
+
+                <h3 class="h3 card-title">Network Ports</h3>
+
+                <p class="card-text">
+                  Zaun um Firmengelände Ports Lieferanten-, Pesonal-, und
+                  Besucher- Eingang Post Ausgang Proxy und reverse Proxy
+                  Gateways
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 14</p>
+
+                <h3 class="h3 card-title">Webhooks</h3>
+
+                <p class="card-text">
+                  Webhooks sind eine Art von HTTP-Callback, bei denen eine
+                  Anwendung (in diesem Fall Angular, Jenkins und Ansible) auf
+                  ein Ereignis (z.B. ein Commit in einem Git-Repository)
+                  reagieren kann, indem sie einen HTTP-Post-Request an eine
+                  definierte URL sendet.
+                  <br />
+                  <br />
+                  Der Unterschied zwischen Webhooks in Angular, Jenkins und
+                  Ansible liegt in ihrem Verwendungszweck und ihrer
+                  Funktionalität: Angular: Angular ist ein
+                  JavaScript-Framework für die Entwicklung von Webanwendungen.
+                  Webhooks in Angular können verwendet werden, um
+                  Benachrichtigungen oder Aktionen auszulösen, wenn bestimmte
+                  Ereignisse in der Anwendung auftreten (z.B. das Absenden
+                  eines Formulars). Jenkins: Jenkins ist ein
+                  Open-Source-Automatisierungs-Server. Webhooks in Jenkins
+                  können verwendet werden, um den Jenkins-Build-Prozess
+                  auszulösen, wenn Änderungen in einem bestimmten
+                  Code-Repository vorgenommen werden. Ansible: Ansible ist ein
+                  Open-Source-Automatisierungstool für die Bereitstellung und
+                  Verwaltung von IT-Infrastruktur. Webhooks in Ansible können
+                  verwendet werden, um bestimmte Aktionen auszulösen, wenn
+                  sich der Zustand der IT-Infrastruktur ändert (z.B. das
+                  Hinzufügen eines neuen Knotens zu einem Cluster). In allen
+                  drei Fällen sind die Webhooks eine Möglichkeit, um
+                  Ereignisse von einer Anwendung oder einem System auszulösen
+                  und automatisch auf diese Ereignisse zu reagieren, ohne dass
+                  man manuell etwas tätigen muss.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 15</p>
+
+                <h3 class="h3 card-title">Network_Adressen</h3>
+
+                <p class="card-text">
+                  Als das Königreich, den unser DevOpsVerlag schon immer seine Heimat nennt, noch ganz jung war hatte
+                  der traurige König Billi die Idee das Nachrichtensystem zu verbessern. Alle Strasse in jeder Stadt
+                  wurden mit den Nummern eins bis zehn durchnummeriert, und ebenso die Häuser in den Straßen, auch mit
+                  den Nummern 1-10. Damals war das Königreich noch klein und nur selten zu besonderen Anläßen wurden
+                  überhaupt Briefe verschickt. Ein Brief konnte so einfach an 3.7 geschickt werden, das siebte Haus in
+                  der dritten Strasse. Niemand konnte sich eine Stadt mit mehr als zehn Straßen auch nur vorstellen. Und
+                  als gute Untertanen, wäre auch kein Bürger auf die Idee gekommen ein Strasse oder einem Haus die
+                  Nummer 11 zu geben. Das wäre ja gegen das Gesetz. Die Post war und ist für die Zustellung der
+                  Nachrichten und Briefe zuständig. Ein findiger Briefträger hatte schon sehr früh die Idee, die
+                  Nummernvergabe zu optimieren:
+                <ul>
+                  <li>die Adeligen im Königreich, welche besonders oft Briefe bekommen erhalten die Hausnummern 1-3 je
+                    nach Ansehen und Prestige.</li>
+                  <li> der öffentliche Nachrichtenausrufer in jeder Stadt wohnt im Haus Nummer 4 </li>
+                  <li> und alle Schulen bekommen die 5 </li>
+                </ul>
+                Am Anfang funktionierte das neue System sehr gut. Im Nachhinein war das aber sehr verschwenderisch.
+                Nicht in jeder der möglichen 10 Strassen gab es eine Schule oder wohnten 3 Adlige. Und in jeder Stadt
+                gab es wenn überhaupt nur einen Ausrufer. Ein Großteil der kleinen Ziffern blieben daher weitestgehend
+                ungenutzt. Aber kein Problem mit 10 Häusern in 10 Strassen gabe es ja 10 x 10 = 100 Hausnummern, mehr
+                als genug?
+                Heute, viele Jahrzehnte später,hat die Post allerdings ein großes Problem mit den früheren
+                Entscheidungen. Immer mehr privat Personen fingen an sich gegenseitig Briefe zu schreiben. Und Händler
+                und Handwerker beantragten eine Hausnummer für ihre Geschäfte und Werkstätten. Zunächst haben die
+                Stadtplanner versucht nur kurze Strassen zu bauen und die einzelnen Häuser wurden immer größer um die
+                raren Hausnummern optimal zu nutzen. Aber schnell stieß das System an seine Grenze.
+                <br />
+                <br />
+                Das Gesetz des alterwürdigen König "trauriger Billi" zu ändern stand natürlich außer Frage. Daher began
+                die Post die Hausnummern jeden Tag neu zu vergeben. Ein Mitarbeiter sichtete jeden Morgen die Post die
+                an diesem Tag auszutragen war und ein anderer Mitarbeiter ging durch die Stadt und nahm die Hausnummern
+                von Häusern ab die heute keine Post erhalten würden und brachten diese zu dennen die heute eine
+                Hausnummer benötigten. Die Ersten Tage herrschte großes Chaos und viele Briefträger und vor allem die
+                Briefschreiber waren verzweifelt. Aber wieder hatte der findige Postmitarbeiter, inzwischen befördert,
+                zum Nachrichtenchef eine findige Idee. Die Absender sollten nicht die Adresse 3.7 auf den Umschlag
+                schreiben sondern die Namen der Personen oder Organisationen an dennen der Brief gerichtet ist. Ein
+                unterzeichneter Abbovertrag wird also nicht mehr an die 3.7 geschickt sondern an DevOps...
+                <br />
+                <br />
+                Der Postbote der Morgens die Hausnummern vergibt schreibt in einer Liste, der DNS nun die gerade
+                aktuellen Hausnummern, neben den Bewohnern. Soll die Post nun einen Brief an DevOps ausliefern, schaut
+                ein Mitarbeiter auf der Post die aktuelle Hausnummer in der DNSListe nach und vermerkt diese auf dem
+                Briefumschlag. Jetzt endlich kann der Briefträger das Abbo zum DevOps Verlag bringen und die Mitarbeiter
+                im DevOps haben einen weiteren Kunden dem sie wöchentlich ein Heft an eine sich ständig verändernde
+                Adresse schicken müssen.
+                <br />
+                <br />
+                Aber tatsächlich ist das System so gut, oder alle Einwohner so sehr daran gewohnt, das der DevOps Verlag
+                genau das selbe System für die hausinterne Büropost übernommen hat. Alle Etagen sind von 1- 10 durch
+                nummeriert und jede Etage kann 1 bis 10 Räume haben. Die Etagen 8-10 und die Räume 8-10 sind dabei
+                flexible und werden jeden Morgen jeh nach anstehender Aufgabe neu vergeben... und es werden Listen
+                gepflegt wo sich heute was befindet.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 16</p>
+
+                <h3 class="h3 card-title">Bash</h3>
+
+                <p class="card-text">
+                  Titel: Traumwelten
+                  <br />
+                  <br />
+                  Ein weiteres Mal begrüßen wir euch zu unserer heutigen Ausgabe "Traumwelten". Unsere Mitarbeiterin
+                  Ulrike hatte mir letztens von einem unglaublichen Traum erzählt. Da sie drei Kinder hat ist sie immer
+                  sehr müde, weshalb sie sich vorgenommen hatte das letzte Wochenende durchzuschlafen. Gesagt, getan,
+                  ganze zwei Tage schlief sie und träumte dabei von einer Welt ganz anderst der Unseren. Menschen welche
+                  sogenannte Computer anstatt Glaskugeln nutzten, mit Programmen wovon Sie eines kennenlernte. Dieses
+                  hieß Bash und es erzählte ihr seine Geschichte: Es war einmal ein kleines Programm namens Bash. Bash
+                  lebte in einem Computer und seine Aufgabe war es, Befehle von den Menschen zu verstehen und sie
+                  auszuführen.
+                  <br />
+                  <br />
+                  Eines Tages traf Bash ein neues Programm namens GUI (Graphical User Interface). GUI sah sehr hübsch
+                  aus mit all seinen bunten Knöpfen und Bildern, aber Bash war ein bisschen eifersüchtig, weil es nicht
+                  so hübsch aussah.
+                  <br />
+                  <br />
+                  Doch dann erkannte Bash, dass es etwas hatte, das GUI nicht hatte: die Macht, Befehle direkt
+                  einzugeben und so viel schneller zu arbeiten. Bash lernte, stolz darauf zu sein, wie es war und half
+                  den Menschen, ihre Computeraufgaben schneller und einfacher zu erledigen.
+                  <br />
+                  <br />
+                  Von da an lebten Bash und GUI glücklich zusammen und halfen den Menschen, ihre Computeraufgaben zu
+                  erledigen. Bash erkannte, dass es gut so war, wie es war und dass es wichtig war, stolz auf seine
+                  Einzigartigkeit zu sein.
+                  <br />
+                  <br />
+                  Das war die Geschichte von Bash, dem kleinen Programm, das lernte, stolz auf sich selbst zu sein.
+                  <br />
+                  <br />
+                  Diese Geschichte vom kleinen Bash, rührte Ulrike so sehr, dass sie dadrauf bestand das ich es euch
+                  erzähle aber schon merkwürdig eine Welt mit Computern anstatt Glaskugeln, wie soll man denn da seine
+                  Comics lesen können.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 17</p>
+
+                <h3 class="h3 card-title">CleanCoding</h3>
+
+                <p class="card-text">
+                  Hallo ihr Lieben und Willkommen zurück zu unserer heutigen Ausgabe. Klein Otto der Sohn von Frau
+                  Mainzel, eine fleißige Redakteurin bei uns lernt in der Schule die Regeln, der korrekten
+                  Rechtschreibung. Denn ohne diese, könnten wir einander nicht verstehen. Sowie es auf der Welt
+                  verschiedene Sprachen gibt und regionale Dialekte, so schreibt auch jede Person individuell. Damit wir
+                  uns alle besser verstehen können, gibt es Grundregeln welche man sich mit einigen Hilfswörter und
+                  Prinzipien besser merken kann. Beispielsweise sollte man es intuitiv verstehen und einfach ändern
+                  können, wie dieses ComicBook. Du solltest es nie zu kompliziert schreiben und möglichst viel
+                  Geschriebenes wieder verwenden. Desweiteren hilft es das Geschriebene erneut zu lesen und Korrekturen
+                  vorzunehmen um dieses verständlicher und kürzer zu gestalten. Ganz nach dem Motto:"KISS;
+                  Keep-it-simple-and-stupid"! Ebenso solltest du dich nicht nach dem Motto:"Dry; Don't-repeat-yourself",
+                  wiederholen und Code der ähnlich ist versuchen zusammen zu führen und wiederzuverwenden. "YAGNI;
+                  You-aren't-gonna-need-it", schreibe Aufgaben/Kapitel in kleineren Schritten und minimiere
+                  Überflüssiges! Aber denke immer dran, ein anderer liest dein Geschriebenes und muss es verstehen,
+                  sowie du gerade dieses Heft liest!
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 18</p>
+
+                <h3 class="h3 card-title">Funktionen</h3>
+
+                <p class="card-text">
+                  Im Writing Room arbeitet das Team "Aktion" unter der Leitung des Projektmanagers Michael an der
+                  Comic-Heftreihe "Der verrückte Professor". Michael hat eine enge Beziehung zu einer Person, die
+                  äußerst bewandert in der "Lore" der Geschichten ist und Fragen zur Finanzsituation von Nancy oder dem
+                  Aufenthaltsort des verrückten Professors beantworten kann.
+                  <br />
+                  <br />
+                  Wenn die Autoren des Teams eine Frage haben, die die Person sofort beantworten kann, ruft sie die
+                  Person synchron an und erhält sofort eine Antwort. Wenn die Frage jedoch komplexer ist und mehr
+                  Recherche erfordert, ruft die Person asynchron an und ruft zu einem späteren Zeitpunkt zurück, um die
+                  Autoren mit der notwendigen Information zu versorgen.
+                  <br />
+                  <br />
+                  Dieser Ansatz ermöglicht es dem Team, effektiv zu arbeiten und gleichzeitig die Konsistenz und Logik
+                  der Geschichte sicherzustellen. Michael und das Team verwenden sowohl synchronen als auch asynchronen
+                  Ansätze, um sicherzustellen, dass sie die bestmöglichen Ergebnisse erzielen.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 19</p>
+
+                <h3 class="h3 card-title">ObjektorientiertesProgrammieren</h3>
+
+                <p class="card-text">
+                  In unserem Comic-Book-Verlagsteam haben wir sehr viele und begabte Mitarbeiter, dadrunter Tim ein
+                  begabter Mitarbeiter unserer Glaskugel-Abteilung. Während eines Kurses lernte Tim, wie man
+                  Software-Projekte in Glaskugeln effizient entwickelt und implementiert, indem man Methoden wie
+                  Continuous Integration und Continuous Deployment anwendet. Er erkannte, dass die objektorientierte
+                  Programmierung (OOP) ein wichtiger Bestandteil dieser Methoden ist, da sie es ermöglicht, komplexe
+                  Projekte in kleine, unabhängige und wiederverwendbare Teile zu unterteilen.
+                  <br />
+                  <br />
+                  Tim begann, seine Kenntnisse der OOP in sein Projekt einzubringen und erstellte Klassen für die
+                  verschiedenen Elemente des Comic-Verlags, wie z.B. die Charaktere, Panels, Geschichten und die
+                  Verwaltung. Durch die Verwendung von OOP-Konzepten wie Vererbung und Polymorphismus, konnte er
+                  sicherstellen, dass alle Teile des Projekts perfekt miteinander arbeiteten und einfach zu testen und
+                  zu warten waren.
+                  <br />
+                  <br />
+                  Durch die Anwendung von DevOps-Methoden und OOP konnte Tim seinen Traum verwirklichen und unseren
+                  Comic-Book-Verlag und dessen Glaskugel-Abteilung zur Erfolgreichsten in der ganzen Welt zu machen.
+                  Seine Verwaltungssoftware war robust und skalierbar, was es ihm ermöglichte, schnell auf die
+                  wachsenden Anforderungen des Verlags zu reagieren. Tim war stolz darauf, ein erfolgreicher
+                  DevOps-Glaskugelengineer zu sein, dank seiner Entscheidung für den Kurs und seinem Einsatz der
+                  objektorientierten Programmierung.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 20</p>
+
+                <h3 class="h3 card-title">Die Setzerei des DevOps-Comicbook-Verlags</h3>
+
+                <p class="card-text">
+                  In unseren Comicbüchern werden Gedanken- und Sprechblasen (Datenstrukturen: Arrays und Listen)
+                  verwendet, um die Gedanken und Aussagen der Comicbuch-Charaktäre auf Papier zu bringen. In der
+                  Setzerei arbeiten wir daran, diese Blasen zu erstellen und zu organisieren, um die Geschichten unserer
+                  Comics zu erzählen. In diesem Prozess ist die Verwendung von Datenstrukturen von entscheidender
+                  Bedeutung.
+                  <br />
+                  <br />
+                  In der Setzerei erklären wir auch die verschiedenen Datentypen, die wir verwenden. Gedankenblasen sind
+                  wolkenförmig und Sprechblasen sind rund. Um den Unterschied zwischen Gedanken und Sprache dem Leser
+                  noch deutlicher zu machen, verwenden wir verschiedene Schriftarten, Italic für Gedankenblasen und
+                  normal für Sprechblasen. In der Setzerei gibt es vorgefertigte Käfige in Sprechblasenformat, die
+                  bewegliche Lettern aufnehmen können, dies hilft uns die Geschichten unserer Comics präziser und klarer
+                  darzustellen.
+                  <br />
+                  <br />
+                  Da die Form der Sprechblasen 💬 rund und die Form der Gedankenblasen 💭 wolkenförmig ist, können nur
+                  die entsprechenden Datentypen in die passenden Blasen aufgenommen werden. Beispielsweise können nur
+                  die in normaler Schriftart gedruckten beweglichen Lettern in die runden Sprechblasen aufgenommen
+                  werden, während nur die in kursiver Schriftart gedruckten beweglichen Lettern 🔤 in die wolkenförmigen
+                  Gedankenblasen passen. Dies verdeutlicht die Wichtigkeit der richtigen Verwendung von Datentypen in
+                  unserer Setzerei und hilft uns, die Geschichten unserer Comics präziser und klarer darzustellen.
+                  <br />
+                  <br />
+                  In der Setzerei arbeiten wir mit unterschiedlichen Datenstrukturen, wie Arrays und Listen, um die
+                  Sprech- und Gedankenblasen unserer Comics zu erstellen und zu organisieren.
+                  <br />
+                  <br />
+                <ul>
+                  <li>
+
+                    Arrays haben eine feste Länge, die sich bei der Erstellung des Arrays festlegen lässt.Sie sind
+                    effizient in Bezug auf Speicherverwendung und Zugriffszeiten. Arrays eignen sich besonders für
+                    Anwendungen, bei denen die Anzahl der Elemente im Voraus bekannt ist und häufig zufälliger Zugriff
+                    auf die Elemente erfolgt.
+                  </li>
+                  <li>
+
+                    Listen haben keine feste Länge, die Sprechblasen werden aus Draht gebogen und die beweglichen
+                    Lettern mit Knetgummi fixiert. Listen sind flexibel in der Länge, aber umständlicher zu handhaben.
+
+                  </li>
+                </ul>
+                <br />
+                <br />
+                In der Setzerei müssen wir uns auch mit der Performance befassen, insbesondere in Bezug auf die
+                Anforderungen unserer Comics. Für häufig erscheinende Comics, bei denen Zeit ein kritischer Faktor ist,
+                werden wir Datenstrukturen mit höherer Performance wählen, wie Arrays, um schneller arbeiten zu können.
+                Auf der anderen Seite, bei künstlerisch wertvollen Comics, bei denen die künstlerischen Aspekte im
+                Vordergrund stehen, werden wir uns eher für flexibilität entscheiden und Listen verwenden.
+                <br />
+                <br />
+                in Comics werden Emotionen oft durch visuelle Elemente dargestellt, wie Tränen für Trauer, Adernkreuz
+                für Wut, Blitz für Zorn und Schweißtropfen für Scham. Genau, in dem Beispiel würde der Autor der
+                Geschichte das Schlüsselwort verwenden, um dem Setzer in der Druckerei mitzuteilen, welches bewegliche
+                Letter für den Druck verwendet werden soll.
+                <br />
+                <br />
+                Zum Beispiel, wenn der Autor "Trauer" als Emotion in einer Sprechblase beschreibt, würde er "Trauer" als
+                Schlüssel in die Map eingeben und der Setzer würde das Symbol "Tränen" als das bewegliche letter für den
+                Druck verwenden. Auf diese Weise kann der Autor seine Intentionen und Vorstellungen über die Darstellung
+                der Emotionen in der Geschichte klar und präzise übermitteln, ohne jedesmal detailliert beschreiben zu
+                müssen und der Setzer kann schnell und einfach die richtigen visuellen Elemente auswählen.
+                <br />
+                <br />
+                Ein Beispiel:
+                <br />
+                <br />
+                Die beweglichen Lettern für Buchstaben und Zahlen werden in nummerierten Kästen aufbewahrt und können
+                zum Beispiel alphabetisch geordnet werden. Dies entspricht einer geordneten Liste, da die Elemente in
+                einer bestimmten Reihenfolge aufbewahrt werden. Im Gegensatz dazu werden die Emotionen in beschrifteten
+                Schachteln aufbewahrt, die in einem Regal stehen. Die Reihenfolge der Schachteln im Regal ist jedoch
+                willkürlich und die Emotionen sind nicht in einer bestimmten Reihenfolge aufbewahrt. Dies entspricht
+                einer ungeordneten Liste, da die Elemente nicht in einer bestimmten Reihenfolge aufbewahrt werden.
+                Dieses Beispiel veranschaulicht den Unterschied zwischen geordneten und ungeordneten Listen und wie sie
+                in verschiedenen Anwendungen verwendet werden können. Geordnete Listen eignen sich für Anwendungen, bei
+                denen die Reihenfolge der Elemente wichtig ist, während ungeordnete Listen besser geeignet sind, wenn
+                die Reihenfolge der Elemente nicht von Bedeutung ist
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 21</p>
+
+                <h3 class="h3 card-title">Scope</h3>
+
+                <p class="card-text">
+                  Da es beim DevOps ComicBook-Verlag immer sehr hektisch zugeht, gibt es auf dem Firmengelände viele
+                  Uhren (Variablen). Im Innenhof steht ein Uhrenturm (globale Variable) der vom gesamten Firmenlände gut
+                  zu sehen ist. In den einzelen Büros und Werkstätten, kann man den Uhrenturm sehr gut sehen, aber es
+                  gibt auch Wanduhren (lokale Variable). Die Wanduhren kann man nur sehen wenn, man in dem betrefenden
+                  Büro ist. Die Uhren sind alle sehr unzuverlässig, und zeigen nicht zwangsläufig die selbe Zeit an. Im
+                  Büro der Autoren kann es nach der Wanduhr viel später sein als bei den Showrunner. Die meisten
+                  Mitarbeiter stellen die Uhr nach der Turmuhr. Aber auch die Turmuhr ist nicht zuverlässig. Daher haben
+                  alle Mitarbeiter stets einen langen Stock dabei, mit dem sie die Turmuhr umstellen können. Sowohl auf
+                  dem Gelände als auch durchs Bürofenster. Macht das Jemand ändert sich die globale Zeit für alle
+                  Mitarbeiter.
+                  <br />
+                  <br />
+                  In der Druckerei gibt es zeitkritische Abläufe. Daher müsten die Uhren synchron laufen. Daher werden
+                  die halbgedrucktem Seiten mit einem Zeitstempel(Parameter) nach derren Wanduhr, an die nächste
+                  Werkstatt weitergegeben, und die Uhr dort, nach dem Zeitstempel gestellt.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 23</p>
+
+                <h3 class="h3 card-title">git</h3>
+
+                <p class="card-text">
+                  Ein Theaterstück ist ein interessantes Szenario, um die Konzepte von Git zu erklären. Das
+                  Theaterstück, das das Team produziert, heißt "Der Ritter und die Prinzessin" und handelt von einem
+                  Ritter, der um die Hand einer Prinzessin kämpft. Das Team besteht aus dem Regisseur, dem
+                  Bühnenbildner, dem Kostümdesigner, den Schauspielern und dem Beleuchter.
+                  <br />
+                  <br />
+                  Der Regisseur, Max, hat das Konzept für das Theaterstück entwickelt und ist verantwortlich dafür, dass
+                  das Stück auf die Bühne gebracht wird. Er arbeitet eng mit dem Bühnenbildner, Tom, zusammen, um die
+                  Bühnenausstattung zu planen und zu entwerfen. Tom nutzt Git, um die Entwürfe auf eine zentrale
+                  Plattform hochzuladen und sie mit dem Rest des Teams zu teilen.
+                  <br />
+                  <br />
+                  Der Kostümdesigner, Sarah, ist verantwortlich für die Entwicklung der Kostüme für die Schauspieler.
+                  Sie nutzt ebenfalls Git, um die Entwürfe und Schnittmuster auf die Plattform hochzuladen und sie mit
+                  dem Rest des Teams zu teilen. Die Schauspieler, Mary und Anton, geben ihre Kleidergrößen bekannt und
+                  Sarah nutzt diese Informationen, um die Kostüme anzupassen. Die Fans des Theaterstücks können sich die
+                  Schnittmuster herunterladen und diese nachbauen, während die Lieferanten von Stoffen Feedback geben,
+                  um die Kostüme zu verbessern.
+                  <br />
+                  <br />
+                  Der Beleuchter, Peter, arbeitet eng mit dem Regisseur zusammen, um die Beleuchtung für das
+                  Theaterstück zu planen. Er nutzt Git, um die Beleuchtungspläne auf die Plattform hochzuladen und sie
+                  mit dem Rest des Teams zu teilen.
+                  <br />
+                  <br />
+                  Während der Proben und der Vorstellungen arbeitet das Team eng zusammen, um sicherzustellen, dass
+                  alles reibungslos verläuft. Jeder bearbeitet und aktualisiert seine Arbeit mit Git, um
+                  sicherzustellen, dass alle auf dem neuesten Stand sind.
+                  <br />
+                  <br />
+                  Eines Tages tritt jedoch ein Problem auf: Der Server, auf dem die zentrale Plattform von Git gehostet
+                  wird, fällt aus. Das Team muss schnell handeln, um eine Lösung zu finden. Sie entscheiden sich dafür,
+                  eine lokale Kopie der Arbeit jedes Mitglieds anzulegen, um sicherzustellen, dass sie weiterarbeiten
+                  können, während das Problem behoben wird. Sobald der Server wieder online ist, pusht das Team seine
+                  Arbeit zurück auf die zentrale Plattform, um sicherzustellen, dass alle auf dem neuesten Stand sind.
+                  <br />
+                  <br />
+                  Eine andere Herausforderung tritt auf, als das Team beschließt, eine neue Funktion hinzuzufügen: Eine
+                  spektakuläre Szene, in der der Ritter auf einem Pferd eine beeindruckende Showeinlage vorführt. Der
+                  Bühnenbildner Tom und der Beleuchter Peter arbeiten eng zusammen, um die Szene zu entwerfen und zu
+                  planen. Sie nutzen Git, um ihre Arbeit auf die zentrale Plattform hochzuladen und sie mit dem Rest des
+                  Teams zu teilen.
+                  <br />
+                  <br />
+                  Das Theaterstück hat schließlich seine Uraufführung und wird von Publikum und Kritikern gleichermaßen
+                  gefeiert. Das Team ist stolz darauf, was es erreicht hat und dankbar für die Verwendung von Git, das
+                  ihnen ermöglicht hat, ihre Arbeit effektiv zu organisieren und zu teilen. Sie gehen auf Tournee und
+                  spielen das Stück in verschiedenen Städten. Durch die Verwendung von Git konnten sie schnell auf
+                  Probleme reagieren und Änderungen umsetzen, was zu einer erfolgreichen Tournee beigetragen hat.
+
+
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 24</p>
+
+                <h3 class="h3 card-title">GitHub</h3>
+
+                <p class="card-text">
+                  Soviele von euch waren interessiert an einem tieferen Einblick in unsere Glaskugelabteilung dass wir
+                  uns entschlossen haben, euch von einem typischen Alltag von Fredie unserem Praktikanten zu erzählen.
+                  Abgesehen davon, dass Fredie ein kurioser Typ ist welcher jeden Morgen Kirschsaft mit einer
+                  Kirsch-Sahnetorte verspeist, lernt er täglich von unseren Mitarbeitern etwas Neues. Heute erklärt ihm
+                  Christoph, wie er an Projekten in der Glaskugelwelt zeitgleich mit Susan arbeiten kann ohne dass sie,
+                  die selbe Glaskugel benutzen. Dafür nutzt er das Programm Zoo (Git), in welchen es sehr viele
+                  Themengebiete gibt mit ganz speziellen Tieren. Da gibt es die Nashörner welche komische Projekte für
+                  die Bauindustrie entwerfen, die kurioser Weise funktionieren. Dadurch konnte letztens erst ein Haus
+                  ganz ohne Bauarbeiter gebaut werden, verrückt. Oder die Faultiere, sie lieben es in ihren Häusern und
+                  Betten zu sein und wollen sich möglichst nicht bewegen. Dafür haben sie intelligente Zwuckzwack
+                  erschaffen, nützliche Wesen die gerne einfache Aufgaben wie das Putzen oder das Anschalten vom Licht
+                  übernehmen. Sollten diese keine Aufgabe haben, schlafen sie sofort ein, ähnlich ihren Erschaffern.
+                  Christoph und Susan arbeiten aktuell an einem Bewertungssystem für unsere Comicsammlung in der
+                  Glaskugelwelt. Da Susan aber manchmal etwas langsamer als Christoph ist und beide verschiedene Musik
+                  beim arbeiten hören ist es gut dass wir den Zoo haben. Aber wie funktioniert das ganze? Ganz simpel,
+                  wenn Christoph mit einem Teil des Projektes fertig ist, muss er folgendes tun. Er zieht sein
+                  Projektteil in einen Wagon des Zoozugs (git add), manchmal braucht er dabei Unterstützung durch
+                  Elefanten wenn er einmal wieder besonderst hart gearbeitet hat und muss beim Zoowärter ein Ticket
+                  lösen damit dieser weiß, wohin er den Wagon liefern muss (git commit). Ist dies alles geschehen, kann
+                  der Zug zu dem passenden Gehege fahren (git push ins Repository), wo die Affenarbeiter schon warten um
+                  Christophs neuen Part in das Projekt zu integrieren. Will er aber dann das ganze Projekt einsehen oder
+                  das Projekt mit dem neuen Teilstück von ihm oder Susan, so muss er dies einfach nur sagen und der
+                  Zoowärter kommt mit seinem Sonderzug gezogen von der Dicker Bertha, einer großen Dampflokomotive
+                  angefahren (git pull). Da das Bewertungssystem neu ist und noch dran gearbeitet wird ist es auch noch
+                  gut abgedeckt von einer Plane (private Repository) und wenn Christoph und Susan fertig sind wird diese
+                  entfernt, dass alle ihre harte Arbeit bestaunen können (public Repository). Dann kommen meist sehr
+                  viele Leute mit Bananen um den Affenarbeitern zu danken. Fredie ist beeindruckt als Christoph ihm das
+                  alles erzählt und träumte in der Nacht von Affen mit Bananen und Zoowärten.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 25</p>
+
+                <h3 class="h3 card-title">MergeKonflikt</h3>
+
+                <p class="card-text">
+                  An der Heftreihe, der App, "Phillip liebt Nancy", arbeiten zwei Teams von Autoren oder auch manchmal
+                  die Coder genannt. Das "Action" Team mit Emma und Max ist gut darin Spannung aufzubauen und wilde
+                  Verfolgungsjagden und Kämpfe zu schildern, während das "Romantik" Team aus Julia und David auf
+                  tiefgreifende Dialoge und gefühlvolle Beziehungen zwischen den einzelnen Charaktären spezialisiert
+                  ist. Da die Hefte wöchentlich erscheinen, herrscht stets großer Zeitdruck und beide Teams arbeiten
+                  parralel an der Geschichte.
+                  Nun kommt es öfter zu einer Situation, dem Merge-conflict, wenn beide Teams versuchen die Geschichte
+                  wieder zusammen zuführen. Team "Action" hat einen Kampf geschrieben in dem Phillip schwer verletzt
+                  wurde und nun im Krankenhaus liegt. Gleichzeitig hat Team "Romantik" die Geschichte derart
+                  vorangetrieben, dass Phillip und Nancy endlich das langersehnte Rendevous haben.
+                  Leider kann Phillip nicht gleichzeitig im Krankenhaus und beim Candlelight-dinner sein. Dieser
+                  Konflikt muss aufgelöst werden. Es könnte der bessere Handlungsstrang, den Code beibehalten und der
+                  andere verworfen werden oder etwas geändert werden, so dass die Geschichte wieder passt.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 25</p>
+
+                <h3 class="h3 card-title">MergeKonflikt</h3>
+
+                <p class="card-text">
+                  An der Heftreihe, der App, "Phillip liebt Nancy", arbeiten zwei Teams von Autoren oder auch manchmal
+                  die Coder genannt. Das "Action" Team mit Emma und Max ist gut darin Spannung aufzubauen und wilde
+                  Verfolgungsjagden und Kämpfe zu schildern, während das "Romantik" Team aus Julia und David auf
+                  tiefgreifende Dialoge und gefühlvolle Beziehungen zwischen den einzelnen Charaktären spezialisiert
+                  ist. Da die Hefte wöchentlich erscheinen, herrscht stets großer Zeitdruck und beide Teams arbeiten
+                  parralel an der Geschichte.
+                  Nun kommt es öfter zu einer Situation, dem Merge-conflict, wenn beide Teams versuchen die Geschichte
+                  wieder zusammen zuführen. Team "Action" hat einen Kampf geschrieben in dem Phillip schwer verletzt
+                  wurde und nun im Krankenhaus liegt. Gleichzeitig hat Team "Romantik" die Geschichte derart
+                  vorangetrieben, dass Phillip und Nancy endlich das langersehnte Rendevous haben.
+                  Leider kann Phillip nicht gleichzeitig im Krankenhaus und beim Candlelight-dinner sein. Dieser
+                  Konflikt muss aufgelöst werden. Es könnte der bessere Handlungsstrang, den Code beibehalten und der
+                  andere verworfen werden oder etwas geändert werden, so dass die Geschichte wieder passt.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 26</p>
+
+                <h3 class="h3 card-title">Reddit</h3>
+
+                <p class="card-text">
+                  Hallo ihr Lieben, heute möchte ich euch etwas mehr über Roman erzählen. Roman ist einer unser besten
+                  Mitarbeiter in der Glaskugelabteilung. Es ist immer pünktlich und begeistert sich auch in seiner
+                  Freizeit für die Glaskugelwelt und ihre Orte, wie der Pyramide, dem Zoo und vielen weiteren. Eine
+                  weitere Leidenschaft von ihm ist das erzählen und schreiben von Witzen über Arbeitsthemen, mit denen
+                  er jedem Menschen ein Lächeln zaubert. Leider kann sein Freund, Pierfrancesco diese nie hören, da er
+                  taub gebohren wurde. Deshalb hatte Roman eine Idee, wie wäre es wenn er Bilder mit Witzen verbindet
+                  damit man diese sehen und lesen kann und jeder Mensch über seine Witze lachen kann. Gesagt, getan nach
+                  einem halben Jahr intensiver Arbeit, hatte er es geschafft. Das Comedyhaus, von allen Lachhausen
+                  (Reddit) genannt wurde in der Glaskugelwelt gefeiert, wodurch Roman von einem auf den anderen Moment
+                  ein Star wurde. Er kündigte und wurde Vollzeitcomedian aber das wichtigste für ihn war, dass sein
+                  Freund Pierfrancesco über seine Witze lachen konnte.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 27</p>
+
+                <h3 class="h3 card-title">Stackoverflow</h3>
+
+                <p class="card-text">
+                  In einer Welt voller verschiedener Glaskugeln, gibt es ebenso verschiedene Menschen mit verschiedenen
+                  Meinungen. Zwei davon sind Marc und Eslam. Eslam ist ein Mitarbeiter unserer Glaskugelabteilung der
+                  immer einen guten Witz parat hat. Marc arbeitet dagegen in der berühmten Eiscremefabrik: "Penguins",
+                  in welcher er sich um die Glaskugeln und Maschinen kümmert. Letztens hatte Marc während der Arbeit
+                  eine Frage zum Thema Glaskugeljustierung, welche ihn das Glaskugelnetzwerk (Internet) nicht
+                  beantworten konnte. Er wusste Eslam kannte sich deutlich besser damit aus aber wollte nicht Stunden
+                  warten bis sein Arbeitstag beendet war. Zum Glück gab es in der Glaskugelwelt, die
+                  Pyramide(Stackoverflow) ein Ort an welchem die hellsten Köpfe Fragen beantworteten und andere deren
+                  Antworten kommentieren, korrigieren und lesen konnten für alle Zeiten. Eslam war dort einer der
+                  Weisesten und Marc wusste dass Eslam sein Problem dort schon einmal beantwortet hatte. Nach langem
+                  Suchen fand er die Frage zu seinem Problem, ein gewisser Halim hatte sie gestellt und Eslam hatte
+                  geantwortet. Dadurch gelang es Marc die Glaskugeln zu justieren und fügte einige Verbesserungen hinzu,
+                  welche er in der Pyramide hinterlegte. Dadurch kann auch zukünftig anderen geholfen werden und
+                  glücklich ging Marc Nachhause.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 28</p>
+
+                <h3 class="h3 card-title">Behavior-Driven-Development</h3>
+
+                <p class="card-text">
+                  Da wir unsere Comics auch neuerdings in der Glaskugel anbieten möchten, nutzen wir die neuesten
+                  Methoden, hierzu möchte ich euch unser Vorgehen dabei beschreiben. Auf unserer Glaskugel-Website, auf
+                  der die Kunden Comics auswählen und kaufen können, bringen wir wöchentlich neue Funktionen heraus. In
+                  dieser Woche war es die Funktion die einzelnen Ausgaben in einer virtuellen Bibliothek zu speichern.
+                  <br />
+                  <br />
+                  Bevor wir die neue Funktion jedoch veröffentlichten, beschlossen wir, sie gründlich zu testen, um
+                  sicherzustellen, dass diese ordnungsgemäß funktionierte. Dazu verwendete unser Glaskugelteam
+                  Test-Driven Development (TDD), bei dem sie zunächst Tests schrieben, um die erwarteten Ergebnisse der
+                  neuen Funktion zu beschreiben, bevor sie die Funktion selbst schrieben. So konnten sie sicherstellen,
+                  dass die Funktion die Anforderungen erfüllte und keine Fehler aufwies.
+                  <br />
+                  <br />
+                  Sie verwendeten auch BDD(Behavior-Driven-Development), bei dem sie die Tests aus der Perspektive des
+                  Benutzers schrieben. Statt nur technische Tests zu schreiben, beschrieben sie das Verhalten, das sie
+                  von der Funktion erwarteten, z.B. "Wenn der Benutzer einen Comic hinzufügt, sollte er in der
+                  virtuellen Bibliothek des Benutzers erscheinen". Dies half uns, sicherzustellen, dass die Funktion so
+                  entwickelt wurde, dass sie für den Benutzer intuitiv und nützlich war.
+                  <br />
+                  <br />
+                  Nachdem wir die Funktion getestet und überarbeitet hatten, veröffentlichten wir diese schließlich auf
+                  unserer Glaskugel-Website. Unsere treuen Leser waren begeistert von der neuen Funktion und so könnt
+                  ihr eure Comics auch in der Glaskugel speichern und lesen.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 29</p>
+
+                <h3 class="h3 card-title">GPGkeys</h3>
+
+                <p class="card-text">
+                  In unserer Glaskugelwelt gibt es die weißen und die schwarzen Magier (IT-Security und Hacker). Diese
+                  kämpfen um die Kontrolle aller Glaskugeln, weshalb fast jedes Unternehmen auch unser Comicbuchverlag
+                  einen weißen Magier besitzt um die eigenen Glaskugeln und Nachrichten vor den schwarzen Magiern zu
+                  schützen. Die schwarzen Magier wollen nämlich alle Informationen der Welt lesen können um so die
+                  Gesellschaft kontrollieren und erpressen zu können. Mit ihren Mingeldings, kleinen pechschwarzen Wesen
+                  können sie Nachrichten klauen und Glaskugeln übernehmen. Haben die Mingeldings deine Glaskugel
+                  übernommen, wird diese ganz schwarz und einzig die weißen Magier wissen, wie man diese lästigen
+                  Biester vertreibt. Da die weißen Magier aber nicht immer da sein können, gibt es Vorkehrungen und
+                  Tools welche den weißen Magiern, den Schutz der Glaskugeln und des Nachrichtenverkehrs erleichtern,
+                  die sogenannten Doblinge. Das sind kleine Wesen innerhalb der Glaskugelwelt, welche besonderst
+                  wichtige Nachrichten verifizieren und das läuft folgendermaßen ab. Die Doblinge bekommen eine Liste
+                  mit Passwörtern und nützlichen Informationen(GPG keyring), womit sie die Nachrichten entschlüsseln und
+                  dir vorlesen können (Private key), wogegen jeder mit dem öffentlichen Papyrus dir welche schicken kann
+                  (GPGkeys Public Key). Dadurch können die schwarzen Magier deine Nachrichten nicht lesen, sollten diese
+                  von den Mingeldings gestohlen wurden sein. Natürlich gibt es noch viele weitere Bedrohungen, womit die
+                  schwarzen Magier versuchen ihr Ziel zu erreichen aber das erzählen wir euch in einer anderen
+                  Geschichte.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="Kapitel-card">
+                <p class="card-subtitle">Kapitel 30</p>
+
+                <h3 class="h3 card-title">Glossar</h3>
+
+                <p class="card-text">
+                <h3>Produkte</h3>
+                (Heft) Phillip liebt Nancy (Heft) Mein Hut hat vier Ecken (Heft) der Verückte Proffesor (SpinOff von
+                mHhvE)
+                <br />
+                (Buch) Die Abenteuer von Superhelden-Team (Buch) Das Geheimnis des verlorenen Schatzes
+                <br />
+                <h3>Dramatica Personae</h3>
+                scrum- Johanna (Scrum Master)
+                <br />
+                Team Aktion XP-Scrum- Jack (ProjektManager/Show-runner) der verückte Proffesor XP-Scrum- Emma (Author)
+                der verückte Proffesor XP-Scrum- Max (Author) dvP Scrum-Laura (Author)
+                <br />
+                Team Romantik XP- Sarah (ProjektManager/Show-runner) Phillip liebt Nancy XP- Julia (Author) Phillip
+                liebt Nany
+                XP- David (Author) PlN
+                <br />
+                Nancy (Phillip liebt Nancy) Phillip (PlN) Mob Boy (PlN)
+                <br />
+                Gwendolin (Der verückte Proffesor)
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+      <!-- 
+        - #PREVIEW
+      -->
+
+      <section class="section preview" aria-label="preview">
+        <div class="container">
+          <p class="section-subtitle">KAPITELVORSCHAU</p>
+
+          <h2 class="h2 section-title has-underline">
+            Lesen Sie ein Kapitel
+            <span class="span has-before"></span>
+          </h2>
+
+          <ul class="tab-list">
+            <li>
+              <div class="tab-card active" data-tab-card>
+                <h3 class="h3 tab-text">Kapitel 5</h3>
+
+                <img src="./assets/images/kapital5.png" width="820" height="630" loading="lazy" alt="Kapitel 1"
+                  class="w-100" />
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">Kapitel 21</h3>
+
+                <img src="./assets/images/kapital21.png" width="820" height="630" loading="lazy" alt="Kapitel 2"
+                  class="w-100" />
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">Kapitel 23</h3>
+
+                <img src="./assets/images/kapital23.png" width="820" height="630" loading="lazy" alt="Kapitel 3"
+                  class="w-100" Chapter />
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">Kapitel 26</h3>
+
+                <img src="./assets/images/kapital26.png" width="820" height="630" loading="lazy" alt="Kapitel 4"
+                  class="w-100" />
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">Kapital 29</h3>
+
+                <img src="./assets/images/kapital29.png" width="820" height="630" loading="lazy" alt="Kapitel 5"
+                  class="w-100" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 
+        - #PRICING
+      -->
+
+      <section class="section pricing" id="pricing" aria-label="pricing">
+        <div class="container">
+          <p class="section-subtitle">Preis</p>
+
+          <h2 class="h2 section-title has-underline">
+            Die Preise basieren auf ihrer Version
+            <span class="span has-before"></span>
+          </h2>
+
+          <ul class="grid-list">
+            <li>
+              <div class="pricing-card">
+                <h3 class="h3 card-title">E-Buch</h3>
+
+                <data class="price" value="5">€5</data>
+
+                <ul class="pricing-card-list">
+                  <li class="card-item">
+                    <p class="card-text">Komplettes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">PDF and EPUB</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Gebundenes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Zugriff auf Downloads</p>
+                  </li>
+                </ul>
+
+                <button class="btn btn-secondary">KAUFE JETZT</button>
+              </div>
+            </li>
+
+            <li>
+              <div class="pricing-card bundle">
+                <h3 class="h3 card-title">Bündeln</h3>
+
+                <data class="price" value="15">€15</data>
+
+                <ul class="pricing-card-list">
+                  <li class="card-item">
+                    <p class="card-text">Komplettes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">PDF and EPUB</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Gebundenes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Zugriff auf Downloads</p>
+                  </li>
+                </ul>
+
+                <button class="btn btn-primary">KAUFE JETZT</button>
+              </div>
+            </li>
+
+            <li>
+              <div class="pricing-card">
+                <h3 class="h3 card-title">Gebundenes Buch</h3>
+
+                <data class="price" value="10">€10</data>
+
+                <ul class="pricing-card-list">
+                  <li class="card-item">
+                    <p class="card-text">Komplettes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">PDF and EPUB</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Gebundenes Buch</p>
+                  </li>
+
+                  <li class="card-item">
+                    <p class="card-text">Zugriff auf Downloads</p>
+                  </li>
+                </ul>
+
+                <button class="btn btn-secondary">KAUFE JETZT</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 
+        - #AUTHOR
+      -->
+
+      <section class="section author" id="author">
+        <div class="container">
+          <!--             <figure
+              class="author-banner img-holder"
+              style="--width: 700; --height: 720"
+            >
+              <img
+                src="./assets/images/logo.png"
+                width="700"
+                height="720"
+                loading="lazy"
+                alt="Felix Strauß"
+                class="img-cover"
+              />
+            </figure> -->
+
+          <div class="author-content">
+            <p class="section-subtitle">DER AUTOR</p>
+
+            <h2 class="h2 section-title">Jörg Miethe</h2>
+
+            <p class="author-name">Style: Art, Fiction</p>
+
+            <div class="section-text">
+              Im Studium sind mir besonders zwei Arten von Professoren in Erinnerung geblieben:
+              <br />
+              <br />
+              1. Die "Schlechten", welche einfache Dinge unnötig verkompliziert hatten.<br />
+              <br />
+              2. Die "Guten" konnten auch komplexe und komplizierte Themen einfach erklären.
+              <br />
+              <br />
+              Besonders gelungen war das Beispiel in der Thematik Kostenrechnung.
+              Unser Professor hat die Vorlesungsreihe mit der Ankündigung begonnen, dass alle Studenten als junge
+              Diplom-Kaufleute ganz sicher einen der wichtigsten Abteilung in jeder Firma anvertraut bekommen, die
+              Kaffeeküche....
+              Das ganze Semester durch, wurden alle neuen Themengebiete anhand des "Kaffeeküchenbeispiels",
+              eingeführt....
+              Wartungskosten = Entkalkungstablette, Chargenabhängige Kosten = das Extra-Lot Kaffeemehl 'für den
+              Geschmack' bei jeder Kanne....
+              Auch heute noch, 20 Jahre später, leite ich mir Kostenträger-Arten oder Sammler anhand von Kaffeemehl und
+              Kaffeetassen her.
+              Es gibt immer wieder sehr schöne Bilder in unserem Unterricht, wie z.B. die Pillendose mit den
+              Kalendertagen als Beispiel für ein Array.
+              Der DevOpsComic-Buch Verlag ist mein trauriger Versuch ein durchgängiges Beispiel für den
+              'mir größtenteils immer noch unbekannten' Devops-Zyklus zu finden. Hauptsächlich um mir die Dinge selbst
+              zu erklären und wichtiger noch zu erinnern...
+              Angefangen hat das Beispiel als Theater, danach war es eine Filmproduktion und endete
+              letztendlich als Verlag.
+              <br />
+              <br />
+              Vermutlich, weil ich die "Continious-Delivery" am besten dahinein
+              quetschen konnte....
+
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <!--             <figure
+              class="author-banner img-holder"
+              style="--width: 700; --height: 720"
+            >
+              <img
+                src="./assets/images/logo.png"
+                width="400"
+                height="320"
+                loading="lazy"
+                alt="Jörg Miethe"
+                class="img-cover"
+              />
+            </figure> -->
+
+          <div class="author-content">
+            <p class="section-subtitle">DER AUTOR</p>
+
+            <h2 class="h2 section-title">Felix Strauß</h2>
+
+            <p class="author-name">Style: Art, Fiction</p>
+
+            <div class="section-text">
+              <p>Während meines Offizierslehrgangs, war das schwerste Fach: „Recht“, die Durchfallquote war recht hoch
+                und unsere Lehrer zuvor waren meistens, eines älteren Schlags und zu sehr in ihrem Fachwissen vertieft,
+                dass sie es uns Neulingen mehr schlecht als Recht versucht hatten beizubringen.
+                Doch mein Rechtslehrer war ein anderes Kaliber, durch seinen großen Erfahrungsschatz konnte er jedes
+                Gesetz mit einer lustigen, traurigen aber definitiv immer interessanten Geschichte aus seinem Leben
+                erklären.
+                Dies zeigte Wirkung und unser gesamter Hörsaal bestand die Prüfung was mir erneut verdeutlichte, was ich
+                aus meiner vorherigen Schulerfahrung gelernt hatte.
+                Merksätze, bildliche Erklärungen sind etwas Greifbareres als komplexe Diagramme oder niedergeschriebene
+                Paragrafen.
+                Sie erleichtern uns, komplexe Themen einfach zu erklären.
+                Deshalb begeisterte mich Jörg seine Idee und ich wollte unbedingt unser Projekt vorantreiben, damit wir
+                etwas Bleibendes schaffen konnten, für uns zur Festigung unseres Wissens und für andere, um komplexe
+                Thematiken besser nachvollziehen zu können, verpackt in Abenteuer und Humor.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 
+        - #ACHIEVEMENT
+      -->
+
+      <!--         <section
+          class="section achievement"
+          id="achievements"
+          aria-label="achievement"
+        >
+          <div class="container">
+            <p class="section-subtitle">Achievements</p>
+
+            <h2 class="h2 section-title has-underline">
+              Honor & Awards Achieved
+              <span class="span has-before"></span>
+            </h2>
+
+            <ul class="grid-list">
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-1.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Nominated"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Nominated</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-2.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Winner"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Winner</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-3.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Guest of Honor"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Guest of Honor</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-4.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Finalist"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Finalist</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-5.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Winner"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Winner</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="achievement-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style="--width: 450; --height: 300"
+                  >
+                    <img
+                      src="./assets/images/achievement-1.jpg"
+                      width="450"
+                      height="300"
+                      loading="lazy"
+                      alt="Nominated"
+                      class="img-cover"
+                    />
+                  </figure>
+
+                  <div class="card-content">
+                    <img
+                      src="./assets/images/award.svg"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      alt="trophy"
+                      class="abs-img"
+                    />
+
+                    <h3 class="h3 card-title">Nominated</h3>
+
+                    <p class="card-text">
+                      International Thriller Writers Award for Best Novel (These
+                      Toxic Things)
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+ -->
+      <!-- 
+        - #CONTACT
+      -->
+
+      <section class="section contact" id="contact" aria-label="contact">
+        <div class="container">
+          <p class="section-subtitle">KONTAKT</p>
+
+          <h2 class="h2 section-title has-underline">
+            Schreiben Sie uns etwas
+            <span class="span has-before"></span>
+          </h2>
+
+          <div class="wrapper">
+            <form action="" class="contact-form">
+              <input type="text" name="name" placeholder="Ihren Namen" required class="input-field" />
+
+              <input type="email" name="email_address" placeholder="Ihre E-Mail-Adresse" required class="input-field" />
+
+              <input type="text" name="subject" placeholder="Thema" required class="input-field" />
+
+              <textarea name="message" placeholder="Ihre Nachricht" class="input-field"></textarea>
+
+              <button type="submit" class="btn btn-primary">jetzt senden</button>
+            </form>
+
+            <ul class="contact-card">
+              <li>
+                <p class="card-title">Address:</p>
+
+                <address class="address">
+                  123, straße <br />
+                  Berlin, Deutschland
+                </address>
+              </li>
+
+              <li>
+                <p class="card-title">Phone:</p>
+
+                <a href="tel:1234567890" class="card-link">123 456 7890</a>
+              </li>
+
+              <li>
+                <p class="card-title">Email:</p>
+
+                <a href="mailto:support@support.com" class="card-link">contact@devopsaemons.devops2022.de</a>
+              </li>
+
+              <li>
+                <p class="social-list-title h3">Verbinden Sie Buch-Socials</p>
+
+                <ul class="social-list">
+                  <li>
+                    <a href="https://www.facebook.com/" class="social-link" target="_blank">
+                      <ion-icon name="logo-facebook"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="https://twitter.com/" class="social-link" target="_blank">
+                      <ion-icon name="logo-twitter"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="https://www.linkedin.com/" class="social-link" target="_blank">
+                      <ion-icon name="logo-linkedin"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="https://www.youtube.com/" class="social-link" target="_blank">
+                      <ion-icon name="logo-youtube"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="social-link">
+                      <ion-icon name="logo-whatsapp"></ion-icon>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="logo">DevOps-Daemons</a>
+
+        <ul class="footer-list">
+          <li>
+            <a href="#" class="footer-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Links</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Kapitels</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Pricing</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Author</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Achievement</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Reviews</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2023 All right reserved. Made with ❤ by DevOps-Daemons.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 
+    - custom js link
+  -->
+  <!--  <script src="./assets/js/script.js" defer></script> -->
+  <script>
+    "use strict";
+
+    /**
+     * add event on element
+     */
+
+    const addEventOnelem = function (elem, type, callback) {
+      if (elem.length > 1) {
+        for (let i = 0; i < elem.length; i++) {
+          elem[i].addEventListener(type, callback);
+        }
+      } else {
+        elem.addEventListener(type, callback);
+      }
+    };
+
+    /**
+     * toggle navbar
+     */
+
+    const navbar = document.querySelector("[data-navbar]");
+    const navbarLinks = document.querySelectorAll("[data-nav-link]");
+    const navToggler = document.querySelector("[data-nav-toggler]");
+
+    const toggleNavbar = function () {
+      navbar.classList.toggle("active");
+      navToggler.classList.toggle("active");
+    };
+
+    addEventOnelem(navToggler, "click", toggleNavbar);
+
+    const closeNavbar = function () {
+      navbar.classList.remove("active");
+      navToggler.classList.remove("active");
+    };
+
+    addEventOnelem(navbarLinks, "click", closeNavbar);
+
+    /**
+     * header active on scroll down to 100px
+     */
+
+    const header = document.querySelector("[data-header]");
+
+    const activeHeader = function () {
+      if (window.scrollY > 100) {
+        header.classList.add("active");
+      } else {
+        header.classList.remove("active");
+      }
+    };
+
+    addEventOnelem(window, "scroll", activeHeader);
+
+    /**
+     * filter tab
+     */
+
+    const tabCard = document.querySelectorAll("[data-tab-card]");
+
+    let lastTabCard = tabCard[0];
+
+    const navigateTab = function () {
+      lastTabCard.classList.remove("active");
+      this.classList.add("active");
+      lastTabCard = this;
+    };
+
+    addEventOnelem(tabCard, "click", navigateTab);
+    /* Hide and show more text */
+    let buttonText = document.getElementById("textButton");
+    const toggleText = function () {
+      let points = document.getElementById("points");
+      let showMoreText = document.getElementById("moreText");
+      /*   let buttonText = document.getElementById("textButton"); */
+      /* var classStyle = document.getElementById("Kapitel-ul"); */
+
+      if (points.style.display === "none") {
+        showMoreText.style.display = "none";
+        points.style.display = "inline";
+        buttonText.innerHTML = "Show More";
+        console.log(e.currentTarget);
+        /*  classStyle.classList.remove("grid-list"); */
+      } else {
+        showMoreText.style.display = "inline";
+        points.style.display = "none";
+        buttonText.innerHTML = "Show Less";
+        /* classStyle.classList.add( "Kapitel-ul");; */
+      }
+    };
+    addEventOnelem(buttonText, "click", toggleText);
+  </script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

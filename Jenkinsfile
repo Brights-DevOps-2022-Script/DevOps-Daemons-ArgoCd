@@ -1,16 +1,17 @@
 def images = [  
  // ["name": "farbenspiel", "path": "./Farbenspiel",  "needUpdate": false ],
-  ["name": "nodeTest",   "path": " .",    "needUpdate": false ],
- // ["name": "reactcomic",  "path": "./ReactComic",   "needUpdate": false ],  
- // ["name": "testcomic",   "path": "./TestComic",    "needUpdate": false ]
+ // ["name": "htmlcomic",   "path": "./HtmlComic",    "needUpdate": false ],
+    ["name": "reactcomic",  "path": "./mull/ReactComic",   "needUpdate": true ],  
+ // ["name": "testcomic",   "path": "./TestComic",    "needUpdate": false ],
+ // ["name": "frontend",    "path": "./frontend",    "needUpdate": true ]
 ]
 
 pipeline {
   environment {
     // HARDCODED VARIABLES
     // These variables are manually set and can be changed if necessary
-    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argotest.git'
-    branch     = 'nodejs'
+    repo       = 'github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git'
+    branch     = 'main'
     acr        = "devops2022.azurecr.io"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
     // AUTOMATICALLY  GENERATED VARIABLES
@@ -19,7 +20,8 @@ pipeline {
     GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     GIT_AUTHOR = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
     tag        = "${GIT_COMMIT}"
-    image1     = "team-3-argotest"
+    //tag        =  BUILD_NUMBER.toString()
+    image1     = "comicbook"
     imageTag   = "${image1}:${tag}"
     // conditions
     isJenkins  = env.GIT_AUTHOR.equalsIgnoreCase('Jenkins')
@@ -33,16 +35,17 @@ pipeline {
           for (def image : images) {
             def path = image["path"]
             def changes = sh(script: "git diff HEAD^ --name-only ${path}", returnStdout: true).trim()
-             def commitMsg = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
-
-            if (changes != "" || commitMsg =~ /force/) {
+            def commitMsg = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+            if (changes != "" ) {
+              image["needUpdate"] = true
+            }
+            if ( commitMsg =~ /force/) {
               image["needUpdate"] = true
             }
           }
         }
       }
     }
-    
     stage('print Infos') {
       steps {
         script {
@@ -92,7 +95,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: "${gitCred}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             checkout([
               $class: 'GitSCM',
-              branches: [[name: '*/nodejs']],
+              branches: [[name: '*/main']],
               doGenerateSubmoduleConfigurations: false,
               extensions: [],
               submoduleCfg: [],
@@ -101,13 +104,12 @@ pipeline {
                 url: "https://${repo}"
               ]]
             ])
-            sh "ls"
-            sh "chmod +x ./BashScripts/deployFile.sh"
+            sh "chmod +x './BashScripts/deployFile1.sh'"
             for (int i = 0; i < images.size(); i++) {
               def image = images[i]
               if (image.needUpdate) {
                 try {
-                  sh "./BashScripts/deployFile.sh ${image1} ${tag}"              
+                  sh "./BashScripts/deployFile1.sh ${image1} ${tag}"              
                 } catch (Exception e) {
                   println "Error deploying deployment file: ${e.getMessage()}"
                   currentBuild.result = 'FAILURE'
@@ -115,13 +117,14 @@ pipeline {
                 }
               }
             }
-            sh "sed -i 's|image:.*|image: devops2022.azurecr.io/${imageTag} |' ./yml-Files/deployment.yml"
+
+            sh "sed -i 's|image:.*|image: devops2022.azurecr.io/${imageTag} |' ./yml-Files/allinone.yml"
             sh "git add ./yml-Files/kustomization.yml"
-            sh "git add ./yml-Files/deployment.yml"
-            sh "git add ."
+            sh "git add ./yml-Files/allinone.yml"
+            // sh "git add ."
             sh "git commit -m 'jenkins push'"
             try {
-              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/team-3-argoTest.git HEAD:nodejs"
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/DevOps-Daemons.git HEAD:main"
             } catch (Exception e) {
               println "Error pushing deployment file: ${e.getMessage()}"
               currentBuild.result = 'FAILURE'
