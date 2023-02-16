@@ -6,5 +6,5 @@ resources:
   - ingress.yml
 images:
   - name: nodejs
-    newName: devops2022.azurecr.io/devops-daemons-argocd
-    newTag: 79a3bb6d0883222db3e0396508b3cb12c901c7e1
+    newName: devops2022.azurecr.io/team-3-argotest
+    newTag: 38c567a7f3c20738930d61cd93792a2f8c79897e
