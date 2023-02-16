@@ -9,7 +9,7 @@ pipeline {
   environment {
     // HARDCODED VARIABLES
     // These variables are manually set and can be changed if necessary
-    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argoTest.git'
+    repo       = 'github.com/Brights-DevOps-2022-Script/team-3-argotest.git'
     branch     = 'nodejs'
     acr        = "devops2022.azurecr.io"
     gitCred    = '2eb747c4-f19f-4601-ab83-359462e62482'
